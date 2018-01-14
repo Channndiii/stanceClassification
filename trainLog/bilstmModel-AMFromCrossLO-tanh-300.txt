@@ -1,0 +1,981 @@
+/home/chandi/anaconda2/bin/python /home/chandi/PycharmProjects/stanceClassification/qrPair/bilstmAttentionModel.py
+X_quote.shape=(5876, 150), X_response.shape=(5876, 150), y.shape=(5876,)
+X_quote_train.shape=(4700, 150), X_response_train.shape=(4700, 150), y_train.shape=(4700,);
+X_quote_test.shape=(1176, 150), X_response_test.shape=(1176, 150), y_test.shape=(1176,)
+Creating the data generator ...
+Finished creating the generator.
+trainable_variables:
+embedding/word_embedding:0
+BiLSTM-quote_inputs/scale:0
+BiLSTM-quote_inputs/shift:0
+BiLSTM-quote_inputs/bidirectional_rnn/fw/multi_rnn_cell/cell_0/basic_lstm_cell/weights:0
+BiLSTM-quote_inputs/bidirectional_rnn/fw/multi_rnn_cell/cell_0/basic_lstm_cell/biases:0
+BiLSTM-quote_inputs/bidirectional_rnn/fw/multi_rnn_cell/cell_1/basic_lstm_cell/weights:0
+BiLSTM-quote_inputs/bidirectional_rnn/fw/multi_rnn_cell/cell_1/basic_lstm_cell/biases:0
+BiLSTM-quote_inputs/bidirectional_rnn/bw/multi_rnn_cell/cell_0/basic_lstm_cell/weights:0
+BiLSTM-quote_inputs/bidirectional_rnn/bw/multi_rnn_cell/cell_0/basic_lstm_cell/biases:0
+BiLSTM-quote_inputs/bidirectional_rnn/bw/multi_rnn_cell/cell_1/basic_lstm_cell/weights:0
+BiLSTM-quote_inputs/bidirectional_rnn/bw/multi_rnn_cell/cell_1/basic_lstm_cell/biases:0
+BiLSTM-response_inputs/scale:0
+BiLSTM-response_inputs/shift:0
+BiLSTM-response_inputs/bidirectional_rnn/fw/multi_rnn_cell/cell_0/basic_lstm_cell/weights:0
+BiLSTM-response_inputs/bidirectional_rnn/fw/multi_rnn_cell/cell_0/basic_lstm_cell/biases:0
+BiLSTM-response_inputs/bidirectional_rnn/fw/multi_rnn_cell/cell_1/basic_lstm_cell/weights:0
+BiLSTM-response_inputs/bidirectional_rnn/fw/multi_rnn_cell/cell_1/basic_lstm_cell/biases:0
+BiLSTM-response_inputs/bidirectional_rnn/bw/multi_rnn_cell/cell_0/basic_lstm_cell/weights:0
+BiLSTM-response_inputs/bidirectional_rnn/bw/multi_rnn_cell/cell_0/basic_lstm_cell/biases:0
+BiLSTM-response_inputs/bidirectional_rnn/bw/multi_rnn_cell/cell_1/basic_lstm_cell/weights:0
+BiLSTM-response_inputs/bidirectional_rnn/bw/multi_rnn_cell/cell_1/basic_lstm_cell/biases:0
+quote_output-Attention/W:0
+quote_output-Attention/b:0
+quote_output-Attention/output-batch_normalize/scale:0
+quote_output-Attention/output-batch_normalize/shift:0
+response_output-Attention/W:0
+response_output-Attention/b:0
+response_output-Attention/output-batch_normalize/scale:0
+response_output-Attention/output-batch_normalize/shift:0
+outputs/scale:0
+outputs/shift:0
+outputs/W_out:0
+outputs/b_out:0
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE3 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+EPOCH 1, lr=0.001
+	training acc=0.59375, cost=5.5177637873;  valid acc=0.637755095959, cost=0.949077785015, confusion_matrix=[609/849, 141/327]
+	training acc=0.674568965517, cost=0.819318716896;  valid acc=0.664115667343, cost=0.757678925991, confusion_matrix=[524/648, 257/528]
+	training acc=0.695043103448, cost=0.737947740431;  valid acc=0.690476179123, cost=0.699222564697, confusion_matrix=[603/775, 209/401]
+	training acc=0.688577586207, cost=0.706109980057;  valid acc=0.64200681448, cost=0.899708628654, confusion_matrix=[517/660, 238/516]
+	training acc=0.67349137931, cost=0.793920430644;  valid acc=0.680272102356, cost=0.673108041286, confusion_matrix=[743/1067, 57/109]
+Epoch training 4700, acc=0.665453767123, cost=1.70759506503, speed=553.227886915 s/epoch
+**Test 1176, acc=0.658163249493, cost=0.750852942467, confusion_matrix=[717/1041, 57/135]
+
+EPOCH 2, lr=0.001
+	training acc=0.769396551724, cost=0.581370527888;  valid acc=0.660714268684, cost=0.958102166653, confusion_matrix=[534/672, 243/504]
+	training acc=0.8125, cost=0.496442151995;  valid acc=0.701530635357, cost=0.752772092819, confusion_matrix=[689/934, 136/242]
+	training acc=0.794181034483, cost=0.490921658689;  valid acc=0.695578217506, cost=0.844798624516, confusion_matrix=[682/927, 136/249]
+	training acc=0.786637931034, cost=0.594839351444;  valid acc=0.688775539398, cost=0.799778342247, confusion_matrix=[546/663, 264/513]
+	training acc=0.755387931034, cost=0.562527830745;  valid acc=0.715136051178, cost=0.716495990753, confusion_matrix=[653/846, 188/330]
+Epoch training 4700, acc=0.784032534247, cost=0.544315514703, speed=533.4082129 s/epoch
+**Test 1176, acc=0.690476179123, cost=0.781209111214, confusion_matrix=[582/733, 230/443]
+
+EPOCH 3, lr=0.001
+	training acc=0.873922413793, cost=0.33464354662;  valid acc=0.715136051178, cost=1.00065290928, confusion_matrix=[712/964, 129/212]
+	training acc=0.880387931034, cost=0.324813284108;  valid acc=0.712585031986, cost=0.919230759144, confusion_matrix=[644/831, 194/345]
+	training acc=0.854525862069, cost=0.39294787111;  valid acc=0.712585031986, cost=0.91961979866, confusion_matrix=[698/939, 140/237]
+	training acc=0.886853448276, cost=0.310479699795;  valid acc=0.690476179123, cost=1.01788747311, confusion_matrix=[570/709, 242/467]
+	training acc=0.862068965517, cost=0.349422358747;  valid acc=0.714285731316, cost=0.807771205902, confusion_matrix=[652/845, 188/331]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-3
+Epoch training 4700, acc=0.871147260274, cost=0.343932928262, speed=546.658082008 s/epoch
+**Test 1176, acc=0.731292545795, cost=0.751975595951, confusion_matrix=[655/831, 205/345]
+
+EPOCH 4, lr=0.001
+	training acc=0.919181034483, cost=0.232364490757;  valid acc=0.719387769699, cost=1.00983703136, confusion_matrix=[674/883, 172/293]
+	training acc=0.895474137931, cost=0.31957743304;  valid acc=0.732142865658, cost=1.02149832249, confusion_matrix=[636/792, 225/384]
+	training acc=0.900862068966, cost=0.270596679685;  valid acc=0.690476179123, cost=1.07347846031, confusion_matrix=[574/717, 238/459]
+	training acc=0.887931034483, cost=0.324202771845;  valid acc=0.728741466999, cost=0.924516141415, confusion_matrix=[703/930, 154/246]
+	training acc=0.873922413793, cost=0.33275438023;  valid acc=0.71768707037, cost=0.891342282295, confusion_matrix=[650/837, 194/339]
+Epoch training 4700, acc=0.896190068493, cost=0.294374309582, speed=524.452269077 s/epoch
+**Test 1176, acc=0.732142865658, cost=0.840939044952, confusion_matrix=[659/838, 202/338]
+
+EPOCH 5, lr=0.001
+	training acc=0.934267241379, cost=0.154736871349;  valid acc=0.710034012794, cost=1.17500269413, confusion_matrix=[630/806, 205/370]
+	training acc=0.950431034483, cost=0.14871637202;  valid acc=0.725340127945, cost=1.11571955681, confusion_matrix=[610/748, 243/428]
+	training acc=0.926724137931, cost=0.195061513383;  valid acc=0.753401339054, cost=0.937035381794, confusion_matrix=[659/813, 227/363]
+	training acc=0.947198275862, cost=0.138351175035;  valid acc=0.739795923233, cost=0.99287635088, confusion_matrix=[659/829, 211/347]
+	training acc=0.943965517241, cost=0.149519799213;  valid acc=0.701530635357, cost=1.07145595551, confusion_matrix=[593/742, 232/434]
+Epoch training 4700, acc=0.940496575342, cost=0.157505607067, speed=524.142244101 s/epoch
+**Test 1176, acc=0.702380955219, cost=1.04492235184, confusion_matrix=[594/743, 232/433]
+
+EPOCH 6, lr=0.001
+	training acc=0.963362068966, cost=0.0964795252597;  valid acc=0.731292545795, cost=0.99516326189, confusion_matrix=[648/817, 212/359]
+	training acc=0.953663793103, cost=0.119629843642;  valid acc=0.726190447807, cost=1.38148462772, confusion_matrix=[628/783, 226/393]
+	training acc=0.961206896552, cost=0.103308873749;  valid acc=0.715136051178, cost=1.36125171185, confusion_matrix=[594/728, 247/448]
+	training acc=0.961206896552, cost=0.146087063059;  valid acc=0.725340127945, cost=1.19779443741, confusion_matrix=[627/782, 226/394]
+	training acc=0.959051724138, cost=0.138959429484;  valid acc=0.726190447807, cost=1.29702103138, confusion_matrix=[625/777, 229/399]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-6
+Epoch training 4700, acc=0.959760273973, cost=0.120394497778, speed=538.938028097 s/epoch
+**Test 1176, acc=0.727040827274, cost=1.30101072788, confusion_matrix=[631/788, 224/388]
+
+EPOCH 7, lr=0.001
+	training acc=0.969827586207, cost=0.092969936696;  valid acc=0.73469388485, cost=1.2573466301, confusion_matrix=[630/777, 234/399]
+	training acc=0.964439655172, cost=0.121530138358;  valid acc=0.737244904041, cost=1.25626754761, confusion_matrix=[652/818, 215/358]
+	training acc=0.9375, cost=0.201543504308;  valid acc=0.731292545795, cost=1.15872621536, confusion_matrix=[613/747, 247/429]
+	training acc=0.959051724138, cost=0.111279319715;  valid acc=0.746598660946, cost=1.10189402103, confusion_matrix=[640/783, 238/393]
+	training acc=0.96875, cost=0.0790792581272;  valid acc=0.738945603371, cost=1.15463614464, confusion_matrix=[653/818, 216/358]
+Epoch training 4700, acc=0.959760273973, cost=0.121846942768, speed=512.630451918 s/epoch
+**Test 1176, acc=0.742346942425, cost=1.15991151333, confusion_matrix=[656/820, 217/356]
+
+EPOCH 8, lr=0.001
+	training acc=0.988146551724, cost=0.0360383501292;  valid acc=0.744047641754, cost=1.29784679413, confusion_matrix=[651/808, 224/368]
+	training acc=0.981681034483, cost=0.0530152744493;  valid acc=0.735544204712, cost=1.26156795025, confusion_matrix=[660/836, 205/340]
+	training acc=0.969827586207, cost=0.0758061307956;  valid acc=0.729591846466, cost=1.34744346142, confusion_matrix=[633/789, 225/387]
+	training acc=0.98599137931, cost=0.0374788477694;  valid acc=0.749149680138, cost=1.297062397, confusion_matrix=[680/860, 201/316]
+	training acc=0.980603448276, cost=0.0547276470882;  valid acc=0.760204076767, cost=1.27620577812, confusion_matrix=[694/875, 200/301]
+Epoch training 4700, acc=0.980950342466, cost=0.0525206864031, speed=521.906621933 s/epoch
+**Test 1176, acc=0.755952358246, cost=1.27246570587, confusion_matrix=[687/866, 202/310]
+
+EPOCH 9, lr=0.001
+	training acc=0.988146551724, cost=0.0338568278058;  valid acc=0.747448980808, cost=1.39079070091, confusion_matrix=[675/852, 204/324]
+	training acc=0.98275862069, cost=0.0485257088314;  valid acc=0.738095223904, cost=1.56658518314, confusion_matrix=[635/783, 233/393]
+	training acc=0.977370689655, cost=0.0828103749664;  valid acc=0.756802737713, cost=1.23545265198, confusion_matrix=[675/841, 215/335]
+	training acc=0.976293103448, cost=0.055970883872;  valid acc=0.727891147137, cost=1.35679268837, confusion_matrix=[621/767, 235/409]
+	training acc=0.974137931034, cost=0.0642271562889;  valid acc=0.732142865658, cost=1.33827984333, confusion_matrix=[656/832, 205/344]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-9
+Epoch training 4700, acc=0.979238013699, cost=0.0585650612327, speed=536.558941126 s/epoch
+**Test 1176, acc=0.741496622562, cost=1.30021512508, confusion_matrix=[672/853, 200/323]
+
+EPOCH 10, lr=0.001
+	training acc=0.98275862069, cost=0.046612405716;  valid acc=0.719387769699, cost=1.73442745209, confusion_matrix=[597/729, 249/447]
+	training acc=0.980603448276, cost=0.046621366342;  valid acc=0.73299318552, cost=1.54263746738, confusion_matrix=[627/773, 235/403]
+	training acc=0.993534482759, cost=0.0300811146579;  valid acc=0.727891147137, cost=1.74753475189, confusion_matrix=[626/777, 230/399]
+	training acc=0.988146551724, cost=0.0411012466417;  valid acc=0.738945603371, cost=1.82496881485, confusion_matrix=[659/830, 210/346]
+	training acc=0.98599137931, cost=0.0548114413656;  valid acc=0.730442166328, cost=1.68181145191, confusion_matrix=[632/786, 227/390]
+Epoch training 4700, acc=0.986087328767, cost=0.0438440633879, speed=522.845607996 s/epoch
+**Test 1176, acc=0.731292545795, cost=1.67900896072, confusion_matrix=[633/787, 227/389]
+
+EPOCH 11, lr=0.001
+	training acc=0.988146551724, cost=0.0294516606614;  valid acc=0.739795923233, cost=1.54205965996, confusion_matrix=[649/809, 221/367]
+	training acc=0.989224137931, cost=0.043274402714;  valid acc=0.740646243095, cost=1.49129128456, confusion_matrix=[652/814, 219/362]
+	training acc=0.977370689655, cost=0.0824502316556;  valid acc=0.73469388485, cost=1.41996109486, confusion_matrix=[636/789, 228/387]
+	training acc=0.98599137931, cost=0.0444268747835;  valid acc=0.743197262287, cost=1.52425396442, confusion_matrix=[653/813, 221/363]
+	training acc=0.983836206897, cost=0.047471785659;  valid acc=0.730442166328, cost=1.42944860458, confusion_matrix=[636/794, 223/382]
+Epoch training 4700, acc=0.985017123288, cost=0.0491616034401, speed=525.647654057 s/epoch
+**Test 1176, acc=0.729591846466, cost=1.43070304394, confusion_matrix=[636/795, 222/381]
+
+EPOCH 12, lr=0.001
+	training acc=0.988146551724, cost=0.0371943745513;  valid acc=0.73469388485, cost=1.45055878162, confusion_matrix=[663/843, 201/333]
+	training acc=0.984913793103, cost=0.0454118359023;  valid acc=0.745748281479, cost=1.44891548157, confusion_matrix=[654/812, 223/364]
+	training acc=0.988146551724, cost=0.038293807118;  valid acc=0.754251718521, cost=1.71910107136, confusion_matrix=[670/834, 217/342]
+	training acc=0.989224137931, cost=0.0395582164042;  valid acc=0.733843564987, cost=1.70747423172, confusion_matrix=[632/782, 231/394]
+	training acc=0.992456896552, cost=0.0288983969806;  valid acc=0.740646243095, cost=1.66440272331, confusion_matrix=[655/820, 216/356]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-12
+Epoch training 4700, acc=0.988655821918, cost=0.0376160342587, speed=509.702411175 s/epoch
+**Test 1176, acc=0.740646243095, cost=1.66192531586, confusion_matrix=[654/818, 217/358]
+
+EPOCH 13, lr=0.001
+	training acc=0.991379310345, cost=0.0267290310295;  valid acc=0.747448980808, cost=1.6783362627, confusion_matrix=[671/844, 208/332]
+	training acc=0.996767241379, cost=0.0186355113062;  valid acc=0.738095223904, cost=1.78056740761, confusion_matrix=[661/835, 207/341]
+	training acc=0.984913793103, cost=0.0344785970536;  valid acc=0.73469388485, cost=1.8741338253, confusion_matrix=[649/815, 215/361]
+	training acc=0.98275862069, cost=0.0549758092955;  valid acc=0.73469388485, cost=1.93365311623, confusion_matrix=[641/799, 223/377]
+	training acc=0.983836206897, cost=0.0411007016303;  valid acc=0.745748281479, cost=1.73104381561, confusion_matrix=[675/854, 202/322]
+Epoch training 4700, acc=0.987799657534, cost=0.0358673524724, speed=501.231410027 s/epoch
+**Test 1176, acc=0.738945603371, cost=1.73241436481, confusion_matrix=[675/862, 194/314]
+
+EPOCH 14, lr=0.001
+	training acc=0.978448275862, cost=0.0582592009408;  valid acc=0.757653057575, cost=1.68857657909, confusion_matrix=[669/828, 222/348]
+	training acc=0.990301724138, cost=0.0269980558143;  valid acc=0.725340127945, cost=1.79505062103, confusion_matrix=[602/732, 251/444]
+	training acc=0.991379310345, cost=0.0296104295801;  valid acc=0.735544204712, cost=1.84482514858, confusion_matrix=[639/794, 226/382]
+	training acc=0.995689655172, cost=0.0116751542001;  valid acc=0.746598660946, cost=1.78246760368, confusion_matrix=[650/803, 228/373]
+	training acc=0.991379310345, cost=0.0369203291429;  valid acc=0.746598660946, cost=1.80576574802, confusion_matrix=[645/793, 233/383]
+Epoch training 4700, acc=0.98908390411, cost=0.034833984941, speed=503.499223948 s/epoch
+**Test 1176, acc=0.745748281479, cost=1.798645854, confusion_matrix=[651/806, 226/370]
+
+EPOCH 15, lr=0.001
+	training acc=0.992456896552, cost=0.018751739022;  valid acc=0.733843564987, cost=2.06225585938, confusion_matrix=[639/796, 224/380]
+	training acc=0.996767241379, cost=0.0084116778626;  valid acc=0.729591846466, cost=2.30797052383, confusion_matrix=[634/791, 224/385]
+	training acc=0.988146551724, cost=0.0530299855185;  valid acc=0.73299318552, cost=1.78209614754, confusion_matrix=[646/811, 216/365]
+	training acc=0.984913793103, cost=0.0522707891312;  valid acc=0.731292545795, cost=1.78347551823, confusion_matrix=[626/773, 234/403]
+	training acc=0.981681034483, cost=0.0550426175855;  valid acc=0.738095223904, cost=1.70405507088, confusion_matrix=[657/827, 211/349]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-15
+Epoch training 4700, acc=0.988869863014, cost=0.0372483311137, speed=515.267287016 s/epoch
+**Test 1176, acc=0.736394584179, cost=1.71490442753, confusion_matrix=[653/821, 213/355]
+
+EPOCH 16, lr=0.001
+	training acc=0.989224137931, cost=0.025627494148;  valid acc=0.735544204712, cost=1.77329158783, confusion_matrix=[644/804, 221/372]
+	training acc=0.991379310345, cost=0.0185081681341;  valid acc=0.747448980808, cost=1.73556625843, confusion_matrix=[665/832, 214/344]
+	training acc=0.989224137931, cost=0.0268146955611;  valid acc=0.744047641754, cost=1.85159015656, confusion_matrix=[664/834, 211/342]
+	training acc=0.992456896552, cost=0.0265896699065;  valid acc=0.738945603371, cost=2.09630703926, confusion_matrix=[633/778, 236/398]
+	training acc=0.989224137931, cost=0.0335939067345;  valid acc=0.736394584179, cost=1.98446762562, confusion_matrix=[659/833, 207/343]
+Epoch training 4700, acc=0.990154109589, cost=0.0262452749895, speed=501.353608131 s/epoch
+**Test 1176, acc=0.738945603371, cost=1.96042370796, confusion_matrix=[666/844, 203/332]
+
+EPOCH 17, lr=0.001
+	training acc=0.979525862069, cost=0.0456787955586;  valid acc=0.744897961617, cost=1.89054381847, confusion_matrix=[670/845, 206/331]
+	training acc=0.98275862069, cost=0.0374665068897;  valid acc=0.740646243095, cost=1.97865140438, confusion_matrix=[657/824, 214/352]
+	training acc=0.993534482759, cost=0.0197136161955;  valid acc=0.735544204712, cost=2.08964490891, confusion_matrix=[656/828, 209/348]
+	training acc=0.979525862069, cost=0.0525101880813;  valid acc=0.726190447807, cost=2.09084701538, confusion_matrix=[639/805, 215/371]
+	training acc=0.974137931034, cost=0.0731354402338;  valid acc=0.738945603371, cost=1.9528414011, confusion_matrix=[641/794, 228/382]
+Epoch training 4700, acc=0.982020547945, cost=0.0454012107405, speed=499.645015001 s/epoch
+**Test 1176, acc=0.735544204712, cost=1.9914085865, confusion_matrix=[643/802, 222/374]
+
+EPOCH 18, lr=0.001
+	training acc=0.987068965517, cost=0.0393408418589;  valid acc=0.750850319862, cost=1.81815326214, confusion_matrix=[702/902, 181/274]
+	training acc=0.98275862069, cost=0.062242326697;  valid acc=0.698979616165, cost=2.17937016487, confusion_matrix=[569/697, 253/479]
+	training acc=0.984913793103, cost=0.0705874133175;  valid acc=0.727891147137, cost=1.88202154636, confusion_matrix=[622/769, 234/407]
+	training acc=0.984913793103, cost=0.0403768985486;  valid acc=0.735544204712, cost=1.92003524303, confusion_matrix=[635/786, 230/390]
+	training acc=0.967672413793, cost=0.154308048461;  valid acc=0.748299300671, cost=2.28259253502, confusion_matrix=[663/827, 217/349]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-18
+Epoch training 4700, acc=0.981378424658, cost=0.0731418468638, speed=505.867449045 s/epoch
+**Test 1176, acc=0.741496622562, cost=2.35259437561, confusion_matrix=[659/827, 213/349]
+
+EPOCH 19, lr=0.001
+	training acc=0.980603448276, cost=0.0924643620403;  valid acc=0.736394584179, cost=2.23267841339, confusion_matrix=[655/825, 211/351]
+	training acc=0.976293103448, cost=0.116902729278;  valid acc=0.718537390232, cost=2.62938475609, confusion_matrix=[607/750, 238/426]
+	training acc=0.979525862069, cost=0.0674098621407;  valid acc=0.730442166328, cost=2.32977962494, confusion_matrix=[628/778, 231/398]
+	training acc=0.98275862069, cost=0.0654482499465;  valid acc=0.735544204712, cost=2.01596045494, confusion_matrix=[666/848, 199/328]
+	training acc=0.977370689655, cost=0.0729258767934;  valid acc=0.716836750507, cost=2.55732059479, confusion_matrix=[629/796, 214/380]
+Epoch training 4700, acc=0.979452054795, cost=0.0826110807858, speed=501.401968956 s/epoch
+**Test 1176, acc=0.71598637104, cost=2.61528706551, confusion_matrix=[627/793, 215/383]
+
+EPOCH 20, lr=0.001
+	training acc=0.980603448276, cost=0.0670748450418;  valid acc=0.724489808083, cost=2.21441888809, confusion_matrix=[614/757, 238/419]
+	training acc=0.977370689655, cost=0.0824230996434;  valid acc=0.741496622562, cost=2.2056992054, confusion_matrix=[660/829, 212/347]
+	training acc=0.983836206897, cost=0.0534291727745;  valid acc=0.724489808083, cost=2.42065191269, confusion_matrix=[615/759, 237/417]
+	training acc=0.981681034483, cost=0.0637142268687;  valid acc=0.750850319862, cost=2.09979820251, confusion_matrix=[679/856, 204/320]
+	training acc=0.977370689655, cost=0.0755318672735;  valid acc=0.735544204712, cost=2.15099143982, confusion_matrix=[637/790, 228/386]
+Epoch training 4700, acc=0.980308219178, cost=0.067996988817, speed=501.864003181 s/epoch
+**Test 1176, acc=0.738095223904, cost=2.14937949181, confusion_matrix=[638/789, 230/387]
+
+EPOCH 21, lr=0.001
+	training acc=0.978448275862, cost=0.0713950155661;  valid acc=0.749149680138, cost=2.13174629211, confusion_matrix=[668/836, 213/340]
+	training acc=0.979525862069, cost=0.11356387395;  valid acc=0.733843564987, cost=2.13258671761, confusion_matrix=[615/748, 248/428]
+	training acc=0.981681034483, cost=0.0693503047132;  valid acc=0.740646243095, cost=2.11210918427, confusion_matrix=[626/762, 245/414]
+	training acc=0.988146551724, cost=0.0312615829485;  valid acc=0.737244904041, cost=2.27352833748, confusion_matrix=[654/822, 213/354]
+	training acc=0.988146551724, cost=0.0466508957916;  valid acc=0.743197262287, cost=2.26896715164, confusion_matrix=[665/837, 209/339]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-21
+Epoch training 4700, acc=0.983304794521, cost=0.0659944649942, speed=516.259414196 s/epoch
+**Test 1176, acc=0.744897961617, cost=2.26591849327, confusion_matrix=[665/835, 211/341]
+
+EPOCH 22, lr=0.001
+	training acc=0.98599137931, cost=0.0363321162185;  valid acc=0.752551019192, cost=2.06559753418, confusion_matrix=[665/826, 220/350]
+	training acc=0.983836206897, cost=0.0507254108404;  valid acc=0.73469388485, cost=2.5313603878, confusion_matrix=[626/769, 238/407]
+	training acc=0.984913793103, cost=0.0652497328626;  valid acc=0.744897961617, cost=2.42568016052, confusion_matrix=[669/843, 207/333]
+	training acc=0.989224137931, cost=0.037571485541;  valid acc=0.743197262287, cost=2.49521231651, confusion_matrix=[650/807, 224/369]
+	training acc=0.98599137931, cost=0.044330301795;  valid acc=0.744897961617, cost=2.42399907112, confusion_matrix=[667/839, 209/337]
+Epoch training 4700, acc=0.986087328767, cost=0.0465212269789, speed=500.078380108 s/epoch
+**Test 1176, acc=0.745748281479, cost=2.41209721565, confusion_matrix=[670/844, 207/332]
+
+EPOCH 23, lr=0.001
+	training acc=0.987068965517, cost=0.0655648982077;  valid acc=0.744047641754, cost=2.42812633514, confusion_matrix=[643/792, 232/384]
+	training acc=0.98275862069, cost=0.0887106960426;  valid acc=0.753401339054, cost=2.34601473808, confusion_matrix=[695/885, 191/291]
+	training acc=0.984913793103, cost=0.065927867925;  valid acc=0.745748281479, cost=2.42251825333, confusion_matrix=[641/786, 236/390]
+	training acc=0.98599137931, cost=0.0518659374363;  valid acc=0.740646243095, cost=2.3968770504, confusion_matrix=[626/762, 245/414]
+	training acc=0.98599137931, cost=0.0476613136753;  valid acc=0.748299300671, cost=2.20326709747, confusion_matrix=[635/771, 245/405]
+Epoch training 4700, acc=0.985445205479, cost=0.0635173554824, speed=499.829081059 s/epoch
+**Test 1176, acc=0.745748281479, cost=2.18624782562, confusion_matrix=[635/774, 242/402]
+
+EPOCH 24, lr=0.001
+	training acc=0.991379310345, cost=0.0496090278415;  valid acc=0.762755095959, cost=1.9987859726, confusion_matrix=[666/816, 231/360]
+	training acc=0.990301724138, cost=0.0292086996982;  valid acc=0.759353756905, cost=1.97205126286, confusion_matrix=[687/862, 206/314]
+	training acc=0.990301724138, cost=0.0183790640543;  valid acc=0.751700699329, cost=2.00172042847, confusion_matrix=[651/799, 233/377]
+	training acc=0.992456896552, cost=0.0200117068239;  valid acc=0.755102038383, cost=2.03184914589, confusion_matrix=[664/821, 224/355]
+	training acc=0.990301724138, cost=0.0424951337181;  valid acc=0.727891147137, cost=2.20737886429, confusion_matrix=[616/757, 240/419]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-24
+Epoch training 4700, acc=0.991010273973, cost=0.0317817543149, speed=508.3740201 s/epoch
+**Test 1176, acc=0.721088409424, cost=2.24983024597, confusion_matrix=[607/747, 241/429]
+
+EPOCH 25, lr=0.001
+	training acc=0.983836206897, cost=0.042650665287;  valid acc=0.746598660946, cost=2.0419511795, confusion_matrix=[667/837, 211/339]
+	training acc=0.996767241379, cost=0.0159438323662;  valid acc=0.747448980808, cost=1.97697234154, confusion_matrix=[678/858, 201/318]
+	training acc=0.997844827586, cost=0.00613905914267;  valid acc=0.741496622562, cost=2.10752868652, confusion_matrix=[629/767, 243/409]
+	training acc=0.992456896552, cost=0.0251905075594;  valid acc=0.737244904041, cost=2.06077432632, confusion_matrix=[639/792, 228/384]
+	training acc=0.984913793103, cost=0.0382392741789;  valid acc=0.744897961617, cost=2.06054973602, confusion_matrix=[673/851, 203/325]
+Epoch training 4700, acc=0.991224315068, cost=0.0255295286857, speed=504.418885946 s/epoch
+**Test 1176, acc=0.748299300671, cost=2.05368924141, confusion_matrix=[678/857, 202/319]
+
+EPOCH 26, lr=0.001
+	training acc=0.995689655172, cost=0.00978663970257;  valid acc=0.748299300671, cost=2.087880373, confusion_matrix=[660/821, 220/355]
+	training acc=0.993534482759, cost=0.0150914463683;  valid acc=0.747448980808, cost=2.14161038399, confusion_matrix=[661/824, 218/352]
+	training acc=0.996767241379, cost=0.00910690307959;  valid acc=0.743197262287, cost=2.11707115173, confusion_matrix=[636/779, 238/397]
+	training acc=0.994612068966, cost=0.0118126171563;  valid acc=0.755102038383, cost=2.09824490547, confusion_matrix=[666/825, 222/351]
+	training acc=0.997844827586, cost=0.00298402470497;  valid acc=0.747448980808, cost=2.14211153984, confusion_matrix=[670/842, 209/334]
+Epoch training 4700, acc=0.995719178082, cost=0.00969132174295, speed=500.389687061 s/epoch
+**Test 1176, acc=0.749149680138, cost=2.14255857468, confusion_matrix=[672/844, 209/332]
+
+EPOCH 27, lr=0.001
+	training acc=0.998922413793, cost=0.00224055729945;  valid acc=0.744047641754, cost=2.17430973053, confusion_matrix=[650/806, 225/370]
+	training acc=0.998922413793, cost=0.00691643736574;  valid acc=0.743197262287, cost=2.27105140686, confusion_matrix=[644/795, 230/381]
+	training acc=0.996767241379, cost=0.00679693368443;  valid acc=0.752551019192, cost=2.22020578384, confusion_matrix=[657/810, 228/366]
+	training acc=0.995689655172, cost=0.0150758974059;  valid acc=0.746598660946, cost=2.21259784698, confusion_matrix=[650/803, 228/373]
+	training acc=0.991379310345, cost=0.0206129335387;  valid acc=0.730442166328, cost=2.3602540493, confusion_matrix=[614/750, 245/426]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-27
+Epoch training 4700, acc=0.99636130137, cost=0.0102579951236, speed=512.535336971 s/epoch
+**Test 1176, acc=0.730442166328, cost=2.3483068943, confusion_matrix=[614/750, 245/426]
+
+EPOCH 28, lr=0.001
+	training acc=0.993534482759, cost=0.0234876869693;  valid acc=0.722789108753, cost=2.28433775902, confusion_matrix=[606/743, 244/433]
+	training acc=0.998922413793, cost=0.0100027492244;  valid acc=0.73469388485, cost=2.18256855011, confusion_matrix=[633/783, 231/393]
+	training acc=0.994612068966, cost=0.00903500945645;  valid acc=0.750850319862, cost=2.08854675293, confusion_matrix=[673/844, 210/332]
+	training acc=0.994612068966, cost=0.0176383834971;  valid acc=0.730442166328, cost=2.30246543884, confusion_matrix=[622/766, 237/410]
+	training acc=0.994612068966, cost=0.0210374473866;  valid acc=0.740646243095, cost=2.21619653702, confusion_matrix=[631/772, 240/404]
+Epoch training 4700, acc=0.99529109589, cost=0.0161517098634, speed=495.375304937 s/epoch
+**Test 1176, acc=0.740646243095, cost=2.2241973877, confusion_matrix=[630/770, 241/406]
+
+EPOCH 29, lr=0.001
+	training acc=0.995689655172, cost=0.00988517746724;  valid acc=0.746598660946, cost=2.15305042267, confusion_matrix=[638/779, 240/397]
+	training acc=0.997844827586, cost=0.00862153912412;  valid acc=0.73299318552, cost=2.19504976273, confusion_matrix=[611/741, 251/435]
+	training acc=0.997844827586, cost=0.00543682845028;  valid acc=0.747448980808, cost=2.20208501816, confusion_matrix=[652/806, 227/370]
+	training acc=0.994612068966, cost=0.021148573896;  valid acc=0.736394584179, cost=2.28667092323, confusion_matrix=[633/781, 233/395]
+	training acc=0.997844827586, cost=0.00512560831033;  valid acc=0.736394584179, cost=2.24669265747, confusion_matrix=[643/801, 223/375]
+Epoch training 4700, acc=0.996789383562, cost=0.00997588023565, speed=483.289510012 s/epoch
+**Test 1176, acc=0.738095223904, cost=2.25190877914, confusion_matrix=[642/797, 226/379]
+
+EPOCH 30, lr=0.001
+	training acc=0.998922413793, cost=0.0102565774264;  valid acc=0.744897961617, cost=2.24561715126, confusion_matrix=[654/813, 222/363]
+	training acc=0.994612068966, cost=0.0297313479106;  valid acc=0.73299318552, cost=2.30856776237, confusion_matrix=[623/765, 239/411]
+	training acc=0.998922413793, cost=0.0049296011463;  valid acc=0.739795923233, cost=2.18401861191, confusion_matrix=[651/813, 219/363]
+	training acc=0.992456896552, cost=0.0169174905719;  valid acc=0.745748281479, cost=2.17897868156, confusion_matrix=[642/788, 235/388]
+	training acc=0.998922413793, cost=0.00318464913862;  valid acc=0.738095223904, cost=2.28008317947, confusion_matrix=[638/789, 230/387]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-30
+Epoch training 4700, acc=0.996789383562, cost=0.0129166563463, speed=504.698039055 s/epoch
+**Test 1176, acc=0.737244904041, cost=2.29277658463, confusion_matrix=[637/788, 230/388]
+
+EPOCH 31, lr=0.001
+	training acc=0.997844827586, cost=0.00275386590642;  valid acc=0.738095223904, cost=2.36913657188, confusion_matrix=[625/763, 243/413]
+	training acc=0.997844827586, cost=0.00463710285597;  valid acc=0.744897961617, cost=2.22061872482, confusion_matrix=[664/833, 212/343]
+	training acc=0.995689655172, cost=0.010870572125;  valid acc=0.746598660946, cost=2.15507411957, confusion_matrix=[666/835, 212/341]
+	training acc=0.994612068966, cost=0.0118314668115;  valid acc=0.742346942425, cost=2.20195269585, confusion_matrix=[633/774, 240/402]
+	training acc=0.998922413793, cost=0.00270483197711;  valid acc=0.741496622562, cost=2.20292234421, confusion_matrix=[636/781, 236/395]
+Epoch training 4700, acc=0.997003424658, cost=0.00651489086276, speed=492.992187977 s/epoch
+**Test 1176, acc=0.741496622562, cost=2.20224308968, confusion_matrix=[637/783, 235/393]
+
+EPOCH 32, lr=0.001
+	training acc=1.0, cost=0.00042097796291;  valid acc=0.744897961617, cost=2.21273541451, confusion_matrix=[644/793, 232/383]
+	training acc=0.998922413793, cost=0.00526087942637;  valid acc=0.740646243095, cost=2.31753802299, confusion_matrix=[639/788, 232/388]
+	training acc=0.996767241379, cost=0.00756730118383;  valid acc=0.73469388485, cost=2.31553816795, confusion_matrix=[639/795, 225/381]
+	training acc=0.994612068966, cost=0.0205476308738;  valid acc=0.73299318552, cost=2.38485217094, confusion_matrix=[626/771, 236/405]
+	training acc=0.993534482759, cost=0.0175112341899;  valid acc=0.744897961617, cost=2.25334358215, confusion_matrix=[662/829, 214/347]
+Epoch training 4700, acc=0.996789383562, cost=0.0101981942062, speed=490.901137114 s/epoch
+**Test 1176, acc=0.744897961617, cost=2.24767398834, confusion_matrix=[660/825, 216/351]
+
+EPOCH 33, lr=0.001
+	training acc=0.997844827586, cost=0.00483676354681;  valid acc=0.739795923233, cost=2.24310207367, confusion_matrix=[654/819, 216/357]
+	training acc=0.996767241379, cost=0.0155488929782;  valid acc=0.748299300671, cost=2.14155936241, confusion_matrix=[669/839, 211/337]
+	training acc=0.993534482759, cost=0.0147042103346;  valid acc=0.758503377438, cost=2.09679937363, confusion_matrix=[679/847, 213/329]
+	training acc=0.998922413793, cost=0.00411582451208;  valid acc=0.761904776096, cost=2.06386017799, confusion_matrix=[668/821, 228/355]
+	training acc=0.998922413793, cost=0.00239484268145;  valid acc=0.756802737713, cost=2.08320307732, confusion_matrix=[665/821, 225/355]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-33
+Epoch training 4700, acc=0.997217465753, cost=0.00827125857457, speed=500.70556879 s/epoch
+**Test 1176, acc=0.756802737713, cost=2.08428406715, confusion_matrix=[665/821, 225/355]
+
+EPOCH 34, lr=0.001
+	training acc=1.0, cost=0.00120101655871;  valid acc=0.751700699329, cost=2.14585590363, confusion_matrix=[651/799, 233/377]
+	training acc=0.998922413793, cost=0.00309391600937;  valid acc=0.736394584179, cost=2.31753063202, confusion_matrix=[623/761, 243/415]
+	training acc=0.997844827586, cost=0.00556408459121;  valid acc=0.738095223904, cost=2.32208824158, confusion_matrix=[635/783, 233/393]
+	training acc=0.998922413793, cost=0.0025465798203;  valid acc=0.750850319862, cost=2.25869512558, confusion_matrix=[655/808, 228/368]
+	training acc=0.998922413793, cost=0.00238002055259;  valid acc=0.757653057575, cost=2.23855304718, confusion_matrix=[673/836, 218/340]
+Epoch training 4700, acc=0.998929794521, cost=0.00296334968051, speed=491.110083103 s/epoch
+**Test 1176, acc=0.757653057575, cost=2.24168634415, confusion_matrix=[673/836, 218/340]
+
+EPOCH 35, lr=0.001
+	training acc=1.0, cost=0.00118401248204;  valid acc=0.754251718521, cost=2.27942442894, confusion_matrix=[668/830, 219/346]
+	training acc=0.997844827586, cost=0.00560043161939;  valid acc=0.749149680138, cost=2.33183312416, confusion_matrix=[659/818, 222/358]
+	training acc=0.998922413793, cost=0.00225416463922;  valid acc=0.75, cost=2.35400605202, confusion_matrix=[648/795, 234/381]
+	training acc=0.996767241379, cost=0.0160493540363;  valid acc=0.748299300671, cost=2.29018759727, confusion_matrix=[655/811, 225/365]
+	training acc=0.995689655172, cost=0.026352219748;  valid acc=0.746598660946, cost=2.29276990891, confusion_matrix=[682/867, 196/309]
+Epoch training 4700, acc=0.997859589041, cost=0.0102237537841, speed=485.642038107 s/epoch
+**Test 1176, acc=0.747448980808, cost=2.27338767052, confusion_matrix=[682/866, 197/310]
+
+EPOCH 36, lr=0.001
+	training acc=0.995689655172, cost=0.0123228425567;  valid acc=0.757653057575, cost=2.1865093708, confusion_matrix=[672/834, 219/342]
+	training acc=0.996767241379, cost=0.0121450501177;  valid acc=0.73299318552, cost=2.47889971733, confusion_matrix=[618/755, 244/421]
+	training acc=0.996767241379, cost=0.00874232599973;  valid acc=0.755102038383, cost=2.39191460609, confusion_matrix=[684/861, 204/315]
+	training acc=0.990301724138, cost=0.0350937362809;  valid acc=0.738945603371, cost=2.25560545921, confusion_matrix=[638/788, 231/388]
+	training acc=0.992456896552, cost=0.0341707100676;  valid acc=0.744897961617, cost=2.30059576035, confusion_matrix=[712/929, 164/247]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-36
+Epoch training 4700, acc=0.994434931507, cost=0.0203582197444, speed=504.258100033 s/epoch
+**Test 1176, acc=0.747448980808, cost=2.28484964371, confusion_matrix=[716/934, 163/242]
+
+EPOCH 37, lr=0.001
+	training acc=0.989224137931, cost=0.0371022531401;  valid acc=0.71768707037, cost=2.23374605179, confusion_matrix=[612/761, 232/415]
+	training acc=0.994612068966, cost=0.0296487160768;  valid acc=0.75, cost=2.03823876381, confusion_matrix=[671/841, 211/335]
+	training acc=0.988146551724, cost=0.0284709262883;  valid acc=0.759353756905, cost=1.81536722183, confusion_matrix=[683/854, 210/322]
+	training acc=0.989224137931, cost=0.0448848204903;  valid acc=0.740646243095, cost=1.97684884071, confusion_matrix=[630/770, 241/406]
+	training acc=0.992456896552, cost=0.0198833172933;  valid acc=0.752551019192, cost=2.00146889687, confusion_matrix=[669/834, 216/342]
+Epoch training 4700, acc=0.990796232877, cost=0.0318239610597, speed=491.334634066 s/epoch
+**Test 1176, acc=0.75, cost=2.01325321198, confusion_matrix=[666/831, 216/345]
+
+EPOCH 38, lr=0.001
+	training acc=0.995689655172, cost=0.0179052448925;  valid acc=0.744897961617, cost=1.96410596371, confusion_matrix=[665/835, 211/341]
+	training acc=0.995689655172, cost=0.00926533058856;  valid acc=0.751700699329, cost=2.01402544975, confusion_matrix=[649/795, 235/381]
+	training acc=0.997844827586, cost=0.00396763427172;  valid acc=0.742346942425, cost=2.07091331482, confusion_matrix=[644/796, 229/380]
+	training acc=0.992456896552, cost=0.0298027034292;  valid acc=0.755952358246, cost=2.01676559448, confusion_matrix=[672/836, 217/340]
+	training acc=0.989224137931, cost=0.028758404673;  valid acc=0.733843564987, cost=2.09150719643, confusion_matrix=[631/780, 232/396]
+Epoch training 4700, acc=0.994220890411, cost=0.0179621714269, speed=490.50927496 s/epoch
+**Test 1176, acc=0.737244904041, cost=2.06818151474, confusion_matrix=[638/790, 229/386]
+
+EPOCH 39, lr=0.001
+	training acc=0.994612068966, cost=0.013980241901;  valid acc=0.75, cost=2.07711863518, confusion_matrix=[653/805, 229/371]
+	training acc=0.998922413793, cost=0.00659769070237;  valid acc=0.739795923233, cost=2.13070559502, confusion_matrix=[638/787, 232/389]
+	training acc=0.995689655172, cost=0.0100641036953;  valid acc=0.748299300671, cost=2.09381175041, confusion_matrix=[644/789, 236/387]
+	training acc=0.994612068966, cost=0.00751167996544;  valid acc=0.746598660946, cost=2.18206620216, confusion_matrix=[663/829, 215/347]
+	training acc=0.993534482759, cost=0.0163536342173;  valid acc=0.744047641754, cost=2.33824849129, confusion_matrix=[643/792, 232/384]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-39
+Epoch training 4700, acc=0.995505136986, cost=0.0108742402566, speed=508.782873869 s/epoch
+**Test 1176, acc=0.742346942425, cost=2.33614897728, confusion_matrix=[643/794, 230/382]
+
+EPOCH 40, lr=0.001
+	training acc=0.997844827586, cost=0.0104082907666;  valid acc=0.755102038383, cost=2.11542868614, confusion_matrix=[676/845, 212/331]
+	training acc=0.993534482759, cost=0.0140396152424;  valid acc=0.747448980808, cost=2.11978077888, confusion_matrix=[631/764, 248/412]
+	training acc=0.989224137931, cost=0.0443161727068;  valid acc=0.743197262287, cost=2.17526555061, confusion_matrix=[638/783, 236/393]
+	training acc=0.996767241379, cost=0.00985809646672;  valid acc=0.727040827274, cost=2.21369123459, confusion_matrix=[647/820, 208/356]
+	training acc=0.995689655172, cost=0.0079328692648;  valid acc=0.744047641754, cost=2.14642548561, confusion_matrix=[670/846, 205/330]
+Epoch training 4700, acc=0.994648972603, cost=0.0172240241695, speed=482.46182704 s/epoch
+**Test 1176, acc=0.742346942425, cost=2.14832615852, confusion_matrix=[668/844, 205/332]
+
+EPOCH 41, lr=0.001
+	training acc=0.993534482759, cost=0.0298942859873;  valid acc=0.716836750507, cost=2.38109302521, confusion_matrix=[598/734, 245/442]
+	training acc=0.995689655172, cost=0.0149218382944;  valid acc=0.738945603371, cost=2.19929599762, confusion_matrix=[653/818, 216/358]
+	training acc=0.998922413793, cost=0.00410052170306;  valid acc=0.751700699329, cost=2.20072841644, confusion_matrix=[672/841, 212/335]
+	training acc=0.992456896552, cost=0.0218486822103;  valid acc=0.738095223904, cost=2.30014133453, confusion_matrix=[655/823, 213/353]
+	training acc=0.997844827586, cost=0.00952808785255;  valid acc=0.732142865658, cost=2.33212804794, confusion_matrix=[620/760, 241/416]
+Epoch training 4700, acc=0.995505136986, cost=0.0163885796102, speed=493.021394014 s/epoch
+**Test 1176, acc=0.731292545795, cost=2.32802534103, confusion_matrix=[622/765, 238/411]
+
+EPOCH 42, lr=0.001
+	training acc=0.996767241379, cost=0.0074795251558;  valid acc=0.743197262287, cost=2.25527381897, confusion_matrix=[661/829, 213/347]
+	training acc=0.984913793103, cost=0.0449852366079;  valid acc=0.729591846466, cost=2.21195197105, confusion_matrix=[627/777, 231/399]
+	training acc=0.993534482759, cost=0.0208922567349;  valid acc=0.741496622562, cost=2.08278059959, confusion_matrix=[660/829, 212/347]
+	training acc=0.994612068966, cost=0.00786128950639;  valid acc=0.730442166328, cost=2.13155937195, confusion_matrix=[632/786, 227/390]
+	training acc=0.996767241379, cost=0.00488294086059;  valid acc=0.73469388485, cost=2.19256567955, confusion_matrix=[634/785, 230/391]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-42
+Epoch training 4700, acc=0.993364726027, cost=0.017102389605, speed=502.043077946 s/epoch
+**Test 1176, acc=0.733843564987, cost=2.19367027283, confusion_matrix=[633/784, 230/392]
+
+EPOCH 43, lr=0.001
+	training acc=0.997844827586, cost=0.016743122468;  valid acc=0.729591846466, cost=2.17319774628, confusion_matrix=[627/777, 231/399]
+	training acc=0.990301724138, cost=0.0220525193862;  valid acc=0.743197262287, cost=2.10389471054, confusion_matrix=[655/817, 219/359]
+	training acc=0.996767241379, cost=0.00595378418824;  valid acc=0.733843564987, cost=2.29698681831, confusion_matrix=[639/796, 224/380]
+	training acc=0.997844827586, cost=0.00782616251531;  valid acc=0.731292545795, cost=2.26073122025, confusion_matrix=[624/769, 236/407]
+	training acc=0.990301724138, cost=0.0289206773823;  valid acc=0.75, cost=2.00241112709, confusion_matrix=[685/869, 197/307]
+Epoch training 4700, acc=0.994648972603, cost=0.0162244571995, speed=492.344923973 s/epoch
+**Test 1176, acc=0.750850319862, cost=2.00660729408, confusion_matrix=[682/862, 201/314]
+
+EPOCH 44, lr=0.001
+	training acc=1.0, cost=0.00343074311168;  valid acc=0.741496622562, cost=2.14375805855, confusion_matrix=[636/781, 236/395]
+	training acc=0.997844827586, cost=0.00767758121178;  valid acc=0.733843564987, cost=2.21513772011, confusion_matrix=[628/774, 235/402]
+	training acc=0.997844827586, cost=0.00912537307321;  valid acc=0.726190447807, cost=2.27852845192, confusion_matrix=[616/759, 238/417]
+	training acc=0.988146551724, cost=0.0408531725933;  valid acc=0.758503377438, cost=2.04993677139, confusion_matrix=[689/867, 203/309]
+	training acc=0.995689655172, cost=0.00978945070127;  valid acc=0.747448980808, cost=2.11064314842, confusion_matrix=[658/818, 221/358]
+Epoch training 4700, acc=0.995933219178, cost=0.0140835549785, speed=492.225762844 s/epoch
+**Test 1176, acc=0.745748281479, cost=2.11207127571, confusion_matrix=[655/814, 222/362]
+
+EPOCH 45, lr=0.001
+	training acc=0.995689655172, cost=0.00765039692779;  valid acc=0.750850319862, cost=2.09857845306, confusion_matrix=[661/820, 222/356]
+	training acc=0.991379310345, cost=0.0185762522031;  valid acc=0.736394584179, cost=2.22148704529, confusion_matrix=[648/811, 218/365]
+	training acc=0.997844827586, cost=0.0137793909662;  valid acc=0.741496622562, cost=2.12046813965, confusion_matrix=[654/817, 218/359]
+	training acc=0.995689655172, cost=0.00861035129489;  valid acc=0.729591846466, cost=2.23174166679, confusion_matrix=[627/777, 231/399]
+	training acc=0.994612068966, cost=0.0133800855382;  valid acc=0.733843564987, cost=2.26988554001, confusion_matrix=[644/806, 219/370]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-45
+Epoch training 4700, acc=0.995077054795, cost=0.0123195646453, speed=502.50511694 s/epoch
+**Test 1176, acc=0.733843564987, cost=2.27356028557, confusion_matrix=[644/806, 219/370]
+
+EPOCH 46, lr=0.001
+	training acc=0.994612068966, cost=0.0083581311054;  valid acc=0.732142865658, cost=2.18661880493, confusion_matrix=[654/828, 207/348]
+	training acc=0.998922413793, cost=0.0166854466229;  valid acc=0.731292545795, cost=2.20534729958, confusion_matrix=[648/817, 212/359]
+	training acc=0.996767241379, cost=0.0105864869596;  valid acc=0.746598660946, cost=2.21771836281, confusion_matrix=[698/899, 180/277]
+	training acc=0.993534482759, cost=0.0258610535588;  valid acc=0.725340127945, cost=2.33423399925, confusion_matrix=[642/812, 211/364]
+	training acc=0.994612068966, cost=0.00851241157502;  valid acc=0.742346942425, cost=2.23920822144, confusion_matrix=[653/814, 220/362]
+Epoch training 4700, acc=0.995719178082, cost=0.0139220224363, speed=482.208870888 s/epoch
+**Test 1176, acc=0.741496622562, cost=2.24262857437, confusion_matrix=[653/815, 219/361]
+
+EPOCH 47, lr=0.001
+	training acc=0.995689655172, cost=0.0077582084393;  valid acc=0.741496622562, cost=2.24631953239, confusion_matrix=[646/801, 226/375]
+	training acc=0.997844827586, cost=0.0079097800114;  valid acc=0.738095223904, cost=2.25263261795, confusion_matrix=[667/847, 201/329]
+	training acc=0.989224137931, cost=0.0348546905589;  valid acc=0.723639428616, cost=2.504799366, confusion_matrix=[595/720, 256/456]
+	training acc=0.995689655172, cost=0.0155422988302;  valid acc=0.748299300671, cost=2.19385099411, confusion_matrix=[657/815, 223/361]
+	training acc=0.997844827586, cost=0.0035577463906;  valid acc=0.733843564987, cost=2.21087813377, confusion_matrix=[641/800, 222/376]
+Epoch training 4700, acc=0.995077054795, cost=0.0147812832932, speed=492.960152149 s/epoch
+**Test 1176, acc=0.73469388485, cost=2.21299290657, confusion_matrix=[638/793, 226/383]
+
+EPOCH 48, lr=0.001
+	training acc=0.990301724138, cost=0.0176706826326;  valid acc=0.737244904041, cost=2.1996948719, confusion_matrix=[665/844, 202/332]
+	training acc=0.997844827586, cost=0.00772555485821;  valid acc=0.733843564987, cost=2.31648635864, confusion_matrix=[639/796, 224/380]
+	training acc=0.990301724138, cost=0.028724520214;  valid acc=0.737244904041, cost=2.18282461166, confusion_matrix=[635/784, 232/392]
+	training acc=0.994612068966, cost=0.015240924148;  valid acc=0.748299300671, cost=2.22927522659, confusion_matrix=[684/869, 196/307]
+	training acc=0.998922413793, cost=0.00569776274931;  valid acc=0.732142865658, cost=2.37993192673, confusion_matrix=[630/780, 231/396]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-48
+Epoch training 4700, acc=0.994434931507, cost=0.0150554898393, speed=506.812343121 s/epoch
+**Test 1176, acc=0.733843564987, cost=2.37579298019, confusion_matrix=[633/784, 230/392]
+
+EPOCH 49, lr=0.001
+	training acc=0.996767241379, cost=0.00660907861095;  valid acc=0.731292545795, cost=2.34683251381, confusion_matrix=[640/801, 220/375]
+	training acc=0.996767241379, cost=0.00740560749859;  valid acc=0.732142865658, cost=2.32591891289, confusion_matrix=[647/814, 214/362]
+	training acc=0.997844827586, cost=0.00277715340876;  valid acc=0.736394584179, cost=2.34668064117, confusion_matrix=[674/863, 192/313]
+	training acc=0.992456896552, cost=0.0189148825341;  valid acc=0.736394584179, cost=2.79370212555, confusion_matrix=[625/765, 241/411]
+	training acc=0.996767241379, cost=0.0157543760421;  valid acc=0.733843564987, cost=2.39343452454, confusion_matrix=[660/838, 203/338]
+Epoch training 4700, acc=0.996147260274, cost=0.0102333293653, speed=490.936836004 s/epoch
+**Test 1176, acc=0.731292545795, cost=2.38905334473, confusion_matrix=[657/835, 203/341]
+
+EPOCH 50, lr=0.001
+	training acc=0.997844827586, cost=0.00512021929013;  valid acc=0.725340127945, cost=2.36829280853, confusion_matrix=[629/786, 224/390]
+	training acc=1.0, cost=0.000744490558418;  valid acc=0.728741466999, cost=2.42151117325, confusion_matrix=[628/780, 229/396]
+	training acc=0.993534482759, cost=0.0365441846649;  valid acc=0.727891147137, cost=2.6658205986, confusion_matrix=[619/763, 237/413]
+	training acc=0.995689655172, cost=0.0149944672541;  valid acc=0.743197262287, cost=2.43383455276, confusion_matrix=[653/813, 221/363]
+	training acc=0.991379310345, cost=0.0378433008314;  valid acc=0.732142865658, cost=2.33052325249, confusion_matrix=[636/792, 225/384]
+Epoch training 4700, acc=0.995719178082, cost=0.018922735343, speed=490.818561077 s/epoch
+**Test 1176, acc=0.727040827274, cost=2.3211312294, confusion_matrix=[636/798, 219/378]
+
+EPOCH 51, lr=0.001
+	training acc=1.0, cost=0.00343286896236;  valid acc=0.738095223904, cost=2.23987197876, confusion_matrix=[649/811, 219/365]
+	training acc=0.996767241379, cost=0.0061535414743;  valid acc=0.737244904041, cost=2.26268553734, confusion_matrix=[684/882, 183/294]
+	training acc=0.990301724138, cost=0.0243285568779;  valid acc=0.721088409424, cost=2.5261528492, confusion_matrix=[609/751, 239/425]
+	training acc=0.998922413793, cost=0.00333184995844;  valid acc=0.726190447807, cost=2.46834754944, confusion_matrix=[626/779, 228/397]
+	training acc=0.996767241379, cost=0.0164248255811;  valid acc=0.732142865658, cost=2.36124038696, confusion_matrix=[629/778, 232/398]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-51
+Epoch training 4700, acc=0.996575342466, cost=0.0106700918128, speed=493.296488047 s/epoch
+**Test 1176, acc=0.73299318552, cost=2.36208081245, confusion_matrix=[629/777, 233/399]
+
+EPOCH 52, lr=0.001
+	training acc=1.0, cost=0.00146968720688;  valid acc=0.729591846466, cost=2.40026068687, confusion_matrix=[626/775, 232/401]
+	training acc=0.995689655172, cost=0.00751238486306;  valid acc=0.723639428616, cost=2.44451117516, confusion_matrix=[606/742, 245/434]
+	training acc=0.994612068966, cost=0.0117211512926;  valid acc=0.73299318552, cost=2.4444360733, confusion_matrix=[636/791, 226/385]
+	training acc=0.998922413793, cost=0.00232788250009;  valid acc=0.737244904041, cost=2.47194075584, confusion_matrix=[642/798, 225/378]
+	training acc=0.996767241379, cost=0.011568967562;  valid acc=0.732142865658, cost=2.46576094627, confusion_matrix=[655/830, 206/346]
+Epoch training 4700, acc=0.997217465753, cost=0.00687262436635, speed=491.203242064 s/epoch
+**Test 1176, acc=0.731292545795, cost=2.46799468994, confusion_matrix=[655/831, 205/345]
+
+EPOCH 53, lr=0.001
+	training acc=0.996767241379, cost=0.0106119501475;  valid acc=0.736394584179, cost=2.4650042057, confusion_matrix=[658/831, 208/345]
+	training acc=0.996767241379, cost=0.0110615204803;  valid acc=0.728741466999, cost=2.54977107048, confusion_matrix=[628/780, 229/396]
+	training acc=0.997844827586, cost=0.00635775640861;  valid acc=0.732142865658, cost=2.504758358, confusion_matrix=[638/796, 223/380]
+	training acc=1.0, cost=0.000714978236006;  valid acc=0.73469388485, cost=2.49455285072, confusion_matrix=[649/815, 215/361]
+	training acc=0.997844827586, cost=0.00378746182276;  valid acc=0.75, cost=2.36453747749, confusion_matrix=[678/855, 204/321]
+Epoch training 4700, acc=0.997645547945, cost=0.00677931870345, speed=492.53322196 s/epoch
+**Test 1176, acc=0.748299300671, cost=2.36453199387, confusion_matrix=[675/851, 205/325]
+
+EPOCH 54, lr=0.001
+	training acc=0.994612068966, cost=0.0161923224888;  valid acc=0.738945603371, cost=2.49704384804, confusion_matrix=[624/760, 245/416]
+	training acc=0.994612068966, cost=0.0119098017393;  valid acc=0.735544204712, cost=2.44189929962, confusion_matrix=[619/754, 246/422]
+	training acc=0.997844827586, cost=0.00467786900344;  valid acc=0.749149680138, cost=2.40056586266, confusion_matrix=[659/818, 222/358]
+	training acc=0.994612068966, cost=0.0242564744695;  valid acc=0.727891147137, cost=2.4152803421, confusion_matrix=[640/805, 216/371]
+	training acc=0.995689655172, cost=0.0141104861176;  valid acc=0.739795923233, cost=2.38644218445, confusion_matrix=[636/783, 234/393]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-54
+Epoch training 4700, acc=0.995505136986, cost=0.01413250264, speed=500.969769001 s/epoch
+**Test 1176, acc=0.736394584179, cost=2.39179348946, confusion_matrix=[633/781, 233/395]
+
+EPOCH 55, lr=0.001
+	training acc=0.996767241379, cost=0.00644157569113;  valid acc=0.740646243095, cost=2.51099705696, confusion_matrix=[656/822, 215/354]
+	training acc=1.0, cost=0.00205966810922;  valid acc=0.726190447807, cost=2.53508067131, confusion_matrix=[623/773, 231/403]
+	training acc=0.993534482759, cost=0.0194957768383;  valid acc=0.733843564987, cost=2.32332324982, confusion_matrix=[656/830, 207/346]
+	training acc=0.997844827586, cost=0.0135011020248;  valid acc=0.735544204712, cost=2.29633402824, confusion_matrix=[630/776, 235/400]
+	training acc=0.997844827586, cost=0.00496318025293;  valid acc=0.743197262287, cost=2.32263112068, confusion_matrix=[653/813, 221/363]
+Epoch training 4700, acc=0.997217465753, cost=0.00922871294754, speed=491.509220123 s/epoch
+**Test 1176, acc=0.743197262287, cost=2.32306194305, confusion_matrix=[653/813, 221/363]
+
+EPOCH 56, lr=0.001
+	training acc=0.997844827586, cost=0.0156907696796;  valid acc=0.720238089561, cost=2.26649355888, confusion_matrix=[616/766, 231/410]
+	training acc=0.997844827586, cost=0.00755619752299;  valid acc=0.735544204712, cost=2.20866107941, confusion_matrix=[664/844, 201/332]
+	training acc=0.997844827586, cost=0.00882343273017;  valid acc=0.735544204712, cost=2.22814226151, confusion_matrix=[653/822, 212/354]
+	training acc=0.997844827586, cost=0.00788077917164;  valid acc=0.724489808083, cost=2.38976693153, confusion_matrix=[620/769, 232/407]
+	training acc=0.993534482759, cost=0.0249183966019;  valid acc=0.737244904041, cost=2.197889328, confusion_matrix=[645/804, 222/372]
+Epoch training 4700, acc=0.997003424658, cost=0.012885151601, speed=491.937169075 s/epoch
+**Test 1176, acc=0.736394584179, cost=2.18199682236, confusion_matrix=[647/809, 219/367]
+
+EPOCH 57, lr=0.001
+	training acc=0.997844827586, cost=0.00790280397259;  valid acc=0.740646243095, cost=2.20398330688, confusion_matrix=[676/862, 195/314]
+	training acc=1.0, cost=0.00235245258756;  valid acc=0.738095223904, cost=2.28664493561, confusion_matrix=[647/807, 221/369]
+	training acc=0.997844827586, cost=0.0128980015748;  valid acc=0.742346942425, cost=2.25760579109, confusion_matrix=[682/872, 191/304]
+	training acc=0.996767241379, cost=0.0107565260711;  valid acc=0.73299318552, cost=2.30817270279, confusion_matrix=[633/785, 229/391]
+	training acc=0.996767241379, cost=0.0177867217723;  valid acc=0.740646243095, cost=2.19501805305, confusion_matrix=[662/834, 209/342]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-57
+Epoch training 4700, acc=0.997859589041, cost=0.01029937435, speed=498.943630934 s/epoch
+**Test 1176, acc=0.740646243095, cost=2.19182801247, confusion_matrix=[661/832, 210/344]
+
+EPOCH 58, lr=0.001
+	training acc=0.993534482759, cost=0.0234041043733;  valid acc=0.727891147137, cost=2.18455338478, confusion_matrix=[650/825, 206/351]
+	training acc=0.997844827586, cost=0.00677313060258;  valid acc=0.738945603371, cost=2.18122839928, confusion_matrix=[651/814, 218/362]
+	training acc=0.998922413793, cost=0.00477667976809;  valid acc=0.745748281479, cost=2.23576331139, confusion_matrix=[675/854, 202/322]
+	training acc=0.996767241379, cost=0.0103239543217;  valid acc=0.744047641754, cost=2.19773983955, confusion_matrix=[675/856, 200/320]
+	training acc=0.998922413793, cost=0.00489162901901;  valid acc=0.742346942425, cost=2.16148304939, confusion_matrix=[666/840, 207/336]
+Epoch training 4700, acc=0.997217465753, cost=0.00996583958683, speed=493.017077923 s/epoch
+**Test 1176, acc=0.740646243095, cost=2.1635081768, confusion_matrix=[664/838, 207/338]
+
+EPOCH 59, lr=0.001
+	training acc=0.995689655172, cost=0.0202725380798;  valid acc=0.743197262287, cost=2.12445569038, confusion_matrix=[664/835, 210/341]
+	training acc=0.993534482759, cost=0.0174342383922;  valid acc=0.735544204712, cost=2.30447411537, confusion_matrix=[640/796, 225/380]
+	training acc=0.998922413793, cost=0.00517556396899;  valid acc=0.732142865658, cost=2.31765913963, confusion_matrix=[639/798, 222/378]
+	training acc=0.994612068966, cost=0.0241864268114;  valid acc=0.730442166328, cost=2.29451036453, confusion_matrix=[643/808, 216/368]
+	training acc=0.997844827586, cost=0.00789813840624;  valid acc=0.730442166328, cost=2.17480373383, confusion_matrix=[648/818, 211/358]
+Epoch training 4700, acc=0.996147260274, cost=0.0148938066031, speed=495.86653614 s/epoch
+**Test 1176, acc=0.731292545795, cost=2.16725754738, confusion_matrix=[649/819, 211/357]
+
+EPOCH 60, lr=0.001
+	training acc=0.995689655172, cost=0.00620858488775;  valid acc=0.729591846466, cost=2.18405485153, confusion_matrix=[623/769, 235/407]
+	training acc=1.0, cost=0.00115292586672;  valid acc=0.721938788891, cost=2.26476550102, confusion_matrix=[601/734, 248/442]
+	training acc=0.997844827586, cost=0.00558881360474;  valid acc=0.737244904041, cost=2.24196982384, confusion_matrix=[632/778, 235/398]
+	training acc=0.998922413793, cost=0.00367352659016;  valid acc=0.742346942425, cost=2.20918655396, confusion_matrix=[659/826, 214/350]
+	training acc=0.997844827586, cost=0.00630196292276;  valid acc=0.745748281479, cost=2.27253985405, confusion_matrix=[668/840, 209/336]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-60
+Epoch training 4700, acc=0.998073630137, cost=0.00455719873503, speed=508.566711903 s/epoch
+**Test 1176, acc=0.745748281479, cost=2.27874827385, confusion_matrix=[669/842, 208/334]
+
+EPOCH 61, lr=0.001
+	training acc=0.997844827586, cost=0.00594625368295;  valid acc=0.73469388485, cost=2.2839410305, confusion_matrix=[647/811, 217/365]
+	training acc=0.995689655172, cost=0.0207225427473;  valid acc=0.721938788891, cost=2.31236100197, confusion_matrix=[623/778, 226/398]
+	training acc=0.997844827586, cost=0.0123372538553;  valid acc=0.731292545795, cost=2.25387310982, confusion_matrix=[625/771, 235/405]
+	training acc=0.996767241379, cost=0.00857031653617;  valid acc=0.744047641754, cost=2.20084547997, confusion_matrix=[661/828, 214/348]
+	training acc=0.997844827586, cost=0.00703715662235;  valid acc=0.759353756905, cost=2.23182153702, confusion_matrix=[704/896, 189/280]
+Epoch training 4700, acc=0.997217465753, cost=0.0108481829871, speed=495.125490904 s/epoch
+**Test 1176, acc=0.760204076767, cost=2.23216676712, confusion_matrix=[704/895, 190/281]
+
+EPOCH 62, lr=0.001
+	training acc=0.998922413793, cost=0.00487219396763;  valid acc=0.731292545795, cost=2.26845192909, confusion_matrix=[642/805, 218/371]
+	training acc=0.998922413793, cost=0.0022132319689;  valid acc=0.733843564987, cost=2.30178809166, confusion_matrix=[660/838, 203/338]
+	training acc=0.996767241379, cost=0.00487042482769;  valid acc=0.738945603371, cost=2.38397789001, confusion_matrix=[648/808, 221/368]
+	training acc=0.998922413793, cost=0.0107282999714;  valid acc=0.73299318552, cost=2.40305352211, confusion_matrix=[635/789, 227/387]
+	training acc=0.994612068966, cost=0.0256044593832;  valid acc=0.744047641754, cost=2.32900810242, confusion_matrix=[677/860, 198/316]
+Epoch training 4700, acc=0.997645547945, cost=0.00959181343687, speed=484.260313034 s/epoch
+**Test 1176, acc=0.744047641754, cost=2.32876348495, confusion_matrix=[676/858, 199/318]
+
+EPOCH 63, lr=0.001
+	training acc=0.996767241379, cost=0.0104149023159;  valid acc=0.73299318552, cost=2.32414889336, confusion_matrix=[643/805, 219/371]
+	training acc=0.997844827586, cost=0.00677200407284;  valid acc=0.726190447807, cost=2.27396559715, confusion_matrix=[635/797, 219/379]
+	training acc=0.997844827586, cost=0.00474348164758;  valid acc=0.726190447807, cost=2.34467172623, confusion_matrix=[638/803, 216/373]
+	training acc=0.998922413793, cost=0.00966490073353;  valid acc=0.736394584179, cost=2.29205036163, confusion_matrix=[659/833, 207/343]
+	training acc=0.993534482759, cost=0.0196122820819;  valid acc=0.738095223904, cost=2.31737303734, confusion_matrix=[660/833, 208/343]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-63
+Epoch training 4700, acc=0.997003424658, cost=0.0101715419031, speed=501.012137175 s/epoch
+**Test 1176, acc=0.737244904041, cost=2.31161689758, confusion_matrix=[662/838, 205/338]
+
+EPOCH 64, lr=0.001
+	training acc=0.997844827586, cost=0.0109815684058;  valid acc=0.720238089561, cost=2.28823113441, confusion_matrix=[626/786, 221/390]
+	training acc=0.994612068966, cost=0.0184327125468;  valid acc=0.733843564987, cost=2.22984075546, confusion_matrix=[650/818, 213/358]
+	training acc=0.996767241379, cost=0.00725996844012;  valid acc=0.739795923233, cost=2.22807264328, confusion_matrix=[667/845, 203/331]
+	training acc=0.994612068966, cost=0.0144135021717;  valid acc=0.732142865658, cost=2.18531942368, confusion_matrix=[639/798, 222/378]
+	training acc=0.998922413793, cost=0.00325311472107;  valid acc=0.732142865658, cost=2.16691279411, confusion_matrix=[635/790, 226/386]
+Epoch training 4700, acc=0.996575342466, cost=0.0107937524168, speed=492.258205891 s/epoch
+**Test 1176, acc=0.733843564987, cost=2.16862440109, confusion_matrix=[635/788, 228/388]
+
+EPOCH 65, lr=0.001
+	training acc=0.996767241379, cost=0.0095168867811;  valid acc=0.726190447807, cost=2.1837310791, confusion_matrix=[632/791, 222/385]
+	training acc=0.997844827586, cost=0.00670921818713;  valid acc=0.725340127945, cost=2.28240275383, confusion_matrix=[623/774, 230/402]
+	training acc=0.998922413793, cost=0.00890814827059;  valid acc=0.726190447807, cost=2.2659497261, confusion_matrix=[622/771, 232/405]
+	training acc=0.998922413793, cost=0.00150187433518;  valid acc=0.725340127945, cost=2.31948709488, confusion_matrix=[617/762, 236/414]
+	training acc=0.995689655172, cost=0.0101814543148;  valid acc=0.721938788891, cost=2.30050587654, confusion_matrix=[619/770, 230/406]
+Epoch training 4700, acc=0.997645547945, cost=0.00731476208826, speed=492.319719076 s/epoch
+**Test 1176, acc=0.727040827274, cost=2.28799247742, confusion_matrix=[625/776, 230/400]
+
+EPOCH 66, lr=0.001
+	training acc=0.998922413793, cost=0.00594972232746;  valid acc=0.722789108753, cost=2.24897289276, confusion_matrix=[629/789, 221/387]
+	training acc=0.998922413793, cost=0.00545805755009;  valid acc=0.727040827274, cost=2.33498668671, confusion_matrix=[622/770, 233/406]
+	training acc=1.0, cost=0.00150274662542;  valid acc=0.728741466999, cost=2.37820529938, confusion_matrix=[632/788, 225/388]
+	training acc=0.993534482759, cost=0.0185122049618;  valid acc=0.729591846466, cost=2.3211171627, confusion_matrix=[636/795, 222/381]
+	training acc=0.995689655172, cost=0.0153418226351;  valid acc=0.708333313465, cost=2.38620352745, confusion_matrix=[588/724, 245/452]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-66
+Epoch training 4700, acc=0.997431506849, cost=0.00928947194653, speed=507.008401871 s/epoch
+**Test 1176, acc=0.708333313465, cost=2.38615894318, confusion_matrix=[589/726, 244/450]
+
+EPOCH 67, lr=0.001
+	training acc=0.991379310345, cost=0.0225313260066;  valid acc=0.750850319862, cost=2.17536759377, confusion_matrix=[659/816, 224/360]
+	training acc=0.993534482759, cost=0.0239248303982;  valid acc=0.748299300671, cost=2.11201453209, confusion_matrix=[650/801, 230/375]
+	training acc=0.993534482759, cost=0.0084245008136;  valid acc=0.738095223904, cost=2.1050567627, confusion_matrix=[623/759, 245/417]
+	training acc=0.994612068966, cost=0.017562816752;  valid acc=0.761904776096, cost=2.0200252533, confusion_matrix=[678/841, 218/335]
+	training acc=0.997844827586, cost=0.012990766786;  valid acc=0.742346942425, cost=2.01505947113, confusion_matrix=[634/776, 239/400]
+Epoch training 4700, acc=0.994220890411, cost=0.0169715019969, speed=492.869157076 s/epoch
+**Test 1176, acc=0.742346942425, cost=2.01463603973, confusion_matrix=[634/776, 239/400]
+
+EPOCH 68, lr=0.001
+	training acc=0.996767241379, cost=0.00793418595485;  valid acc=0.757653057575, cost=2.04346346855, confusion_matrix=[692/874, 199/302]
+	training acc=0.995689655172, cost=0.00773380998948;  valid acc=0.754251718521, cost=2.04096984863, confusion_matrix=[680/854, 207/322]
+	training acc=0.998922413793, cost=0.00721048052068;  valid acc=0.741496622562, cost=2.02607584, confusion_matrix=[636/781, 236/395]
+	training acc=0.996767241379, cost=0.0115920001394;  valid acc=0.741496622562, cost=2.01100969315, confusion_matrix=[659/827, 213/349]
+	training acc=0.996767241379, cost=0.00894593371288;  valid acc=0.744047641754, cost=2.16241908073, confusion_matrix=[654/814, 221/362]
+Epoch training 4700, acc=0.996789383562, cost=0.00905617314099, speed=485.851268053 s/epoch
+**Test 1176, acc=0.741496622562, cost=2.15786123276, confusion_matrix=[652/813, 220/363]
+
+EPOCH 69, lr=0.001
+	training acc=0.993534482759, cost=0.0171214971177;  valid acc=0.729591846466, cost=2.14996504784, confusion_matrix=[626/775, 232/401]
+	training acc=0.998922413793, cost=0.00483974012714;  valid acc=0.742346942425, cost=2.09384584427, confusion_matrix=[668/844, 205/332]
+	training acc=0.996767241379, cost=0.00941839686835;  valid acc=0.737244904041, cost=2.21268200874, confusion_matrix=[629/772, 238/404]
+	training acc=0.997844827586, cost=0.00595321189838;  valid acc=0.739795923233, cost=2.24161338806, confusion_matrix=[629/769, 241/407]
+	training acc=0.992456896552, cost=0.015326708936;  valid acc=0.750850319862, cost=2.24934601784, confusion_matrix=[653/804, 230/372]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-69
+Epoch training 4700, acc=0.995933219178, cost=0.0104798024369, speed=502.642292976 s/epoch
+**Test 1176, acc=0.749149680138, cost=2.25560116768, confusion_matrix=[650/800, 231/376]
+
+EPOCH 70, lr=0.001
+	training acc=0.997844827586, cost=0.0062403004946;  valid acc=0.759353756905, cost=2.17806529999, confusion_matrix=[663/814, 230/362]
+	training acc=0.998922413793, cost=0.00400849843941;  valid acc=0.761904776096, cost=2.21201658249, confusion_matrix=[679/843, 217/333]
+	training acc=0.996767241379, cost=0.00676117234807;  valid acc=0.738095223904, cost=2.3983528614, confusion_matrix=[621/755, 247/421]
+	training acc=0.998922413793, cost=0.00446547031863;  valid acc=0.744897961617, cost=2.35363411903, confusion_matrix=[645/795, 231/381]
+	training acc=0.996767241379, cost=0.0126398208063;  valid acc=0.740646243095, cost=2.35974168777, confusion_matrix=[635/780, 236/396]
+Epoch training 4700, acc=0.997645547945, cost=0.0070473706529, speed=494.8031528 s/epoch
+**Test 1176, acc=0.741496622562, cost=2.34751057625, confusion_matrix=[636/781, 236/395]
+
+EPOCH 71, lr=0.001
+	training acc=0.997844827586, cost=0.0060653995301;  valid acc=0.750850319862, cost=2.28845286369, confusion_matrix=[657/812, 226/364]
+	training acc=1.0, cost=0.00152584150096;  valid acc=0.746598660946, cost=2.28041338921, confusion_matrix=[656/815, 222/361]
+	training acc=0.996767241379, cost=0.00415037062818;  valid acc=0.746598660946, cost=2.36673903465, confusion_matrix=[650/803, 228/373]
+	training acc=0.993534482759, cost=0.0162756733656;  valid acc=0.740646243095, cost=2.25084018707, confusion_matrix=[650/810, 221/366]
+	training acc=0.998922413793, cost=0.00530827529068;  valid acc=0.739795923233, cost=2.26775217056, confusion_matrix=[667/845, 203/331]
+Epoch training 4700, acc=0.997431506849, cost=0.00661951804132, speed=494.507026911 s/epoch
+**Test 1176, acc=0.741496622562, cost=2.26023221016, confusion_matrix=[666/841, 206/335]
+
+EPOCH 72, lr=0.001
+	training acc=0.996767241379, cost=0.0103132978215;  valid acc=0.737244904041, cost=2.17505526543, confusion_matrix=[635/784, 232/392]
+	training acc=0.997844827586, cost=0.00493471722127;  valid acc=0.742346942425, cost=2.16936564445, confusion_matrix=[653/814, 220/362]
+	training acc=0.998922413793, cost=0.00232133662557;  valid acc=0.740646243095, cost=2.21206593513, confusion_matrix=[657/824, 214/352]
+	training acc=1.0, cost=0.0014712250309;  valid acc=0.739795923233, cost=2.25024175644, confusion_matrix=[641/793, 229/383]
+	training acc=0.998922413793, cost=0.0053353992939;  valid acc=0.733843564987, cost=2.34921789169, confusion_matrix=[652/822, 211/354]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-72
+Epoch training 4700, acc=0.998501712329, cost=0.00484194749475, speed=504.987088203 s/epoch
+**Test 1176, acc=0.73469388485, cost=2.35183119774, confusion_matrix=[653/823, 211/353]
+
+EPOCH 73, lr=0.001
+	training acc=1.0, cost=0.000574573171567;  valid acc=0.73469388485, cost=2.37593412399, confusion_matrix=[651/819, 213/357]
+	training acc=0.997844827586, cost=0.00813083139914;  valid acc=0.742346942425, cost=2.36114907265, confusion_matrix=[682/872, 191/304]
+	training acc=0.997844827586, cost=0.00484665630302;  valid acc=0.730442166328, cost=2.46873378754, confusion_matrix=[632/786, 227/390]
+	training acc=0.998922413793, cost=0.00412767480848;  valid acc=0.73469388485, cost=2.57212018967, confusion_matrix=[623/763, 241/413]
+	training acc=0.998922413793, cost=0.00361623313431;  valid acc=0.736394584179, cost=2.50771546364, confusion_matrix=[640/795, 226/381]
+Epoch training 4700, acc=0.998715753425, cost=0.00423007258969, speed=487.623935223 s/epoch
+**Test 1176, acc=0.737244904041, cost=2.49705410004, confusion_matrix=[641/796, 226/380]
+
+EPOCH 74, lr=0.001
+	training acc=0.997844827586, cost=0.00458241454453;  valid acc=0.73299318552, cost=2.45616221428, confusion_matrix=[655/829, 207/347]
+	training acc=0.997844827586, cost=0.00516877706923;  valid acc=0.724489808083, cost=2.47559571266, confusion_matrix=[637/803, 215/373]
+	training acc=0.996767241379, cost=0.0149054299832;  valid acc=0.736394584179, cost=2.51292252541, confusion_matrix=[638/791, 228/385]
+	training acc=0.995689655172, cost=0.0112788394629;  valid acc=0.718537390232, cost=2.49384784698, confusion_matrix=[589/714, 256/462]
+	training acc=0.995689655172, cost=0.0104800093411;  valid acc=0.731292545795, cost=2.2533557415, confusion_matrix=[652/825, 208/351]
+Epoch training 4700, acc=0.996789383562, cost=0.00924447138592, speed=493.589728117 s/epoch
+**Test 1176, acc=0.729591846466, cost=2.2594704628, confusion_matrix=[651/825, 207/351]
+
+EPOCH 75, lr=0.001
+	training acc=0.994612068966, cost=0.0131003711243;  valid acc=0.725340127945, cost=2.39466547966, confusion_matrix=[614/756, 239/420]
+	training acc=0.994612068966, cost=0.0129250583499;  valid acc=0.730442166328, cost=2.49101281166, confusion_matrix=[643/808, 216/368]
+	training acc=0.993534482759, cost=0.0131065252081;  valid acc=0.738095223904, cost=2.46536588669, confusion_matrix=[650/813, 218/363]
+	training acc=1.0, cost=0.0018430226794;  valid acc=0.737244904041, cost=2.46632432938, confusion_matrix=[644/802, 223/374]
+	training acc=0.994612068966, cost=0.0202667283883;  valid acc=0.739795923233, cost=2.39960622787, confusion_matrix=[662/835, 208/341]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-75
+Epoch training 4700, acc=0.995505136986, cost=0.0122017893887, speed=508.451236963 s/epoch
+**Test 1176, acc=0.739795923233, cost=2.41283869743, confusion_matrix=[658/827, 212/349]
+
+EPOCH 76, lr=0.001
+	training acc=0.996767241379, cost=0.010743608957;  valid acc=0.721088409424, cost=2.55054211617, confusion_matrix=[619/771, 229/405]
+	training acc=0.989224137931, cost=0.0414222378867;  valid acc=0.743197262287, cost=2.2946369648, confusion_matrix=[692/891, 182/285]
+	training acc=0.993534482759, cost=0.0160467495479;  valid acc=0.749149680138, cost=2.06188869476, confusion_matrix=[655/810, 226/366]
+	training acc=0.997844827586, cost=0.00736781548398;  valid acc=0.760204076767, cost=2.04075574875, confusion_matrix=[677/841, 217/335]
+	training acc=0.990301724138, cost=0.0363949377911;  valid acc=0.755952358246, cost=2.06155061722, confusion_matrix=[690/872, 199/304]
+Epoch training 4700, acc=0.992936643836, cost=0.0260972904069, speed=494.166872978 s/epoch
+**Test 1176, acc=0.756802737713, cost=2.03255343437, confusion_matrix=[684/859, 206/317]
+
+EPOCH 77, lr=0.001
+	training acc=0.993534482759, cost=0.0174081906948;  valid acc=0.741496622562, cost=2.04302024841, confusion_matrix=[642/793, 230/383]
+	training acc=0.996767241379, cost=0.00446236490135;  valid acc=0.73299318552, cost=2.16580176353, confusion_matrix=[619/757, 243/419]
+	training acc=0.995689655172, cost=0.0152465304864;  valid acc=0.740646243095, cost=2.09556555748, confusion_matrix=[649/808, 222/368]
+	training acc=0.992456896552, cost=0.0261417891486;  valid acc=0.738095223904, cost=2.07740688324, confusion_matrix=[641/795, 227/381]
+	training acc=0.991379310345, cost=0.0334934579124;  valid acc=0.741496622562, cost=2.04699921608, confusion_matrix=[653/815, 219/361]
+Epoch training 4700, acc=0.993792808219, cost=0.0195502357207, speed=495.370077848 s/epoch
+**Test 1176, acc=0.742346942425, cost=2.04456996918, confusion_matrix=[657/822, 216/354]
+
+EPOCH 78, lr=0.001
+	training acc=0.998922413793, cost=0.00639837399376;  valid acc=0.733843564987, cost=2.09540843964, confusion_matrix=[637/792, 226/384]
+	training acc=0.997844827586, cost=0.00452239286681;  valid acc=0.738095223904, cost=2.10033535957, confusion_matrix=[640/793, 228/383]
+	training acc=0.997844827586, cost=0.00424526610108;  valid acc=0.73469388485, cost=2.16840648651, confusion_matrix=[626/769, 238/407]
+	training acc=0.997844827586, cost=0.00505775281701;  valid acc=0.73469388485, cost=2.1934902668, confusion_matrix=[647/811, 217/365]
+	training acc=0.995689655172, cost=0.00720857446979;  valid acc=0.735544204712, cost=2.22223472595, confusion_matrix=[642/800, 223/376]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-78
+Epoch training 4700, acc=0.997645547945, cost=0.00544917993342, speed=504.323441982 s/epoch
+**Test 1176, acc=0.735544204712, cost=2.22102737427, confusion_matrix=[642/800, 223/376]
+
+EPOCH 79, lr=0.001
+	training acc=0.997844827586, cost=0.00439771795574;  valid acc=0.742346942425, cost=2.17264223099, confusion_matrix=[655/818, 218/358]
+	training acc=0.996767241379, cost=0.00720217336705;  valid acc=0.743197262287, cost=2.17610096931, confusion_matrix=[654/815, 220/361]
+	training acc=0.996767241379, cost=0.014177799349;  valid acc=0.737244904041, cost=2.16155004501, confusion_matrix=[646/806, 221/370]
+	training acc=0.995689655172, cost=0.0121203531183;  valid acc=0.748299300671, cost=2.1946644783, confusion_matrix=[667/835, 213/341]
+	training acc=0.997844827586, cost=0.00578090033683;  valid acc=0.726190447807, cost=2.20389842987, confusion_matrix=[622/771, 232/405]
+Epoch training 4700, acc=0.997003424658, cost=0.00870745317767, speed=487.615952969 s/epoch
+**Test 1176, acc=0.726190447807, cost=2.20481610298, confusion_matrix=[622/771, 232/405]
+
+EPOCH 80, lr=0.001
+	training acc=0.996767241379, cost=0.0109993985121;  valid acc=0.727040827274, cost=2.17104172707, confusion_matrix=[612/750, 243/426]
+	training acc=0.997844827586, cost=0.00879854140554;  valid acc=0.742346942425, cost=2.12655162811, confusion_matrix=[639/786, 234/390]
+	training acc=0.998922413793, cost=0.00296400938601;  valid acc=0.750850319862, cost=2.12117314339, confusion_matrix=[661/820, 222/356]
+	training acc=1.0, cost=0.00103032937207;  valid acc=0.761054396629, cost=2.11116409302, confusion_matrix=[675/836, 220/340]
+	training acc=0.998922413793, cost=0.00553690127129;  valid acc=0.752551019192, cost=2.0788462162, confusion_matrix=[657/810, 228/366]
+Epoch training 4700, acc=0.998287671233, cost=0.00600390438608, speed=497.033097029 s/epoch
+**Test 1176, acc=0.753401339054, cost=2.07864642143, confusion_matrix=[659/813, 227/363]
+
+EPOCH 81, lr=0.001
+	training acc=1.0, cost=0.00125491331881;  valid acc=0.754251718521, cost=2.09852576256, confusion_matrix=[656/806, 231/370]
+	training acc=0.998922413793, cost=0.00748662114788;  valid acc=0.750850319862, cost=2.08723759651, confusion_matrix=[664/826, 219/350]
+	training acc=1.0, cost=0.000491532070194;  valid acc=0.755102038383, cost=2.07858037949, confusion_matrix=[683/859, 205/317]
+	training acc=0.998922413793, cost=0.00357146846751;  valid acc=0.754251718521, cost=2.10326457024, confusion_matrix=[663/820, 224/356]
+	training acc=1.0, cost=0.000836897765065;  valid acc=0.741496622562, cost=2.14741921425, confusion_matrix=[637/783, 235/393]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-81
+Epoch training 4700, acc=0.999571917808, cost=0.00271084037103, speed=509.697358847 s/epoch
+**Test 1176, acc=0.741496622562, cost=2.14784121513, confusion_matrix=[637/783, 235/393]
+
+EPOCH 82, lr=0.001
+	training acc=1.0, cost=0.00159857412904;  valid acc=0.740646243095, cost=2.18847107887, confusion_matrix=[631/772, 240/404]
+	training acc=0.998922413793, cost=0.00547108318203;  valid acc=0.745748281479, cost=2.15447688103, confusion_matrix=[652/808, 225/368]
+	training acc=0.998922413793, cost=0.00191238135701;  valid acc=0.744047641754, cost=2.1679084301, confusion_matrix=[653/812, 222/364]
+	training acc=0.998922413793, cost=0.00395592853747;  valid acc=0.738945603371, cost=2.28389191628, confusion_matrix=[643/798, 226/378]
+	training acc=0.996767241379, cost=0.00854080459273;  valid acc=0.752551019192, cost=2.19233179092, confusion_matrix=[665/826, 220/350]
+Epoch training 4700, acc=0.998715753425, cost=0.00426800221188, speed=497.300681114 s/epoch
+**Test 1176, acc=0.752551019192, cost=2.19209170341, confusion_matrix=[665/826, 220/350]
+
+EPOCH 83, lr=0.001
+	training acc=1.0, cost=0.000677335976783;  valid acc=0.750850319862, cost=2.20096063614, confusion_matrix=[667/832, 216/344]
+	training acc=0.998922413793, cost=0.00485076632448;  valid acc=0.747448980808, cost=2.1736741066, confusion_matrix=[652/806, 227/370]
+	training acc=0.998922413793, cost=0.00209613225901;  valid acc=0.749149680138, cost=2.17909240723, confusion_matrix=[658/816, 223/360]
+	training acc=1.0, cost=0.00229783159948;  valid acc=0.752551019192, cost=2.23437714577, confusion_matrix=[659/814, 226/362]
+	training acc=0.998922413793, cost=0.00658583038367;  valid acc=0.738095223904, cost=2.30592060089, confusion_matrix=[623/759, 245/417]
+Epoch training 4700, acc=0.999357876712, cost=0.00328162742106, speed=498.829846144 s/epoch
+**Test 1176, acc=0.738095223904, cost=2.30505204201, confusion_matrix=[624/761, 244/415]
+
+EPOCH 84, lr=0.001
+	training acc=1.0, cost=0.000509715857678;  valid acc=0.745748281479, cost=2.29436087608, confusion_matrix=[640/784, 237/392]
+	training acc=1.0, cost=0.00125736351816;  valid acc=0.749149680138, cost=2.2417075634, confusion_matrix=[662/824, 219/352]
+	training acc=1.0, cost=0.000848119404579;  valid acc=0.75, cost=2.24454903603, confusion_matrix=[662/823, 220/353]
+	training acc=0.998922413793, cost=0.0032844425147;  valid acc=0.746598660946, cost=2.27940487862, confusion_matrix=[654/811, 224/365]
+	training acc=1.0, cost=0.000634953648612;  valid acc=0.748299300671, cost=2.27463173866, confusion_matrix=[646/793, 234/383]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-84
+Epoch training 4700, acc=0.999785958904, cost=0.00129799336103, speed=505.365023851 s/epoch
+**Test 1176, acc=0.748299300671, cost=2.27521085739, confusion_matrix=[646/793, 234/383]
+
+EPOCH 85, lr=0.001
+	training acc=1.0, cost=0.0014487217829;  valid acc=0.75, cost=2.30204129219, confusion_matrix=[651/801, 231/375]
+	training acc=0.998922413793, cost=0.0027677021883;  valid acc=0.741496622562, cost=2.34504580498, confusion_matrix=[642/793, 230/383]
+	training acc=0.998922413793, cost=0.00202046783584;  valid acc=0.744047641754, cost=2.36936473846, confusion_matrix=[657/820, 218/356]
+	training acc=0.998922413793, cost=0.00499657590974;  valid acc=0.747448980808, cost=2.32683515549, confusion_matrix=[657/816, 222/360]
+	training acc=0.998922413793, cost=0.00553119001972;  valid acc=0.746598660946, cost=2.24831581116, confusion_matrix=[652/807, 226/369]
+Epoch training 4700, acc=0.999143835616, cost=0.0033300491236, speed=496.952007055 s/epoch
+**Test 1176, acc=0.746598660946, cost=2.24704122543, confusion_matrix=[652/807, 226/369]
+
+EPOCH 86, lr=0.001
+	training acc=1.0, cost=0.00105198597009;  valid acc=0.75, cost=2.24956703186, confusion_matrix=[653/805, 229/371]
+	training acc=0.998922413793, cost=0.0019859123889;  valid acc=0.742346942425, cost=2.29456067085, confusion_matrix=[638/784, 235/392]
+	training acc=0.998922413793, cost=0.00199230492038;  valid acc=0.736394584179, cost=2.31544184685, confusion_matrix=[635/785, 231/391]
+	training acc=1.0, cost=0.00122687322232;  valid acc=0.740646243095, cost=2.30311179161, confusion_matrix=[648/806, 223/370]
+	training acc=1.0, cost=0.000243587351435;  valid acc=0.744047641754, cost=2.30457758904, confusion_matrix=[658/822, 217/354]
+Epoch training 4700, acc=0.999571917808, cost=0.00129124405588, speed=497.570260048 s/epoch
+**Test 1176, acc=0.744047641754, cost=2.30473327637, confusion_matrix=[658/822, 217/354]
+
+EPOCH 87, lr=0.001
+	training acc=1.0, cost=0.000699871899285;  valid acc=0.746598660946, cost=2.31908130646, confusion_matrix=[654/811, 224/365]
+	training acc=1.0, cost=0.000831968521038;  valid acc=0.743197262287, cost=2.33659362793, confusion_matrix=[648/803, 226/373]
+	training acc=1.0, cost=0.000872870710227;  valid acc=0.741496622562, cost=2.39358186722, confusion_matrix=[635/779, 237/397]
+	training acc=1.0, cost=0.000355500229091;  valid acc=0.733843564987, cost=2.42782020569, confusion_matrix=[624/766, 239/410]
+	training acc=1.0, cost=0.00155242483303;  valid acc=0.73299318552, cost=2.50721502304, confusion_matrix=[616/751, 246/425]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-87
+Epoch training 4700, acc=1.0, cost=0.000857133241345, speed=507.902471066 s/epoch
+**Test 1176, acc=0.73299318552, cost=2.50538897514, confusion_matrix=[616/751, 246/425]
+
+EPOCH 88, lr=0.001
+	training acc=1.0, cost=0.000745423684215;  valid acc=0.740646243095, cost=2.49683618546, confusion_matrix=[638/786, 233/390]
+	training acc=1.0, cost=0.000135366795142;  valid acc=0.741496622562, cost=2.51093792915, confusion_matrix=[642/793, 230/383]
+	training acc=1.0, cost=0.00045793457028;  valid acc=0.738945603371, cost=2.54291009903, confusion_matrix=[635/782, 234/394]
+	training acc=1.0, cost=0.000278948190256;  valid acc=0.738945603371, cost=2.55746603012, confusion_matrix=[643/798, 226/378]
+	training acc=0.998922413793, cost=0.00707881423026;  valid acc=0.733843564987, cost=2.49465441704, confusion_matrix=[635/788, 228/388]
+Epoch training 4700, acc=0.999785958904, cost=0.00172752306111, speed=492.242727995 s/epoch
+**Test 1176, acc=0.733843564987, cost=2.49360585213, confusion_matrix=[635/788, 228/388]
+
+EPOCH 89, lr=0.001
+	training acc=0.996767241379, cost=0.0047119705712;  valid acc=0.745748281479, cost=2.49610066414, confusion_matrix=[649/802, 228/374]
+	training acc=0.998922413793, cost=0.00772081308496;  valid acc=0.751700699329, cost=2.52039361, confusion_matrix=[666/829, 218/347]
+	training acc=0.998922413793, cost=0.00289194149138;  valid acc=0.747448980808, cost=2.46981787682, confusion_matrix=[653/808, 226/368]
+	training acc=1.0, cost=0.000313794852132;  valid acc=0.738945603371, cost=2.47336792946, confusion_matrix=[637/786, 232/390]
+	training acc=1.0, cost=0.00164785493442;  valid acc=0.737244904041, cost=2.49168872833, confusion_matrix=[625/764, 242/412]
+Epoch training 4700, acc=0.998929794521, cost=0.00343360504867, speed=494.190382004 s/epoch
+**Test 1176, acc=0.736394584179, cost=2.49375271797, confusion_matrix=[624/763, 242/413]
+
+EPOCH 90, lr=0.001
+	training acc=0.998922413793, cost=0.00117051750351;  valid acc=0.742346942425, cost=2.49239420891, confusion_matrix=[634/776, 239/400]
+	training acc=0.998922413793, cost=0.00113033995735;  valid acc=0.738945603371, cost=2.51846575737, confusion_matrix=[633/778, 236/398]
+	training acc=1.0, cost=0.000503445912104;  valid acc=0.738095223904, cost=2.5044066906, confusion_matrix=[638/789, 230/387]
+	training acc=1.0, cost=0.000151308889655;  valid acc=0.745748281479, cost=2.50369334221, confusion_matrix=[647/798, 230/378]
+	training acc=0.998922413793, cost=0.0019476076575;  valid acc=0.738095223904, cost=2.44847679138, confusion_matrix=[658/829, 210/347]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-90
+Epoch training 4700, acc=0.999357876712, cost=0.000979171528603, speed=499.717510939 s/epoch
+**Test 1176, acc=0.738095223904, cost=2.44836187363, confusion_matrix=[658/829, 210/347]
+
+EPOCH 91, lr=0.001
+	training acc=0.996767241379, cost=0.00830215831352;  valid acc=0.745748281479, cost=2.47414088249, confusion_matrix=[652/808, 225/368]
+	training acc=0.994612068966, cost=0.0158295819859;  valid acc=0.712585031986, cost=2.89738178253, confusion_matrix=[578/699, 260/477]
+	training acc=0.994612068966, cost=0.0155411273715;  valid acc=0.745748281479, cost=2.77480125427, confusion_matrix=[664/832, 213/344]
+	training acc=0.995689655172, cost=0.0112510369523;  valid acc=0.721088409424, cost=2.79226613045, confusion_matrix=[614/761, 234/415]
+	training acc=0.996767241379, cost=0.0170030097014;  valid acc=0.724489808083, cost=2.6662364006, confusion_matrix=[638/805, 214/371]
+Epoch training 4700, acc=0.995719178082, cost=0.0134926536626, speed=493.89913106 s/epoch
+**Test 1176, acc=0.722789108753, cost=2.66401767731, confusion_matrix=[632/795, 218/381]
+
+EPOCH 92, lr=0.001
+	training acc=0.996767241379, cost=0.0176191646066;  valid acc=0.736394584179, cost=2.5284485817, confusion_matrix=[646/807, 220/369]
+	training acc=0.997844827586, cost=0.00692641849144;  valid acc=0.744047641754, cost=2.47864818573, confusion_matrix=[645/796, 230/380]
+	training acc=0.996767241379, cost=0.0132077582194;  valid acc=0.743197262287, cost=2.41663742065, confusion_matrix=[667/841, 207/335]
+	training acc=0.995689655172, cost=0.00798900021773;  valid acc=0.736394584179, cost=2.51966190338, confusion_matrix=[631/777, 235/399]
+	training acc=0.997844827586, cost=0.00917864016277;  valid acc=0.742346942425, cost=2.49828052521, confusion_matrix=[668/844, 205/332]
+Epoch training 4700, acc=0.997003424658, cost=0.0109137120634, speed=492.103425026 s/epoch
+**Test 1176, acc=0.739795923233, cost=2.5016977787, confusion_matrix=[670/851, 200/325]
+
+EPOCH 93, lr=0.001
+	training acc=0.995689655172, cost=0.0114177549147;  valid acc=0.733843564987, cost=2.55186414719, confusion_matrix=[636/790, 227/386]
+	training acc=0.993534482759, cost=0.0244223958827;  valid acc=0.733843564987, cost=2.46901535988, confusion_matrix=[654/826, 209/350]
+	training acc=0.992456896552, cost=0.0201342789461;  valid acc=0.73299318552, cost=2.24731278419, confusion_matrix=[660/839, 202/337]
+	training acc=0.997844827586, cost=0.0038018575228;  valid acc=0.724489808083, cost=2.46230769157, confusion_matrix=[609/747, 243/429]
+	training acc=0.994612068966, cost=0.0165189803311;  valid acc=0.740646243095, cost=2.3099398613, confusion_matrix=[654/818, 217/358]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-93
+Epoch training 4700, acc=0.994863013699, cost=0.0152006912784, speed=505.335081816 s/epoch
+**Test 1176, acc=0.740646243095, cost=2.31300473213, confusion_matrix=[657/824, 214/352]
+
+EPOCH 94, lr=0.001
+	training acc=0.993534482759, cost=0.0224884125791;  valid acc=0.739795923233, cost=2.35133457184, confusion_matrix=[663/837, 207/339]
+	training acc=0.998922413793, cost=0.00505820024032;  valid acc=0.727891147137, cost=2.3725938797, confusion_matrix=[629/783, 227/393]
+	training acc=0.997844827586, cost=0.00894192426121;  valid acc=0.733843564987, cost=2.31688833237, confusion_matrix=[647/812, 216/364]
+	training acc=0.993534482759, cost=0.0199159233125;  valid acc=0.73299318552, cost=2.30257415771, confusion_matrix=[658/835, 204/341]
+	training acc=0.992456896552, cost=0.0304371031192;  valid acc=0.741496622562, cost=2.17238354683, confusion_matrix=[664/837, 208/339]
+Epoch training 4700, acc=0.99529109589, cost=0.01726091812, speed=494.106570959 s/epoch
+**Test 1176, acc=0.739795923233, cost=2.16845178604, confusion_matrix=[662/835, 208/341]
+
+EPOCH 95, lr=0.001
+	training acc=0.997844827586, cost=0.00531634588057;  valid acc=0.731292545795, cost=2.28918838501, confusion_matrix=[622/765, 238/411]
+	training acc=0.991379310345, cost=0.0257730295599;  valid acc=0.740646243095, cost=2.19479060173, confusion_matrix=[695/900, 176/276]
+	training acc=0.989224137931, cost=0.0412348924318;  valid acc=0.731292545795, cost=2.14276909828, confusion_matrix=[614/749, 246/427]
+	training acc=0.998922413793, cost=0.0033938275972;  valid acc=0.745748281479, cost=2.06761646271, confusion_matrix=[668/840, 209/336]
+	training acc=0.998922413793, cost=0.0048862425978;  valid acc=0.736394584179, cost=2.14136052132, confusion_matrix=[628/771, 238/405]
+Epoch training 4700, acc=0.99529109589, cost=0.0160117492059, speed=494.098700047 s/epoch
+**Test 1176, acc=0.736394584179, cost=2.14406323433, confusion_matrix=[628/771, 238/405]
+
+EPOCH 96, lr=0.001
+	training acc=0.996767241379, cost=0.00723646804448;  valid acc=0.740646243095, cost=2.19942069054, confusion_matrix=[649/808, 222/368]
+	training acc=0.997844827586, cost=0.00490257482112;  valid acc=0.73469388485, cost=2.24275183678, confusion_matrix=[657/831, 207/345]
+	training acc=1.0, cost=0.00259037873902;  valid acc=0.727891147137, cost=2.25093102455, confusion_matrix=[635/795, 221/381]
+	training acc=0.995689655172, cost=0.0116499797954;  valid acc=0.724489808083, cost=2.40835595131, confusion_matrix=[639/807, 213/369]
+	training acc=0.996767241379, cost=0.00991419791639;  valid acc=0.715136051178, cost=2.4169781208, confusion_matrix=[622/784, 219/392]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-96
+Epoch training 4700, acc=0.997431506849, cost=0.00720918570092, speed=507.285894871 s/epoch
+**Test 1176, acc=0.716836750507, cost=2.41829752922, confusion_matrix=[624/786, 219/390]
+
+EPOCH 97, lr=0.001
+	training acc=0.997844827586, cost=0.0170499942976;  valid acc=0.723639428616, cost=2.24870300293, confusion_matrix=[645/820, 206/356]
+	training acc=1.0, cost=0.00071636208638;  valid acc=0.724489808083, cost=2.24200534821, confusion_matrix=[641/811, 211/365]
+	training acc=0.995689655172, cost=0.0165327889945;  valid acc=0.727040827274, cost=2.23702597618, confusion_matrix=[606/738, 249/438]
+	training acc=0.996767241379, cost=0.0112010763034;  valid acc=0.731292545795, cost=2.18675351143, confusion_matrix=[671/863, 189/313]
+	training acc=0.994612068966, cost=0.028332230013;  valid acc=0.737244904041, cost=2.08962535858, confusion_matrix=[658/830, 209/346]
+Epoch training 4700, acc=0.997003424658, cost=0.0147876360801, speed=493.772093058 s/epoch
+**Test 1176, acc=0.737244904041, cost=2.08763599396, confusion_matrix=[658/830, 209/346]
+
+EPOCH 98, lr=0.001
+	training acc=0.997844827586, cost=0.00320578011097;  valid acc=0.73299318552, cost=2.09202241898, confusion_matrix=[670/859, 192/317]
+	training acc=0.998922413793, cost=0.00350076741945;  valid acc=0.731292545795, cost=2.10037302971, confusion_matrix=[633/787, 227/389]
+	training acc=1.0, cost=0.000401145823444;  valid acc=0.73469388485, cost=2.10934090614, confusion_matrix=[638/793, 226/383]
+	training acc=0.998922413793, cost=0.00250995648512;  valid acc=0.738945603371, cost=2.10654401779, confusion_matrix=[653/818, 216/358]
+	training acc=0.998922413793, cost=0.00798524500737;  valid acc=0.732142865658, cost=2.11772060394, confusion_matrix=[644/808, 217/368]
+Epoch training 4700, acc=0.998929794521, cost=0.00349788534951, speed=493.396193981 s/epoch
+**Test 1176, acc=0.73469388485, cost=2.11177587509, confusion_matrix=[650/817, 214/359]
+
+EPOCH 99, lr=0.001
+	training acc=1.0, cost=0.00267466547024;  valid acc=0.733843564987, cost=2.12725567818, confusion_matrix=[660/838, 203/338]
+	training acc=1.0, cost=0.00134830495179;  valid acc=0.741496622562, cost=2.13365125656, confusion_matrix=[653/815, 219/361]
+	training acc=0.998922413793, cost=0.00585317646984;  valid acc=0.737244904041, cost=2.13650083542, confusion_matrix=[659/832, 208/344]
+	training acc=1.0, cost=0.00146891181027;  valid acc=0.73469388485, cost=2.16795420647, confusion_matrix=[646/809, 218/367]
+	training acc=1.0, cost=0.000277806626251;  valid acc=0.73469388485, cost=2.18304204941, confusion_matrix=[646/809, 218/367]
+The save path is  ./ckpt/bilstmModel/bilstm.ckpt-99
+Epoch training 4700, acc=0.999785958904, cost=0.00230866656505, speed=502.364541054 s/epoch
+**Test 1176, acc=0.73469388485, cost=2.18328404427, confusion_matrix=[646/809, 218/367]
+
+EPOCH 100, lr=0.001
+	training acc=0.998922413793, cost=0.00218706564679;  valid acc=0.736394584179, cost=2.19146966934, confusion_matrix=[661/837, 205/339]
+	training acc=0.998922413793, cost=0.00214906891667;  valid acc=0.730442166328, cost=2.26595807076, confusion_matrix=[633/788, 226/388]
+	training acc=0.997844827586, cost=0.00336984738663;  valid acc=0.731292545795, cost=2.27562260628, confusion_matrix=[633/787, 227/389]
+	training acc=0.998922413793, cost=0.00654421054486;  valid acc=0.721938788891, cost=2.4689078331, confusion_matrix=[612/756, 237/420]
+	training acc=0.998922413793, cost=0.0037917241688;  valid acc=0.721938788891, cost=2.53423237801, confusion_matrix=[612/756, 237/420]
+Epoch training 4700, acc=0.998715753425, cost=0.00358434456694, speed=446.693387985 s/epoch
+**Test 1176, acc=0.721088409424, cost=2.53549337387, confusion_matrix=[611/755, 237/421]
+
+
+Process finished with exit code 0
