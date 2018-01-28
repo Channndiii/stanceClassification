@@ -1,7 +1,7 @@
 import pymysql
-import pandas as pd
-import re
-import matplotlib.pyplot as plt
+import codecs
+import collections
+import networkx as nx
 
 def connectDatabase():
     db = pymysql.connect('localhost',
@@ -20,373 +20,255 @@ def queryDatabase(db, tableName):
     except:
         print 'Error: unable to fetch data'
 
-# def cleanText(text):
-#     text = ' '.join([word for word in text.strip().split()])
-#     text = re.sub(r'[^\x00-\x7f]', '', text)
-#     text = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", text)
-#     text = re.sub(r",", " , ", text)
-#     text = re.sub(r"!", " ! ", text)
-#     text = re.sub(r"\(", " ( ", text)
-#     text = re.sub(r"\)", " ) ", text)
-#     text = re.sub(r"\?", " ? ", text)
-#     text = re.sub(r"\s{2,}", " ", text)
-#     return text
-
-def cleanText(text):
-    text = ' '.join([word for word in text.strip().split()])
-    text = re.sub(r'[^\x00-\x7f]', '', text)
-    text = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", text)
-    text = re.sub(r"\'s", " \'s", text)
-    text = re.sub(r"\'ve", " \'ve", text)
-    text = re.sub(r"n\'t", " n\'t", text)
-    text = re.sub(r"\'re", " \'re", text)
-    text = re.sub(r"\'d", " \'d", text)
-    text = re.sub(r"\'ll", " \'ll", text)
-    text = re.sub(r",", " , ", text)
-    text = re.sub(r"!", " ! ", text)
-    text = re.sub(r"\(", " \( ", text)
-    text = re.sub(r"\)", " \) ", text)
-    text = re.sub(r"\?", " \? ", text)
-    text = re.sub(r"\s{2,}", " ", text)
-    return text.strip().lower()
-
 def dataResolution(results, tableName):
+
     dataResults = []
-    if tableName == 'mturk_2010_qr_entry':
+    if tableName == 'author':
         for row in results:
-            pageID = str(row[0])
-            tabNum = str(row[1])
-            qrID = pageID + '@' +tabNum
-            quoteText = cleanText(str(row[6]))
-            responseText = cleanText(str(row[7]))
-            topic = str(row[9])
-            dataResults.append([qrID, quoteText, responseText, topic])
+            authorID = row[0]
+            userName = row[1]
+            dataResults.append((authorID, userName))
         return dataResults
-
-    # if tableName == 'mturk_2010_qr_task1_average_response':
-    #     for row in results:
-    #         pageID = str(row[0])
-    #         tabNum = str(row[1])
-    #         qrID = pageID + '@' + tabNum
-    #         disagree_agree = 1 if float(row[3]) >= 0 else 0
-    #         attacking_respectful = 1 if float(row[5]) >= 0 else 0
-    #         emotion_fact = 1 if float(row[7]) >= 0 else 0
-    #         nasty_nice = 1 if float(row[9]) >= 0 else 0
-    #         dataResults.append([qrID, disagree_agree, attacking_respectful, emotion_fact, nasty_nice])
-    #     return dataResults
-
-    if tableName == 'mturk_2010_qr_task1_average_response':
+    if tableName == 'text':
         for row in results:
-            pageID = str(row[0])
-            tabNum = str(row[1])
-            qrID = pageID + '@' + tabNum
-
-            # disagree_agree
-            if float(row[3]) <= -2.0:
-                disagree_agree = 0
-                dataResults.append([qrID, disagree_agree])
-            if float(row[3]) > 0.0:
-                disagree_agree = 1
-                dataResults.append([qrID, disagree_agree])
-            # disagree_agree
-
-            # attacking_respectful
-            # if float(row[5]) < 0.0:
-            #     attacking_respectful = 0
-            #     dataResults.append([qrID, attacking_respectful])
-            # if float(row[5]) > 1.0:
-            #     attacking_respectful = 1
-            #     dataResults.append([qrID, attacking_respectful])
-            # attacking_respectful
-
-            # emotion_fact
-            # if float(row[7]) <= -1.0:
-            #     emotion_fact = 0
-            #     dataResults.append([qrID, emotion_fact])
-            # if float(row[7]) > 1.0:
-            #     emotion_fact = 1
-            #     dataResults.append([qrID, emotion_fact])
-            # emotion_fact
-
-            # nasty_nice
-            # if float(row[9]) < 0.0:
-            #     nasty_nice = 0
-            #     dataResults.append([qrID, nasty_nice])
-            # if float(row[9]) > 1.0:
-            #     nasty_nice = 1
-            #     dataResults.append([qrID, nasty_nice])
-            # nasty_nice
-
+            textID = row[0]
+            text = row[1]
+            dataResults.append((textID, text))
         return dataResults
-
     if tableName == 'post':
         for row in results:
             discussionID = str(row[0])
-            postID = str(row[1])
+            postID = discussionID + '@' + str(row[1])
+            authorID = row[2]
+            parentPostID = discussionID + '@' + str(row[4]) if str(row[4]) != 'None' else str(row[4])
             textID = str(row[6])
-            dataResults.append([discussionID+'@'+postID, textID])
+            dataResults.append((discussionID, postID, authorID, parentPostID, textID))
         return dataResults
-
     if tableName == 'quote':
         for row in results:
-            quoteTextID = str(row[5])
-            responseDPID = str(row[0]) + '@' + str(row[1]) # discussionID + postID
-            dataResults.append([quoteTextID, responseDPID])
+            discussionID = str(row[0])
+            postID = discussionID + '@' + str(row[1])
+            sourceDisscussionID = str(row[6])
+            sourcePostID = sourceDisscussionID + '@' + str(row[7])
+            textID = str(row[5])
+            dataResults.append((discussionID, postID, sourceDisscussionID, sourcePostID, textID))
         return dataResults
-
-    if tableName == 'text':
+    if tableName == 'mturk_author_stance':
         for row in results:
-            textID = str(row[0])
-            text = cleanText(str(row[1]))
-            dataResults.append([textID, text])
+            authorID = str(row[1])
+            topicID = authorID + '@' + str(row[2])
+            topicStance1 = row[4]
+            topicStance2 = row[6]
+            topicStance3 = row[7]
+            dataResults.append((authorID, topicID, topicStance1, topicStance2, topicStance3))
+        return dataResults
+    if tableName == 'discussion_topic':
+        for row in results:
+            discussionID = str(row[0])
+            topicID = str(row[1])
+            dataResults.append((discussionID, topicID))
+        return dataResults
+    if tableName == 'discussion':
+        for row in results:
+            discussionID = str(row[0])
+            title = str(row[2])
+            dataResults.append((discussionID, title))
         return dataResults
 
-def get_qrID2Label(qrPairLabelList):
-    qrID2Label = dict()
-    for row in qrPairLabelList:
-        qrID = row[0]
-        qrID2Label[qrID] = row[1:]
-    return qrID2Label
+def getPost2Author(db):
+    results = queryDatabase(db, 'post')
+    results = dataResolution(results, 'post')
+    post2Author = dict()
+    for index, row in enumerate(results):
+        postID = row[1]
+        authorID = row[2]
+        post2Author[postID] = authorID
+    return post2Author
 
-def labelDistribution():
+def getUserPostGraph(db, tableName):
 
-    db = connectDatabase()
+    results = queryDatabase(db, tableName)
+    results = dataResolution(results, tableName)
 
-    qrPairList = queryDatabase(db, 'mturk_2010_qr_entry')
-    qrPairList = dataResolution(qrPairList, 'mturk_2010_qr_entry')
+    userGraphEdge = []
+    post2Author = getPost2Author(db)
+    for index, row in enumerate(results):
+        authorID = row[2]
+        parentPostID = row[3]
+        if parentPostID != 'None':
+            # userGraphEdge.append((post2Author[parentPostID], authorID, tableName[0]))
+            userGraphEdge.append((post2Author[parentPostID], authorID))
+            userGraphEdge.append((authorID, post2Author[parentPostID]))
+        else:
+            continue
 
-    qrPairLabelList = []
-    results = queryDatabase(db, 'mturk_2010_qr_task1_average_response')
-    for row in results:
-        pageID = str(row[0])
-        tabNum = str(row[1])
-        qrID = pageID + '@' + tabNum
-        disagree_agree = float(row[3])
-        attacking_respectful = float(row[5])
-        emotion_fact = float(row[7])
-        nasty_nice = float(row[9])
-        qrPairLabelList.append([qrID, disagree_agree, attacking_respectful, emotion_fact, nasty_nice])
+    # print 'Finish Processing!'
+    # userGraphEdge = collections.Counter(userGraphEdge).most_common()
+    # userGraphEdge = sorted(userGraphEdge, key=lambda x: x[0][0])
+    # with codecs.open('./userGraph-Post.txt', 'w', 'utf-8') as fw:
+    #     for (edge, Count) in userGraphEdge:
+    #         fw.write(str(edge[0]) + ' ' + str(edge[1]) + ' ' + edge[2] + ' ' + str(Count) + '\n')
 
-    qrID2Label = get_qrID2Label(qrPairLabelList)
+    return userGraphEdge
 
-    result = []
-    for row in qrPairList:
-        qrID = row[0]
+def getUserQuoteGraph(db, tableName):
+
+    results = queryDatabase(db, tableName)
+    results = dataResolution(results, tableName)
+
+    userGraphEdge = []
+    post2Author = getPost2Author(db)
+    count = 0
+    for index, row in enumerate(results):
         try:
-            label = qrID2Label[qrID]
-            row.extend(label)
-            result.append(row)
+            postID = row[1]
+            sourcePostID = row[3]
+            # userGraphEdge.append((post2Author[sourcePostID], post2Author[postID], tableName[0]))
+            userGraphEdge.append((post2Author[sourcePostID], post2Author[postID]))
+            userGraphEdge.append((post2Author[postID], post2Author[sourcePostID]))
         except Exception:
-            pass
+            print 'Error row {}-->{}'.format(index + 1, row)
+            count += 1
+    print 'Error row count={}'.format(count)
 
-    qrPair_df = pd.DataFrame(result, columns=['qrID', 'quoteText', 'responseText', 'topic', 'disagree_agree', 'attacking_respectful', 'emotion_fact', 'nasty_nice'])
+    # print 'Finish Processing!'
+    # userGraphEdge = collections.Counter(userGraphEdge).most_common()
+    # userGraphEdge = sorted(userGraphEdge, key=lambda x: x[0][0])
+    # with codecs.open('./userGraph-Quote.txt', 'w', 'utf-8') as fw:
+    #     for (edge, Count) in userGraphEdge:
+    #         fw.write(str(edge[0]) + ' ' + str(edge[1]) + ' ' + edge[2] + ' ' + str(Count) + '\n')
+
+    return userGraphEdge
+
+def mergeGraph(postGraph, quoteGraph):
+
+    postGraph.extend(quoteGraph)
+    userGraphEdge = collections.Counter(postGraph).most_common()
+    userGraphEdge = sorted(userGraphEdge, key=lambda x: x[0][0])
+    with codecs.open('./userGraph-Merge.txt', 'w', 'utf-8') as fw:
+        for (edge, Count) in userGraphEdge:
+            fw.write(str(edge[0]) + ' ' + str(edge[1]) + ' ' + str(Count) + '\n')
+
+def getAuthor2Stance(db):
+
+    results = queryDatabase(db, 'mturk_author_stance')
+    results = dataResolution(results, 'mturk_author_stance')
+    author2Stance = dict()
+    for index, row in enumerate(results):
+        authorID = row[1]
+        if authorID in author2Stance.keys():
+            author2Stance[authorID] = (author2Stance[authorID][0] + row[2], author2Stance[authorID][1] + row[3], author2Stance[authorID][2] + row[4])
+        else:
+            author2Stance[authorID] = (row[2], row[3], row[4])
+
+    for authorID in author2Stance.keys():
+        for index, value in enumerate(author2Stance[authorID]):
+            if value == max(author2Stance[authorID]):
+                author2Stance[authorID] = index
+                break
+    return author2Stance # author@Topic->Stance
+    # author2Stance = sorted(author2Stance.items(), key=lambda x: x[0])
+    # with codecs.open('./author2Stance.txt', 'w', 'utf-8') as fw:
+    #     for (authorID, stance) in author2Stance: # author@Topic Stance
+    #         fw.write(str(authorID) + ' ' + str(stance) + '\n')
+
+def getDiscussion2Topic(db):
+
+    results = queryDatabase(db, 'discussion_topic')
+    results = dataResolution(results, 'discussion_topic')
+    discussion2Topic = dict()
+    for index, row in enumerate(results):
+        discussionID = row[0]
+        topicID = row[1]
+        discussion2Topic[discussionID] = topicID
+    return discussion2Topic
+
+def getDiscussionID2Title(db):
+    results = queryDatabase(db, 'discussion')
+    results = dataResolution(results, 'discussion')
+    discussionID2Title = dict()
+    for index, row in enumerate(results):
+        discussionID = row[0]
+        title = row[1]
+        discussionID2Title[discussionID] = title
+    return discussionID2Title
+
+def getTextWithStance(db):
+
+    tableName = 'post'
+    results = queryDatabase(db, tableName)
+    results = dataResolution(results, tableName)
+
+    discussion2Topic = getDiscussion2Topic(db)
+    author2Stance = getAuthor2Stance(db)
+    textWithStance = []
+    for index, row in enumerate(results):
+        discussionID = row[0]
+        if discussionID in discussion2Topic.keys():
+            topicID = discussion2Topic[discussionID]
+            authorID = str(row[2]) + '@' + topicID
+            if authorID in author2Stance.keys():
+                postID = row[1]
+                textID = row[4]
+                stance = author2Stance[authorID]
+                textWithStance.append((discussionID, postID, authorID, textID, stance))
+    print 'Finish Processing!'
+    with codecs.open('./textWithStance.txt', 'w', 'utf-8') as fw:
+        for (discussionID, postID, authorID, textID, stance) in textWithStance:
+            fw.write(str(discussionID) + ' ' + str(postID) + ' ' + str(authorID) + ' ' + str(textID) + ' ' + str(stance) + '\n')
+
+def getPostSequence(db):
+    tableName = 'post'
+    results = queryDatabase(db, tableName)
+    results = dataResolution(results, tableName)
+
+    parentChild = []
+    # count = 0
+    for index, row in enumerate(results):
+        postID = row[1]
+        parentPostID = row[3]
+        if parentPostID != 'None':
+            parentChild.append((parentPostID, postID))
+        else:
+            if len(parentChild) != 0:
+                DG = nx.DiGraph()
+                DG.add_edges_from(parentChild)
+                nodeList = [node for node in list(DG.nodes()) if node != 'None']
+                pathList = []
+                for node in nodeList:
+                    for path in nx.all_simple_paths(DG, source='None', target=node):
+                        path = path[1:]
+                        # sequenceLength = 5
+                        # if len(path) < 5:
+                        #     tmp = ['null'] * (sequenceLength - len(path))
+                        #     tmp.extend(path)
+                        #     path = tmp
+                        #     count += 1
+                        # else:
+                        #     path = path[-sequenceLength:]
+                        pathList.append(path)
+                with codecs.open('./postSequence.txt', 'a', 'utf-8') as fw:
+                    for path in pathList:
+                        fw.write(' '.join(path) + '\n')
+            parentChild = []
+            parentChild.append((parentPostID, postID))
+    # print count
+
+    # print 'Finish Processing!'
+    # with codecs.open('./parent2ChildPost.txt', 'w', 'utf-8') as fw:
+    #     for (parent, child) in parentChild:
+    #         fw.write(str(parent) + ' ' + str(child) + '\n')
 
 
-    distributionCount(qrPair_df['disagree_agree'].values, pos=5, neg=3) # final <=-2.0 or >0.0
-    # distributionCount(qrPair_df['attacking_respectful'].values, pos=6, neg=5) # final <0.0 or >1.0
-    # distributionCount(qrPair_df['emotion_fact'].values, pos=6, neg=4) # final <=-1.0 or >1.0
-    # distributionCount(qrPair_df['nasty_nice'].values, pos=6, neg=5) # final <0.0 or >1.0
-
-    # qrPair_df['disagree_agree'].hist(bins=10)
-    # # qrPair_df['attacking_respectful'].hist(bins=10)
-    # # qrPair_df['emotion_fact'].hist(bins=10)
-    # # qrPair_df['nasty_nice'].hist(bins=10)
-    # plt.xlim(-5, 5)
-    # plt.xlabel('Rate')
-    # plt.ylabel('Num')
-    # plt.title('Distribution of Rate')
-    # plt.show()
-
-def distributionCount(labelList, pos, neg):
-    '''
-    -5.0 -4.0 -3.0 -2.0 -1.0 0.0 1.0 2.0 3.0 4.0 5.0
-        0    1    2    3    4   5   6   7   8   9
-    '''
-    count = [0] * 10
-    for score in labelList:
-        if score <= -4.0:
-            count[0] += 1
-        elif score <= -3.0:
-            count[1] += 1
-        elif score <= -2.0:
-            count[2] += 1
-        elif score <= -1.0:
-            count[3] += 1
-        elif score <= 0.0:
-            count[4] += 1
-        elif score <= 1.0:
-            count[5] += 1
-        elif score <= 2.0:
-            count[6] += 1
-        elif score <= 3.0:
-            count[7] += 1
-        elif score <= 4.0:
-            count[8] += 1
-        elif score <= 5.0:
-            count[9] += 1
-    total = sum(count[:neg]) + sum(count[pos:])
-    if sum(count[:neg]) > sum(count[pos:]):
-        rate = float(sum(count[:neg])) / total
-    else:
-        rate = float(sum(count[pos:])) / total
-    print count, sum(count), total, rate
-
-    count = [0] * 10
-    for score in labelList:
-        if score <= -4.0:
-            count[0] += 1
-        if score > -4.0 and score <= -3.0:
-            count[1] += 1
-        if score > -3.0 and score <= -2.0:
-            count[2] += 1
-        if score > -2.0 and score <= -1.0:
-            count[3] += 1
-        if score > -1.0 and score <= 0.0:
-            count[4] += 1
-        if score > 0.0 and score <= 1.0:
-            count[5] += 1
-        if score > 1.0 and score <= 2.0:
-            count[6] += 1
-        if score > 2.0 and score <= 3.0:
-            count[7] += 1
-        if score > 3.0 and score <= 4.0:
-            count[8] += 1
-        if score > 4.0 and score <= 5.0:
-            count[9] += 1
-    total = sum(count[:neg]) + sum(count[pos:])
-    if sum(count[:neg]) > sum(count[pos:]):
-        rate = float(sum(count[:neg])) / total
-    else:
-        rate = float(sum(count[pos:])) / total
-    print count, sum(count), total, rate, sum(count[:neg]), sum(count[pos:])
-
-    # disagree_agree
-    # count = [0] * 2
-    # for score in labelList:
-    #     if score <= -2.0:
-    #         count[0] += 1
-    #     if score > 0.0:
-    #         count[1] += 1
-    # print count, sum(count)
-    # disagree_agree [3903, 1973] 5876 0.664
-
-    # attacking_respectful
-    # count = [0] * 2
-    # for score in labelList:
-    #     if score < 0.0:
-    #         count[0] += 1
-    #     if score > 1.0:
-    #         count[1] += 1
-    # print count, sum(count)
-    # attacking_respectful [3294, 3618] 6912 0.523
-
-    # emotion_fact
-    # count = [0] * 2
-    # for score in labelList:
-    #     if score <= -1.0:
-    #         count[0] += 1
-    #     if score > 1.0:
-    #         count[1] += 1
-    # print count, sum(count)
-    # emotion_fact [2383, 3040] 5423 0.561
-
-    # nasty_nice
-    # count = [0] * 2
-    # for score in labelList:
-    #     if score < 0.0:
-    #         count[0] += 1
-    #     if score > 1.0:
-    #         count[1] += 1
-    # print count, sum(count)
-    # nasty_nice [2455, 4391] 6846 0.641
-
-def get_dpID2TextID():
-
-    db = connectDatabase()
-    dpID2TextIDList = queryDatabase(db, 'post')
-    dpID2TextIDList = dataResolution(dpID2TextIDList, 'post')
-    dpID2TextID = dict()
-    for i in dpID2TextIDList:
-        dpID = i[0]
-        textID = i[1]
-        dpID2TextID[dpID] = textID
-    return dpID2TextID
-
-def buildUnsupervisedData():
-
-    # step 1
-    # db = connectDatabase()
-    # qrIDList = queryDatabase(db, 'quote')
-    # qrIDList = dataResolution(qrIDList, 'quote')
-    #
-    # dpID2TextID = get_dpID2TextID()
-    # qrTextIDList = []
-    # for i in qrIDList:
-    #     quoteTextID = i[0]
-    #     responseDPID = i[1]
-    #     responseTextID = dpID2TextID[responseDPID]
-    #     qrTextIDList.append([quoteTextID, responseTextID])
-    #
-    # qrTextID_df = pd.DataFrame(qrTextIDList, columns=['quoteTextID', 'responseTextID'])
-    # qrTextID_df.to_csv('./data/unsupervisedQRTextID.csv', index=None)
-    # step 1
-
-    # step 2
-    global id2Text
-    id2Text = get_id2Text()
-    qrTextID_df = pd.read_csv('./data/unsupervisedQRTextID.csv')
-    qrTextID_df['quoteText'] = qrTextID_df['quoteTextID'].apply(mapID2Text)
-    qrTextID_df['responseText'] = qrTextID_df['responseTextID'].apply(mapID2Text)
-    qrTextID_df.to_csv('./data/unsupervisedQRText.csv', index=None)
-    # step 2
-
-def get_id2Text():
-    db = connectDatabase()
-    id2TextList = queryDatabase(db, 'text')
-    id2TextList = dataResolution(id2TextList, 'text')
-    id2Text = dict()
-    for i in id2TextList:
-        textID = i[0]
-        text = i[1]
-        id2Text[textID] = text
-    return id2Text
-
-def mapID2Text(textID):
-    return id2Text[str(textID)]
+def closeDatabase(db):
+    db.close()
 
 if __name__ == '__main__':
-
-    task = 'disagree_agree'
-    # task = 'attacking_respectful'
-    # task = 'emotion_fact'
-    # task = 'nasty_nice'
-
     db = connectDatabase()
-
-    qrPairList = queryDatabase(db, 'mturk_2010_qr_entry')
-    qrPairList = dataResolution(qrPairList, 'mturk_2010_qr_entry')
-
-    qrPairLabelList = queryDatabase(db, 'mturk_2010_qr_task1_average_response')
-    qrPairLabelList = dataResolution(qrPairLabelList, 'mturk_2010_qr_task1_average_response')
-
-    qrID2Label = get_qrID2Label(qrPairLabelList)
-
-    result = []
-    for row in qrPairList:
-        qrID = row[0]
-        try:
-            label = qrID2Label[qrID]
-            row.extend(label)
-            result.append(row)
-        except Exception:
-            # print qrID
-            pass
-    # qrPair_df = pd.DataFrame(result, columns=['qrID', 'quoteText', 'responseText', 'topic', 'disagree_agree', 'attacking_respectful', 'emotion_fact', 'nasty_nice'])
-    # qrPair_df.to_csv('./data/qrPair.csv', index=None)
-    # print qrPair_df.head()
-    qrPair_df = pd.DataFrame(result, columns=['qrID', 'quoteText', 'responseText', 'topic', '%s' % task])
-    qrPair_df.to_csv('./data/qrPair_%s.csv' % task, index=None)
-
-    # labelDistribution()
-
-    # buildUnsupervisedData()
+    # getUserPostGraph(db, 'post')
+    # getUserQuoteGraph(db, 'quote')
+    # mergeGraph(getUserPostGraph(db, 'post'), getUserQuoteGraph(db, 'quote'))
+    # getAuthor2Stance(db)
+    # getTextWithStance(db)
+    getPostSequence(db)
+    closeDatabase(db)
