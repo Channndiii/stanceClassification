@@ -54,15 +54,15 @@ class TextBiLSTM(nn.Module):
         self.out = nn.Linear(in_features=self.hidden_size*2*2, out_features=self.class_num)
         # self.params_initializer()
 
-    def attention_layer(self, layer, bilstm_outputs, ActFunc):
-        attention_inputs = bilstm_outputs.contiguous().view(-1, self.hidden_size*2)
-        attention_logits = layer(attention_inputs).view(-1, bilstm_outputs.size()[1])
-        attention_signals = F.softmax(ActFunc(attention_logits), dim=1).view(-1, bilstm_outputs.size()[1], 1)
+    def attention_layer(self, layer, bilstm_outputs, attention_source, ActFunc):
+        attention_inputs = attention_source.contiguous().view(-1, self.hidden_size*2)
+        attention_logits = layer(attention_inputs).view(-1, attention_source.size()[1])
+        attention_signals = F.softmax(ActFunc(attention_logits), dim=1).view(-1, attention_source.size()[1], 1)
 
         _outputs = attention_signals * bilstm_outputs
         outputs = torch.mean(_outputs, dim=1)
         return outputs
-    
+
     # def params_initializer(self):
     #     for name, param in self.named_parameters():
     #         if name.find('weight') != -1 and name.find('BN') == -1:
@@ -83,11 +83,11 @@ class TextBiLSTM(nn.Module):
         if self.attention_mechanism != None:
             ActFunc = self.attention_mechanism['ActFunc']
             if self.attention_mechanism['Type'] == 'self_attention':
-                quote_outputs = self.attention_layer(self.quote_attention_layer, quote_outputs, ActFunc)
-                response_outputs = self.attention_layer(self.response_attention_layer, response_outputs, ActFunc)
+                quote_outputs = self.attention_layer(self.quote_attention_layer, bilstm_outputs=quote_outputs, attention_source=quote_outputs, ActFunc=ActFunc)
+                response_outputs = self.attention_layer(self.response_attention_layer, bilstm_outputs=response_outputs, attention_source=response_outputs, ActFunc=ActFunc)
             if self.attention_mechanism['Type'] == 'cross_attention':
-                _quote_outputs = self.attention_layer(self.quote_attention_layer, response_outputs, ActFunc)
-                _response_outputs = self.attention_layer(self.response_attention_layer, quote_outputs, ActFunc)
+                _quote_outputs = self.attention_layer(self.quote_attention_layer, bilstm_outputs=quote_outputs, attention_source=response_outputs, ActFunc=ActFunc)
+                _response_outputs = self.attention_layer(self.response_attention_layer, bilstm_outputs=response_outputs, attention_source=quote_outputs, ActFunc=ActFunc)
                 quote_outputs = _quote_outputs
                 response_outputs = _response_outputs
         else:

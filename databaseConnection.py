@@ -80,12 +80,43 @@ def dataResolution(results, tableName):
             pageID = str(row[0])
             tabNum = str(row[1])
             qrID = pageID + '@' + tabNum
-            if float(row[3]) <= -2.0:
-                disagree_agree = 0
-                dataResults.append([qrID, disagree_agree])
-            if float(row[3]) > 0.0:
-                disagree_agree = 1
-                dataResults.append([qrID, disagree_agree])
+
+            # disagree_agree
+            # if float(row[3]) <= -2.0:
+            #     disagree_agree = 0
+            #     dataResults.append([qrID, disagree_agree])
+            # if float(row[3]) > 0.0:
+            #     disagree_agree = 1
+            #     dataResults.append([qrID, disagree_agree])
+            # disagree_agree
+
+            # attacking_respectful
+            # if float(row[5]) < 0.0:
+            #     attacking_respectful = 0
+            #     dataResults.append([qrID, attacking_respectful])
+            # if float(row[5]) > 1.0:
+            #     attacking_respectful = 1
+            #     dataResults.append([qrID, attacking_respectful])
+            # attacking_respectful
+
+            # emotion_fact
+            # if float(row[7]) <= -1.0:
+            #     emotion_fact = 0
+            #     dataResults.append([qrID, emotion_fact])
+            # if float(row[7]) > 1.0:
+            #     emotion_fact = 1
+            #     dataResults.append([qrID, emotion_fact])
+            # emotion_fact
+
+            # nasty_nice
+            if float(row[9]) < 0.0:
+                nasty_nice = 0
+                dataResults.append([qrID, nasty_nice])
+            if float(row[9]) > 1.0:
+                nasty_nice = 1
+                dataResults.append([qrID, nasty_nice])
+            # nasty_nice
+
         return dataResults
 
 def get_qrID2Label(qrPairLabelList):
@@ -129,10 +160,10 @@ def labelDistribution():
     qrPair_df = pd.DataFrame(result, columns=['qrID', 'quoteText', 'responseText', 'topic', 'disagree_agree', 'attacking_respectful', 'emotion_fact', 'nasty_nice'])
 
 
-    distributionCount(qrPair_df['disagree_agree'].values, pos=5, neg=3) # <=-2.0 or >=0.0
-    # distributionCount(qrPair_df['attacking_respectful'].values, pos=7, neg=4) # <=-1.0 or >=2.0
-    # distributionCount(qrPair_df['emotion_fact'].values, pos=6, neg=4) # <=-1.0 or >=1.0
-    # distributionCount(qrPair_df['nasty_nice'].values, pos=6, neg=5) # <=0.0 or >=1.0
+    distributionCount(qrPair_df['disagree_agree'].values, pos=5, neg=3) # final <=-2.0 or >0.0
+    # distributionCount(qrPair_df['attacking_respectful'].values, pos=6, neg=5) # final <0.0 or >1.0
+    # distributionCount(qrPair_df['emotion_fact'].values, pos=6, neg=4) # final <=-1.0 or >1.0
+    # distributionCount(qrPair_df['nasty_nice'].values, pos=6, neg=5) # final <0.0 or >1.0
 
     # qrPair_df['disagree_agree'].hist(bins=10)
     # # qrPair_df['attacking_respectful'].hist(bins=10)
@@ -205,27 +236,54 @@ def distributionCount(labelList, pos, neg):
         rate = float(sum(count[:neg])) / total
     else:
         rate = float(sum(count[pos:])) / total
-    print count, sum(count), total, rate
+    print count, sum(count), total, rate, sum(count[:neg]), sum(count[pos:])
 
-    count = [0] * 2
-    for score in labelList:
-        if score <= -2.0:
-            count[0] += 1
-        # if score >= 0.0:
-        #     count[1] += 1
-        if score > 0.0 and score <= 1.0:
-            count[1] += 1
-        if score > 1.0 and score <= 2.0:
-            count[1] += 1
-        if score > 2.0 and score <= 3.0:
-            count[1] += 1
-        if score > 3.0 and score <= 4.0:
-            count[1] += 1
-        if score > 4.0 and score <= 5.0:
-            count[1] += 1
-    print count, sum(count)
+    # disagree_agree
+    # count = [0] * 2
+    # for score in labelList:
+    #     if score <= -2.0:
+    #         count[0] += 1
+    #     if score > 0.0:
+    #         count[1] += 1
+    # print count, sum(count)
+    # disagree_agree [3903, 1973] 5876 0.664
+
+    # attacking_respectful
+    # count = [0] * 2
+    # for score in labelList:
+    #     if score < 0.0:
+    #         count[0] += 1
+    #     if score > 1.0:
+    #         count[1] += 1
+    # print count, sum(count)
+    # attacking_respectful [3294, 3618] 6912 0.523
+
+    # emotion_fact
+    # count = [0] * 2
+    # for score in labelList:
+    #     if score <= -1.0:
+    #         count[0] += 1
+    #     if score > 1.0:
+    #         count[1] += 1
+    # print count, sum(count)
+    # emotion_fact [2383, 3040] 5423 0.561
+
+    # nasty_nice
+    # count = [0] * 2
+    # for score in labelList:
+    #     if score < 0.0:
+    #         count[0] += 1
+    #     if score > 1.0:
+    #         count[1] += 1
+    # print count, sum(count)
+    # nasty_nice [2455, 4391] 6846 0.641
 
 if __name__ == '__main__':
+
+    # task = 'disagree_agree'
+    # task = 'attacking_respectful'
+    # task = 'emotion_fact'
+    task = 'nasty_nice'
 
     db = connectDatabase()
 
@@ -250,7 +308,7 @@ if __name__ == '__main__':
     # qrPair_df = pd.DataFrame(result, columns=['qrID', 'quoteText', 'responseText', 'topic', 'disagree_agree', 'attacking_respectful', 'emotion_fact', 'nasty_nice'])
     # qrPair_df.to_csv('./data/qrPair.csv', index=None)
     # print qrPair_df.head()
-    qrPair_df = pd.DataFrame(result, columns=['qrID', 'quoteText', 'responseText', 'topic', 'disagree_agree'])
-    qrPair_df.to_csv('./data/qrPair_disagree_agree.csv', index=None)
+    qrPair_df = pd.DataFrame(result, columns=['qrID', 'quoteText', 'responseText', 'topic', '%s' % task])
+    qrPair_df.to_csv('./data/qrPair_%s.csv' % task, index=None)
 
     # labelDistribution()
