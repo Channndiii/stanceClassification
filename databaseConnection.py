@@ -82,12 +82,12 @@ def dataResolution(results, tableName):
             qrID = pageID + '@' + tabNum
 
             # disagree_agree
-            # if float(row[3]) <= -2.0:
-            #     disagree_agree = 0
-            #     dataResults.append([qrID, disagree_agree])
-            # if float(row[3]) > 0.0:
-            #     disagree_agree = 1
-            #     dataResults.append([qrID, disagree_agree])
+            if float(row[3]) <= -2.0:
+                disagree_agree = 0
+                dataResults.append([qrID, disagree_agree])
+            if float(row[3]) > 0.0:
+                disagree_agree = 1
+                dataResults.append([qrID, disagree_agree])
             # disagree_agree
 
             # attacking_respectful
@@ -109,14 +109,36 @@ def dataResolution(results, tableName):
             # emotion_fact
 
             # nasty_nice
-            if float(row[9]) < 0.0:
-                nasty_nice = 0
-                dataResults.append([qrID, nasty_nice])
-            if float(row[9]) > 1.0:
-                nasty_nice = 1
-                dataResults.append([qrID, nasty_nice])
+            # if float(row[9]) < 0.0:
+            #     nasty_nice = 0
+            #     dataResults.append([qrID, nasty_nice])
+            # if float(row[9]) > 1.0:
+            #     nasty_nice = 1
+            #     dataResults.append([qrID, nasty_nice])
             # nasty_nice
 
+        return dataResults
+
+    if tableName == 'post':
+        for row in results:
+            discussionID = str(row[0])
+            postID = str(row[1])
+            textID = str(row[6])
+            dataResults.append([discussionID+'@'+postID, textID])
+        return dataResults
+
+    if tableName == 'quote':
+        for row in results:
+            quoteTextID = str(row[5])
+            responseDPID = str(row[0]) + '@' + str(row[1]) # discussionID + postID
+            dataResults.append([quoteTextID, responseDPID])
+        return dataResults
+
+    if tableName == 'text':
+        for row in results:
+            textID = str(row[0])
+            text = cleanText(str(row[1]))
+            dataResults.append([textID, text])
         return dataResults
 
 def get_qrID2Label(qrPairLabelList):
@@ -278,12 +300,66 @@ def distributionCount(labelList, pos, neg):
     # print count, sum(count)
     # nasty_nice [2455, 4391] 6846 0.641
 
+def get_dpID2TextID():
+
+    db = connectDatabase()
+    dpID2TextIDList = queryDatabase(db, 'post')
+    dpID2TextIDList = dataResolution(dpID2TextIDList, 'post')
+    dpID2TextID = dict()
+    for i in dpID2TextIDList:
+        dpID = i[0]
+        textID = i[1]
+        dpID2TextID[dpID] = textID
+    return dpID2TextID
+
+def buildUnsupervisedData():
+
+    # step 1
+    # db = connectDatabase()
+    # qrIDList = queryDatabase(db, 'quote')
+    # qrIDList = dataResolution(qrIDList, 'quote')
+    #
+    # dpID2TextID = get_dpID2TextID()
+    # qrTextIDList = []
+    # for i in qrIDList:
+    #     quoteTextID = i[0]
+    #     responseDPID = i[1]
+    #     responseTextID = dpID2TextID[responseDPID]
+    #     qrTextIDList.append([quoteTextID, responseTextID])
+    #
+    # qrTextID_df = pd.DataFrame(qrTextIDList, columns=['quoteTextID', 'responseTextID'])
+    # qrTextID_df.to_csv('./data/unsupervisedQRTextID.csv', index=None)
+    # step 1
+
+    # step 2
+    global id2Text
+    id2Text = get_id2Text()
+    qrTextID_df = pd.read_csv('./data/unsupervisedQRTextID.csv')
+    qrTextID_df['quoteText'] = qrTextID_df['quoteTextID'].apply(mapID2Text)
+    qrTextID_df['responseText'] = qrTextID_df['responseTextID'].apply(mapID2Text)
+    qrTextID_df.to_csv('./data/unsupervisedQRText.csv', index=None)
+    # step 2
+
+def get_id2Text():
+    db = connectDatabase()
+    id2TextList = queryDatabase(db, 'text')
+    id2TextList = dataResolution(id2TextList, 'text')
+    id2Text = dict()
+    for i in id2TextList:
+        textID = i[0]
+        text = i[1]
+        id2Text[textID] = text
+    return id2Text
+
+def mapID2Text(textID):
+    return id2Text[str(textID)]
+
 if __name__ == '__main__':
 
-    # task = 'disagree_agree'
+    task = 'disagree_agree'
     # task = 'attacking_respectful'
     # task = 'emotion_fact'
-    task = 'nasty_nice'
+    # task = 'nasty_nice'
 
     db = connectDatabase()
 
@@ -312,3 +388,5 @@ if __name__ == '__main__':
     qrPair_df.to_csv('./data/qrPair_%s.csv' % task, index=None)
 
     # labelDistribution()
+
+    # buildUnsupervisedData()
