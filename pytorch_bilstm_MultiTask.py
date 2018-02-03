@@ -2,7 +2,7 @@ import torch
 from torch import nn
 from torch.autograd import Variable
 import torch.nn.functional as F
-import varied_textLength
+import multiTask_data_helper
 import numpy as np
 import time
 from sklearn.metrics import confusion_matrix
@@ -23,12 +23,6 @@ class TextBiLSTM(nn.Module):
         self.embedding = nn.Embedding(num_embeddings=self.vocabulary_size, embedding_dim=self.embedding_size)
 
         if self.do_BN:
-            # self.quote_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2, momentum=0.5)
-            # self.response_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2, momentum=0.5)
-            # self.concat_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2 * 2, momentum=0.5)
-            # self.quote_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2, momentum=0.5, eps=1e-3)
-            # self.response_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2, momentum=0.5, eps=1e-3)
-            # self.concat_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2 * 2, momentum=0.5, eps=1e-3)
             self.quote_input_BN = nn.BatchNorm1d(num_features=self.embedding_size)
             self.response_input_BN = nn.BatchNorm1d(num_features=self.embedding_size)
             self.quote_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2)
@@ -56,8 +50,8 @@ class TextBiLSTM(nn.Module):
             dropout=0.5
         )
 
-        self.out = nn.Linear(in_features=self.hidden_size*2*2, out_features=self.class_num)
-        # self.params_initializer()
+        self.main_out = nn.Linear(in_features=self.hidden_size*2*2, out_features=self.class_num)
+        self.sup_out = nn.Linear(in_features=self.hidden_size*2*2, out_features=self.class_num)
 
     def attention_layer(self, layer, bilstm_outputs, attention_source, ActFunc):
         attention_inputs = attention_source.contiguous().view(-1, self.hidden_size*2)
@@ -68,17 +62,7 @@ class TextBiLSTM(nn.Module):
         outputs = torch.mean(_outputs, dim=1)
         return outputs
 
-    # def params_initializer(self):
-    #     for name, param in self.named_parameters():
-    #         if name.find('weight') != -1 and name.find('BN') == -1:
-    #             nn.init.xavier_normal(param.data)
-    #         elif name.find('bias') != -1 and name.find('BN') == -1:
-    #             # nn.init.uniform(param.data, -0.1, 0.1)
-    #             param.data.uniform_(-0.1, 0.1)
-    #         else:
-    #             continue
-
-    def forward(self, X_q_inputs, X_r_inputs):
+    def forward(self, X_q_inputs, X_r_inputs, taskFlag):
 
         quote_inputs = self.embedding(X_q_inputs)
         response_inputs = self.embedding(X_r_inputs)
@@ -114,8 +98,75 @@ class TextBiLSTM(nn.Module):
         concat_outputs = torch.cat((quote_outputs, response_outputs), dim=1)
         if self.do_BN:
             concat_outputs = self.concat_output_BN(concat_outputs)
-        output = self.out(concat_outputs)
+
+        if taskFlag:
+            output = self.main_out(concat_outputs)
+        else:
+            output = self.sup_out(concat_outputs)
         return output
+
+def train_epoch(model, data_train, taskFlag):
+
+    tr_batch_num = int(data_train.y.shape[0] / tr_batch_size)
+    display_batch = int(tr_batch_num / display_num)
+
+    start_time = time.time()
+    _accs = 0.0
+    _costs = 0.0
+    show_accs = 0.0
+    show_costs = 0.0
+
+    for batch in xrange(tr_batch_num):
+        X_q_batch, X_r_batch, y_batch = data_train.next_batch(tr_batch_size)
+        X_q_batch, X_r_batch = torch.from_numpy(X_q_batch).type(torch.LongTensor), torch.from_numpy(X_r_batch).type(
+            torch.LongTensor)
+        if USE_GPU:
+            X_q_batch, X_r_batch, y_batch = Variable(X_q_batch).cuda(), Variable(X_r_batch).cuda(), Variable(
+                torch.from_numpy(y_batch).type(torch.LongTensor)).cuda()
+        else:
+            X_q_batch, X_r_batch, y_batch = Variable(X_q_batch), Variable(X_r_batch), Variable(
+                torch.from_numpy(y_batch).type(torch.LongTensor))
+
+        output = model(X_q_batch, X_r_batch, taskFlag)
+        _cost = loss_func(output, y_batch)
+        y_pred = torch.max(output, 1)[1]
+        if USE_GPU:
+            _acc = sum(y_pred.data.cpu() == y_batch.data.cpu()) / float(y_batch.size(0))
+        else:
+            _acc = sum(y_pred.data == y_batch.data) / float(y_batch.size(0))
+
+        _accs += _acc
+        _costs += _cost.data[0]
+        show_accs += _acc
+        show_costs += _cost.data[0]
+
+        optimizer.zero_grad()
+        _cost.backward()
+        optimizer.step()
+
+        if (batch + 1) % display_batch == 0:
+            model.eval()
+            valid_acc, valid_cost, valid_cm = test_epoch(model, main_test)
+            print '\ttraining acc={}, cost={};  valid acc={}, cost={}, confusion_matrix=[{}/{}, {}/{}] '.format(
+                show_accs / display_batch, show_costs / display_batch, valid_acc, valid_cost, valid_cm[0][0],
+                valid_cm[0][0] + valid_cm[1][0], valid_cm[1][1], valid_cm[0][1] + valid_cm[1][1])
+            show_accs = 0.0
+            show_costs = 0.0
+            model.train()
+
+    mean_acc = _accs / tr_batch_num
+    mean_cost = _costs / tr_batch_num
+
+    model.eval()
+    print 'Epoch training {}, acc={}, cost={}, speed={} s/epoch'.format(data_train.y.shape[0], mean_acc, mean_cost,
+                                                                        time.time() - start_time)
+    test_acc, test_cost, test_cm = test_epoch(model, main_test)
+    print '**Test {}, acc={}, cost={}, confusion_matrix=[{}/{}, {}/{}]\n'.format(main_test.y.shape[0], test_acc,
+                                                                                 test_cost, test_cm[0][0],
+                                                                                 test_cm[0][0] + test_cm[1][0],
+                                                                                 test_cm[1][1],
+                                                                                 test_cm[0][1] + test_cm[1][1])
+    model.train()
 
 def test_epoch(model, dataset):
     data_size = dataset.y.shape[0]
@@ -127,13 +178,6 @@ def test_epoch(model, dataset):
     _pred = []
     _true = []
     for i in xrange(batch_num):
-        # varied Length
-        # X_q_batch, X_r_batch, y_batch = dataset.next_batch(_batch_size)
-        # X_q_batch, X_r_batch = np.asarray(X_q_batch[0]), np.asarray(X_r_batch[0])
-        # X_q_batch, X_r_batch = torch.from_numpy(X_q_batch).type(torch.LongTensor), torch.from_numpy(X_r_batch).type(torch.LongTensor)
-        # X_q_batch, X_r_batch = torch.unsqueeze(X_q_batch, dim=0), torch.unsqueeze(X_r_batch, dim=0)
-        # X_q_batch, X_r_batch, y_batch = Variable(X_q_batch, volatile=True), Variable(X_r_batch, volatile=True), Variable(torch.from_numpy(y_batch).type(torch.LongTensor), volatile=True)
-        # varied Length
         X_q_batch, X_r_batch, y_batch = dataset.next_batch(_batch_size)
         X_q_batch, X_r_batch = torch.from_numpy(X_q_batch).type(torch.LongTensor), torch.from_numpy(X_r_batch).type(torch.LongTensor)
         if USE_GPU:
@@ -141,7 +185,7 @@ def test_epoch(model, dataset):
         else:
             X_q_batch, X_r_batch, y_batch = Variable(X_q_batch, volatile=True), Variable(X_r_batch,  volatile=True), Variable(torch.from_numpy(y_batch).type(torch.LongTensor), volatile=True)
 
-        test_output = model(X_q_batch, X_r_batch)
+        test_output = model(X_q_batch, X_r_batch, taskFlag=True)
         _cost = loss_func(test_output, y_batch)
 
         y_pred = torch.max(test_output, 1)[1]
@@ -168,7 +212,6 @@ def test_epoch(model, dataset):
 
 if __name__ == '__main__':
 
-
     USE_GPU = False
     if USE_GPU:
         os.environ['CUDA_VISIBLE_DEVICES'] = '1'
@@ -178,8 +221,12 @@ if __name__ == '__main__':
     attention_mechanism_config = {'Type': 'self_attention', 'ActFunc': F.tanh} # gpu: 1
     # attention_mechanism_config = {'Type': 'cross_attention', 'ActFunc': F.tanh} # gpu: 2
 
+    max_len = 150
+    main_train, main_test, vocabulary_size = multiTask_data_helper.getDataSet(task='disagree_agree')
+    sup_train, sup_test, vocabulary_size = multiTask_data_helper.getDataSet(task='match_unmatch')
+
     model = TextBiLSTM(
-        vocabulary_size=27590, embedding_size=300,
+        vocabulary_size=vocabulary_size, embedding_size=300,
         hidden_size=128, layer_num=2, class_num=2,
         do_BN=True, attention_mechanism=attention_mechanism_config)
 
@@ -192,81 +239,28 @@ if __name__ == '__main__':
     if USE_GPU:
         model.cuda()
 
-    data_train, data_test = varied_textLength.getDataSet()
-
     lr = 1e-3
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     loss_func = nn.CrossEntropyLoss()
 
-    # tr_batch_size = 1
     tr_batch_size = 32
     max_epoch = 30
     max_max_epoch = 100
     display_num = 5
-    tr_batch_num = int(data_train.y.shape[0] / tr_batch_size)
-    display_batch = int(tr_batch_num / display_num)
 
     for epoch in range(1, max_max_epoch+1):
         if epoch > max_epoch:
             for param_group in optimizer.param_groups:
                 param_group['lr'] *= 0.97
         lr = optimizer.param_groups[0]['lr']
-        print 'EPOCH {}, lr={}'.format(epoch, lr)
+        if epoch % 3 != 0:
+            print 'EPOCH {}, lr={}, training Main Task'.format(epoch, lr)
+            train_epoch(model, main_train, taskFlag=True)
+        else:
+            print 'EPOCH {}, lr={}, training Sup Task'.format(epoch, lr)
+            train_epoch(model, sup_train, taskFlag=False)
 
-        start_time = time.time()
-        _accs = 0.0
-        _costs = 0.0
-        show_accs = 0.0
-        show_costs = 0.0
 
-        for batch in xrange(tr_batch_num):
-            # varied Leangth
-            # X_q_batch, X_r_batch, y_batch = data_train.next_batch(tr_batch_size)
-            # X_q_batch, X_r_batch = np.asarray(X_q_batch[0]), np.asarray(X_r_batch[0])
-            # X_q_batch, X_r_batch = torch.from_numpy(X_q_batch).type(torch.LongTensor), torch.from_numpy(X_r_batch).type(torch.LongTensor)
-            # X_q_batch, X_r_batch = torch.unsqueeze(X_q_batch, dim=0), torch.unsqueeze(X_r_batch, dim=0)
-            # X_q_batch, X_r_batch, y_batch = Variable(X_q_batch), Variable(X_r_batch), Variable(torch.from_numpy(y_batch).type(torch.LongTensor))
-            # varied Leangth
-            X_q_batch, X_r_batch, y_batch = data_train.next_batch(tr_batch_size)
-            X_q_batch, X_r_batch = torch.from_numpy(X_q_batch).type(torch.LongTensor), torch.from_numpy(X_r_batch).type(torch.LongTensor)
-            if USE_GPU:
-                X_q_batch, X_r_batch, y_batch = Variable(X_q_batch).cuda(), Variable(X_r_batch).cuda(), Variable(torch.from_numpy(y_batch).type(torch.LongTensor)).cuda()
-            else:
-                X_q_batch, X_r_batch, y_batch = Variable(X_q_batch), Variable(X_r_batch), Variable(torch.from_numpy(y_batch).type(torch.LongTensor))
-
-            output = model(X_q_batch, X_r_batch)
-            _cost = loss_func(output, y_batch)
-            y_pred = torch.max(output, 1)[1]
-            if USE_GPU:
-                _acc = sum(y_pred.data.cpu() == y_batch.data.cpu()) / float(y_batch.size(0))
-            else:
-                _acc = sum(y_pred.data == y_batch.data) / float(y_batch.size(0))
-
-            _accs += _acc
-            _costs += _cost.data[0]
-            show_accs += _acc
-            show_costs += _cost.data[0]
-
-            optimizer.zero_grad()
-            _cost.backward()
-            optimizer.step()
-
-            if (batch + 1) % display_batch == 0:
-                model.eval()
-                valid_acc, valid_cost, valid_cm = test_epoch(model, data_test)
-                print '\ttraining acc={}, cost={};  valid acc={}, cost={}, confusion_matrix=[{}/{}, {}/{}] '.format(show_accs / display_batch, show_costs / display_batch, valid_acc, valid_cost, valid_cm[0][0], valid_cm[0][0] + valid_cm[1][0], valid_cm[1][1], valid_cm[0][1] + valid_cm[1][1])
-                show_accs = 0.0
-                show_costs = 0.0
-                model.train()
-
-        mean_acc = _accs / tr_batch_num
-        mean_cost = _costs / tr_batch_num
-
-        model.eval()
-        print 'Epoch training {}, acc={}, cost={}, speed={} s/epoch'.format(data_train.y.shape[0], mean_acc, mean_cost, time.time() - start_time)
-        test_acc, test_cost, test_cm = test_epoch(model, data_test)
-        print '**Test {}, acc={}, cost={}, confusion_matrix=[{}/{}, {}/{}]\n'.format(data_test.y.shape[0], test_acc, test_cost, test_cm[0][0], test_cm[0][0] + test_cm[1][0], test_cm[1][1], test_cm[0][1] + test_cm[1][1])
-        model.train()
 
 
 

@@ -3,21 +3,21 @@ import numpy as np
 import pandas as pd
 import collections
 
-tmp = np.reshape(np.asarray(range(24)), [2, 3, 4])
-W = tf.Variable(tf.constant(1, shape=[4, 1], dtype=tf.float32))
-
-# tmp = np.reshape(np.asarray(range(24)), [3, 2, 4])
-# W = tf.Variable(tf.constant(1, shape=[4, 4], dtype=tf.float32))
-img = tf.Variable(tf.random_normal([2, 3]))
-
-tmp_a = tf.constant(tmp, dtype=tf.float32)
-
-sess = tf.Session()
-init = tf.global_variables_initializer()
-sess.run(init)
-# print tmp
-print sess.run(tmp_a)
-print sess.run(tf.shape(tmp_a))
+# tmp = np.reshape(np.asarray(range(24)), [2, 3, 4])
+# W = tf.Variable(tf.constant(1, shape=[4, 1], dtype=tf.float32))
+#
+# # tmp = np.reshape(np.asarray(range(24)), [3, 2, 4])
+# # W = tf.Variable(tf.constant(1, shape=[4, 4], dtype=tf.float32))
+# img = tf.Variable(tf.random_normal([2, 3]))
+#
+# tmp_a = tf.constant(tmp, dtype=tf.float32)
+#
+# sess = tf.Session()
+# init = tf.global_variables_initializer()
+# sess.run(init)
+# # print tmp
+# print sess.run(tmp_a)
+# print sess.run(tf.shape(tmp_a))
 # tmp_b = tf.unstack(tf.transpose(tmp_a, [1, 0, 2]))
 # print sess.run(tmp_b)
 # print sess.run(tf.shape(tmp_b))
@@ -165,30 +165,31 @@ print sess.run(tf.shape(result))
 # result = tf.reduce_mean(result, axis=1)
 # print sess.run(result)
 # print sess.run(tf.shape(result))
-axis = list(range(len(img.get_shape()) - 1))
-mean, variance = tf.nn.moments(img, axis)
-print img.get_shape()
-print sess.run(img)
-print sess.run(mean)
-print sess.run(variance)
 
+# axis = list(range(len(img.get_shape()) - 1))
+# mean, variance = tf.nn.moments(img, axis)
+# print img.get_shape()
+# print sess.run(img)
+# print sess.run(mean)
+# print sess.run(variance)
 
 # task = 'disagree_agree'
-# # qrPair_df = pd.read_csv('./data/qrPair.csv')
-# qrPair_df = pd.read_csv('./data/qrPair_%s.csv' % task)
-# labelList = [str(label) for label in qrPair_df['disagree_agree'].values]
-# # labelList = [str(label) for label in qrPair_df['attacking_respectful'].values]
-# # labelList = [str(label) for label in qrPair_df['emotion_fact'].values]
-# # labelList = [str(label) for label in qrPair_df['nasty_nice'].values]
-# # labelList = [str(label) for label in qrPair_df['topic'].values]
-#
-# from sklearn.model_selection import train_test_split
-# _, _, y_train, y_test = train_test_split([0] * len(labelList), labelList, test_size=0.2, random_state=12)
-# # _, _, y_train, y_valid = train_test_split([0] * len(y_train), y_train, test_size=0.2, random_state=12)
-#
-# print collections.Counter(y_train).most_common(), collections.Counter(y_train).most_common()[0][1] / float(len(y_train))
-# # print collections.Counter(y_valid).most_common(), collections.Counter(y_valid).most_common()[0][1] / float(len(y_valid))
-# print collections.Counter(y_test).most_common(), collections.Counter(y_test).most_common()[0][1] / float(len(y_test))
+task = 'match_unmatch'
+# qrPair_df = pd.read_csv('./data/qrPair.csv')
+qrPair_df = pd.read_csv('./data/qrPair_%s.csv' % task)
+labelList = [str(label) for label in qrPair_df['%s' % task].values]
+# labelList = [str(label) for label in qrPair_df['attacking_respectful'].values]
+# labelList = [str(label) for label in qrPair_df['emotion_fact'].values]
+# labelList = [str(label) for label in qrPair_df['nasty_nice'].values]
+# labelList = [str(label) for label in qrPair_df['topic'].values]
+
+from sklearn.model_selection import train_test_split
+_, _, y_train, y_test = train_test_split([0] * len(labelList), labelList, test_size=0.2, random_state=12)
+# _, _, y_train, y_valid = train_test_split([0] * len(y_train), y_train, test_size=0.2, random_state=12)
+
+print collections.Counter(y_train).most_common(), collections.Counter(y_train).most_common()[0][1] / float(len(y_train))
+# print collections.Counter(y_valid).most_common(), collections.Counter(y_valid).most_common()[0][1] / float(len(y_valid))
+print collections.Counter(y_test).most_common(), collections.Counter(y_test).most_common()[0][1] / float(len(y_test))
 #
 # a=682.0
 # b=848.0

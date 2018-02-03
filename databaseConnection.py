@@ -389,8 +389,6 @@ def get_qrTextSample():
     qrText_df.to_csv('./data/unsupervisedQRText_Sample.csv', index=None, columns=['quoteTextID', 'responseTextID', 'quoteText', 'responseText'])
     # step 2
 
-
-
 if __name__ == '__main__':
 
     # task = 'disagree_agree'

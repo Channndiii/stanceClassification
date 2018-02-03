@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow.python.training.moving_averages import assign_moving_average
-import data_helper
+import multiTask_data_helper
 import os
 import time
 from sklearn.metrics import confusion_matrix
@@ -25,6 +25,7 @@ class TextBiLSTM(object):
         self.X_r_inputs = tf.placeholder(tf.int32, [None, self.textLength], name='X_r_inputs')
         self.y_inputs = tf.placeholder(tf.int32, [None], name='y_inputs')
         self.batch_size = tf.placeholder(tf.int32, [])
+        self.task = tf.placeholder(tf.bool, name='taskFlag')
         self.train = tf.placeholder(tf.bool, name='train')
         self.dropout_keep_prob = tf.placeholder(tf.float32, name='dropout_keep_prob')
         self.lr = tf.placeholder(tf.float32)
@@ -68,9 +69,14 @@ class TextBiLSTM(object):
             outputs_concat = tf.concat(outputs, axis=1, name='concat-quote-response')
             if self.do_BN:
                 outputs_concat = self.batch_normalize(outputs_concat, self.train, name='concat_outputs')
-            W_out = tf.Variable(tf.random_normal([self.hidden_size * 2 * 2, self.class_num]), name='W_out')
-            b_out = tf.Variable(tf.constant(0.1, shape=[self.class_num]), name='b_out')
-            self.logits = tf.matmul(outputs_concat, W_out) + b_out
+            
+            W_main = tf.Variable(tf.random_normal([self.hidden_size * 2 * 2, self.class_num]), name='W_main')
+            b_main = tf.Variable(tf.constant(0.1, shape=[self.class_num]), name='b_main') 
+            
+            W_sup = tf.Variable(tf.random_normal([self.hidden_size * 2 * 2, self.class_num]), name='W_sup')
+            b_sup = tf.Variable(tf.constant(0.1, shape=[self.class_num]), name='b_sup')
+            
+            self.logits = tf.cond(self.task, lambda: tf.matmul(outputs_concat, W_main) + b_main, lambda: tf.matmul(outputs_concat, W_sup) + b_sup)
 
         self.prediction = tf.cast(tf.argmax(self.logits, 1), tf.int32)
         self.correct_prediction = tf.equal(tf.cast(tf.argmax(self.logits, 1), tf.int32), tf.reshape(self.y_inputs, [-1]))
@@ -161,6 +167,58 @@ class TextBiLSTM(object):
                 x = tf.nn.batch_normalization(x, mean, variance, None, None, eps)
             return x
 
+def train_epoch(sess, model, data_train, taskFlag):
+    
+    tr_batch_num = int(data_train.y.shape[0] / tr_batch_size)
+    display_batch = int(tr_batch_num / display_num)
+    
+    start_time = time.time()
+    _accs = 0.0
+    _costs = 0.0
+    show_accs = 0.0
+    show_costs = 0.0
+
+    for batch in xrange(tr_batch_num):
+        fetches = [model.accuracy, model.cost, model.train_op]
+        X_q_batch, X_r_batch, y_batch = data_train.next_batch(tr_batch_size)
+        feed_dict = {
+            model.X_q_inputs: X_q_batch,
+            model.X_r_inputs: X_r_batch,
+            model.y_inputs: y_batch,
+            model.batch_size: tr_batch_size,
+            model.task: taskFlag,
+            model.train: True,
+            model.dropout_keep_prob: 0.5,
+            model.lr: _lr,
+        }
+
+        _acc, _cost, _ = sess.run(fetches, feed_dict)
+        _accs += _acc
+        _costs += _cost
+        show_accs += _acc
+        show_costs += _cost
+        if (batch + 1) % display_batch == 0:
+            valid_acc, valid_cost, valid_cm = test_epoch(sess, model, main_test)
+            print '\ttraining acc={}, cost={};  valid acc={}, cost={}, confusion_matrix=[{}/{}, {}/{}] '.format(
+                show_accs / display_batch, show_costs / display_batch, valid_acc, valid_cost, valid_cm[0][0],
+                valid_cm[0][0] + valid_cm[1][0], valid_cm[1][1], valid_cm[0][1] + valid_cm[1][1])
+            show_accs = 0.0
+            show_costs = 0.0
+
+    mean_acc = _accs / tr_batch_num
+    mean_cost = _costs / tr_batch_num
+
+    # if (epoch + 1) % 3 == 0:
+    #     save_path = model.saver.save(sess, model_save_path, global_step=(epoch + 1))
+    #     print 'The save path is ', save_path
+    print 'Epoch training {}, acc={}, cost={}, speed={} s/epoch'.format(data_train.y.shape[0], mean_acc, mean_cost, time.time() - start_time)
+    test_acc, test_cost, test_cm = test_epoch(sess, model, main_test)
+    print '**Test {}, acc={}, cost={}, confusion_matrix=[{}/{}, {}/{}]\n'.format(main_test.y.shape[0], test_acc,
+                                                                                 test_cost, test_cm[0][0],
+                                                                                 test_cm[0][0] + test_cm[1][0],
+                                                                                 test_cm[1][1],
+                                                                                 test_cm[0][1] + test_cm[1][1])
+
 def test_epoch(sess, model, dataset):
     fetches = [model.prediction, model.accuracy, model.cost]
     _y = dataset.y
@@ -179,6 +237,7 @@ def test_epoch(sess, model, dataset):
             model.X_r_inputs: X_r_batch,
             model.y_inputs: y_batch,
             model.batch_size: _batch_size,
+            model.task: True,
             model.train: False,
             model.dropout_keep_prob: 1.0,
             model.lr: 1e-3,
@@ -209,9 +268,10 @@ if __name__ == '__main__':
     # attention_mechanism_config = {'Type': 'cross_attention', 'ActFunc': tf.nn.tanh} # gpu: 2
 
     max_len = 150
-    data_train, data_test = data_helper.getDataSet()
+    main_train, main_test, vocabulary_size = multiTask_data_helper.getDataSet(task='disagree_agree')
+    sup_train, sup_test, vocabulary_size = multiTask_data_helper.getDataSet(task='match_unmatch')
 
-    model = TextBiLSTM(wordEmbedding=None, textLength=max_len, vocabulary_size=27590,
+    model = TextBiLSTM(wordEmbedding=None, textLength=max_len, vocabulary_size=vocabulary_size,
                        embedding_size=300, hidden_size=128, layer_num=2,
                        class_num=2, do_BN=True, attention_mechanism=attention_mechanism_config)
 
@@ -226,50 +286,15 @@ if __name__ == '__main__':
     max_epoch = 30
     max_max_epoch = 100
     display_num = 5
-    tr_batch_num = int(data_train.y.shape[0] / tr_batch_size)
-    display_batch = int(tr_batch_num / display_num)
+    
     _lr = 1e-3
     for epoch in xrange(1, max_max_epoch+1):
         if epoch > max_epoch:
             _lr = _lr * 0.97
-        print 'EPOCH {}, lr={}'.format(epoch, _lr)
-
-        start_time = time.time()
-        _accs = 0.0
-        _costs = 0.0
-        show_accs = 0.0
-        show_costs = 0.0
-
-        for batch in xrange(tr_batch_num):
-            fetches = [model.accuracy, model.cost, model.train_op]
-            X_q_batch, X_r_batch, y_batch = data_train.next_batch(tr_batch_size)
-            feed_dict = {
-                model.X_q_inputs: X_q_batch,
-                model.X_r_inputs: X_r_batch,
-                model.y_inputs: y_batch,
-                model.batch_size: tr_batch_size,
-                model.train: True,
-                model.dropout_keep_prob: 0.5,
-                model.lr: _lr,
-            }
-
-            _acc, _cost, _ = sess.run(fetches, feed_dict)
-            _accs += _acc
-            _costs += _cost
-            show_accs += _acc
-            show_costs += _cost
-            if (batch + 1) % display_batch == 0:
-                valid_acc, valid_cost, valid_cm = test_epoch(sess, model, data_test)
-                print '\ttraining acc={}, cost={};  valid acc={}, cost={}, confusion_matrix=[{}/{}, {}/{}] '.format(show_accs / display_batch, show_costs / display_batch, valid_acc, valid_cost, valid_cm[0][0], valid_cm[0][0]+valid_cm[1][0], valid_cm[1][1], valid_cm[0][1]+valid_cm[1][1])
-                show_accs = 0.0
-                show_costs = 0.0
-
-        mean_acc = _accs / tr_batch_num
-        mean_cost = _costs / tr_batch_num
-
-        # if (epoch + 1) % 3 == 0:
-        #     save_path = model.saver.save(sess, model_save_path, global_step=(epoch + 1))
-        #     print 'The save path is ', save_path
-        print 'Epoch training {}, acc={}, cost={}, speed={} s/epoch'.format(data_train.y.shape[0], mean_acc, mean_cost, time.time() - start_time)
-        test_acc, test_cost, test_cm = test_epoch(sess, model, data_test)
-        print '**Test {}, acc={}, cost={}, confusion_matrix=[{}/{}, {}/{}]\n'.format(data_test.y.shape[0], test_acc, test_cost, test_cm[0][0], test_cm[0][0]+test_cm[1][0], test_cm[1][1], test_cm[0][1]+test_cm[1][1])
+        
+        if epoch % 3 != 0:
+            print 'EPOCH {}, lr={}, training Main Task'.format(epoch, _lr)
+            train_epoch(sess, model, main_train, taskFlag=True)
+        else:
+            print 'EPOCH {}, lr={}, training Sup Task'.format(epoch, _lr)
+            train_epoch(sess, model, sup_train, taskFlag=False)
