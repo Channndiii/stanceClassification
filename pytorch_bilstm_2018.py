@@ -140,16 +140,22 @@ class AttentionModel(nn.Module):
 
     def attention_layer(self, layer, bilstm_outputs, attention_source, ActFunc):
 
-        attention_inputs = attention_source.contiguous().view(-1,
-                                                              self.hidden_size * 2)  # [32, 150, 256] -> [32*150, 256]
-        attention_logits = ActFunc(layer(self.dropout(attention_inputs)))  # [32*150, 256] -> [32*150, 1]
-        attention_logits = attention_logits.view(-1, attention_source.size()[1], 1)  # [32*150, 1] -> [32, 150, 1]
-        attention_logits = attention_logits.transpose(1, 2).contiguous()  # [32, 150, 1] -> [32, 1, 150]
-        attention_logits = attention_logits.view(-1, attention_source.size()[1])  # [32, 1, 150] -> [32*1, 150]
-        attention_signals = F.softmax(attention_logits, dim=1).view(-1, 1, attention_source.size()[
-            1])  # [32*1, 150] -> [32, 1, 150]
+        # attention_inputs = attention_source.contiguous().view(-1, self.hidden_size * 2)  # [32, 150, 256] -> [32*150, 256]
+        # attention_logits = ActFunc(layer(self.dropout(attention_inputs)))  # [32*150, 256] -> [32*150, 1]
+        # attention_logits = attention_logits.view(-1, attention_source.size()[1], 1)  # [32*150, 1] -> [32, 150, 1]
+        # attention_logits = attention_logits.transpose(1, 2).contiguous()  # [32, 150, 1] -> [32, 1, 150]
+        # attention_logits = attention_logits.view(-1, attention_source.size()[1])  # [32, 1, 150] -> [32*1, 150]
+        # attention_signals = F.softmax(attention_logits, dim=1).view(-1, 1, attention_source.size()[1])  # [32*1, 150] -> [32, 1, 150]
+        #
+        # return torch.bmm(attention_signals, bilstm_outputs).view(-1, bilstm_outputs.size()[2])
 
-        return torch.bmm(attention_signals, bilstm_outputs).view(-1, bilstm_outputs.size()[2])
+        attention_inputs = attention_source.contiguous().view(-1, self.hidden_size * 2)
+        attention_logits = layer(attention_inputs).view(-1, attention_source.size()[1])
+        attention_signals = F.softmax(ActFunc(attention_logits), dim=1).view(-1, attention_source.size()[1], 1)
+        outputs = attention_signals * bilstm_outputs
+        outputs = torch.sum(outputs, dim=1)
+        # outputs = torch.mean(outputs, dim=1)
+        return outputs
 
     def init_hidden(self, batch_size):
         return self.bilstm.init_hidden(batch_size)
@@ -591,8 +597,8 @@ if __name__ == '__main__':
 
     config = {
         'word2id': word2id, 'pretrain_emb': False, 'class_num': 2,
-        'embedding_size': 300,  'hidden_size': 128,  'layer_num': 2, 'dropout': 0.3,
-        'do_BN': False,  'attention_mechanism': attention_mechanism_config}
+        'embedding_size': 300,  'hidden_size': 128,  'layer_num': 2, 'dropout': 0.5,
+        'do_BN': True,  'attention_mechanism': attention_mechanism_config}
     
     model = Classifier(config)
 

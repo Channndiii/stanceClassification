@@ -7,17 +7,29 @@ from sklearn.model_selection import train_test_split
 
 def buildDataSet(sampleRate, posNegRate):
     qrText_df = pd.read_csv('./data/unsupervisedQRTextSample.csv')
+
+    def filterText(row):
+        quoteText = str(row['quoteText']).split(' ')
+        responseText = str(row['responseText']).split(' ')
+        if len(quoteText) > 0 and len(responseText) > 0:
+            filterLabel = False
+        else:
+            filterLabel = True
+        row['filterLabel'] = filterLabel
+        return row
+    qrText_df = qrText_df.apply(filterText, axis=1)
+    qrText_df = qrText_df[qrText_df.filterLabel == False]
+
     responseTextList = list(qrText_df.responseText.values)
 
     def sampleAndShuffle(row):
-        tmp1 = np.random.random_sample()
-        if tmp1 < sampleRate:
+        if np.random.random_sample() < sampleRate:
             filterLabel = False
-            tmp2 = np.random.random_sample()
-            if tmp2 > posNegRate:
+            if np.random.random_sample() > posNegRate:
                 match_unmatch = 1
             else:
-                shuffleIndex = np.random.permutation(len(responseTextList))[0]
+                # shuffleIndex = np.random.permutation(len(responseTextList))[0]
+                shuffleIndex = np.random.choice(len(responseTextList))
                 row['responseText'] = responseTextList[shuffleIndex]
                 match_unmatch = 0
         else:
@@ -205,5 +217,5 @@ def getDataSet(task):
     return data_train, data_test, vocabulary_size
 
 if __name__ == '__main__':
-    # buildDataSet(sampleRate=0.06, posNegRate=0.5)
-    data_save(main_task='disagree_agree', sup_task='match_unmatch', max_len=150, topWord=30000)
+    buildDataSet(sampleRate=0.06, posNegRate=0.5)
+    # data_save(main_task='disagree_agree', sup_task='match_unmatch', max_len=150, topWord=30000)

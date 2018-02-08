@@ -64,61 +64,67 @@ def dataResolution(results, tableName):
             dataResults.append([qrID, quoteText, responseText, topic])
         return dataResults
 
-    # if tableName == 'mturk_2010_qr_task1_average_response':
-    #     for row in results:
-    #         pageID = str(row[0])
-    #         tabNum = str(row[1])
-    #         qrID = pageID + '@' + tabNum
-    #         disagree_agree = 1 if float(row[3]) >= 0 else 0
-    #         attacking_respectful = 1 if float(row[5]) >= 0 else 0
-    #         emotion_fact = 1 if float(row[7]) >= 0 else 0
-    #         nasty_nice = 1 if float(row[9]) >= 0 else 0
-    #         dataResults.append([qrID, disagree_agree, attacking_respectful, emotion_fact, nasty_nice])
-    #     return dataResults
-
     if tableName == 'mturk_2010_qr_task1_average_response':
         for row in results:
             pageID = str(row[0])
             tabNum = str(row[1])
             qrID = pageID + '@' + tabNum
+            # disagree_agree = 1 if float(row[3]) >= 0 else 0
+            # attacking_respectful = 1 if float(row[5]) >= 0 else 0
+            # emotion_fact = 1 if float(row[7]) >= 0 else 0
+            # nasty_nice = 1 if float(row[9]) >= 0 else 0
 
-            # disagree_agree
-            if float(row[3]) <= -2.0:
-                disagree_agree = 0
-                dataResults.append([qrID, disagree_agree])
-            if float(row[3]) > 0.0:
-                disagree_agree = 1
-                dataResults.append([qrID, disagree_agree])
-            # disagree_agree
+            disagree_agree = float(row[3])
+            attacking_respectful = float(row[5])
+            emotion_fact = float(row[7])
+            nasty_nice = float(row[9])
 
-            # attacking_respectful
-            # if float(row[5]) < 0.0:
-            #     attacking_respectful = 0
-            #     dataResults.append([qrID, attacking_respectful])
-            # if float(row[5]) > 1.0:
-            #     attacking_respectful = 1
-            #     dataResults.append([qrID, attacking_respectful])
-            # attacking_respectful
-
-            # emotion_fact
-            # if float(row[7]) <= -1.0:
-            #     emotion_fact = 0
-            #     dataResults.append([qrID, emotion_fact])
-            # if float(row[7]) > 1.0:
-            #     emotion_fact = 1
-            #     dataResults.append([qrID, emotion_fact])
-            # emotion_fact
-
-            # nasty_nice
-            # if float(row[9]) < 0.0:
-            #     nasty_nice = 0
-            #     dataResults.append([qrID, nasty_nice])
-            # if float(row[9]) > 1.0:
-            #     nasty_nice = 1
-            #     dataResults.append([qrID, nasty_nice])
-            # nasty_nice
-
+            dataResults.append([qrID, disagree_agree, attacking_respectful, emotion_fact, nasty_nice])
         return dataResults
+
+    # if tableName == 'mturk_2010_qr_task1_average_response':
+    #     for row in results:
+    #         pageID = str(row[0])
+    #         tabNum = str(row[1])
+    #         qrID = pageID + '@' + tabNum
+    #
+    #         # disagree_agree
+    #         if float(row[3]) <= -2.0:
+    #             disagree_agree = 0
+    #             dataResults.append([qrID, disagree_agree])
+    #         if float(row[3]) > 0.0:
+    #             disagree_agree = 1
+    #             dataResults.append([qrID, disagree_agree])
+    #         # disagree_agree
+    #
+    #         # attacking_respectful
+    #         # if float(row[5]) < 0.0:
+    #         #     attacking_respectful = 0
+    #         #     dataResults.append([qrID, attacking_respectful])
+    #         # if float(row[5]) > 1.0:
+    #         #     attacking_respectful = 1
+    #         #     dataResults.append([qrID, attacking_respectful])
+    #         # attacking_respectful
+    #
+    #         # emotion_fact
+    #         # if float(row[7]) <= -1.0:
+    #         #     emotion_fact = 0
+    #         #     dataResults.append([qrID, emotion_fact])
+    #         # if float(row[7]) > 1.0:
+    #         #     emotion_fact = 1
+    #         #     dataResults.append([qrID, emotion_fact])
+    #         # emotion_fact
+    #
+    #         # nasty_nice
+    #         # if float(row[9]) < 0.0:
+    #         #     nasty_nice = 0
+    #         #     dataResults.append([qrID, nasty_nice])
+    #         # if float(row[9]) > 1.0:
+    #         #     nasty_nice = 1
+    #         #     dataResults.append([qrID, nasty_nice])
+    #         # nasty_nice
+    #
+    #     return dataResults
 
     if tableName == 'post':
         for row in results:
@@ -392,33 +398,34 @@ def get_qrTextSample():
 if __name__ == '__main__':
 
     # task = 'disagree_agree'
-    # # task = 'attacking_respectful'
-    # # task = 'emotion_fact'
-    # # task = 'nasty_nice'
-    #
-    # db = connectDatabase()
-    #
-    # qrPairList = queryDatabase(db, 'mturk_2010_qr_entry')
-    # qrPairList = dataResolution(qrPairList, 'mturk_2010_qr_entry')
-    #
-    # qrPairLabelList = queryDatabase(db, 'mturk_2010_qr_task1_average_response')
-    # qrPairLabelList = dataResolution(qrPairLabelList, 'mturk_2010_qr_task1_average_response')
-    #
-    # qrID2Label = get_qrID2Label(qrPairLabelList)
-    #
-    # result = []
-    # for row in qrPairList:
-    #     qrID = row[0]
-    #     try:
-    #         label = qrID2Label[qrID]
-    #         row.extend(label)
-    #         result.append(row)
-    #     except Exception:
-    #         # print qrID
-    #         pass
-    # # qrPair_df = pd.DataFrame(result, columns=['qrID', 'quoteText', 'responseText', 'topic', 'disagree_agree', 'attacking_respectful', 'emotion_fact', 'nasty_nice'])
-    # # qrPair_df.to_csv('./data/qrPair.csv', index=None)
-    # # print qrPair_df.head()
+    # task = 'attacking_respectful'
+    # task = 'emotion_fact'
+    # task = 'nasty_nice'
+
+    db = connectDatabase()
+
+    qrPairList = queryDatabase(db, 'mturk_2010_qr_entry')
+    qrPairList = dataResolution(qrPairList, 'mturk_2010_qr_entry')
+
+    qrPairLabelList = queryDatabase(db, 'mturk_2010_qr_task1_average_response')
+    qrPairLabelList = dataResolution(qrPairLabelList, 'mturk_2010_qr_task1_average_response')
+
+    qrID2Label = get_qrID2Label(qrPairLabelList)
+
+    result = []
+    for row in qrPairList:
+        qrID = row[0]
+        try:
+            label = qrID2Label[qrID]
+            row.extend(label)
+            result.append(row)
+        except Exception:
+            # print qrID
+            pass
+    qrPair_df = pd.DataFrame(result, columns=['qrID', 'quoteText', 'responseText', 'topic', 'disagree_agree', 'attacking_respectful', 'emotion_fact', 'nasty_nice'])
+    # qrPair_df.to_csv('./data/qrPair.csv', index=None)
+    qrPair_df.to_csv('./data/qrPair_2018.csv', index=None)
+    # print qrPair_df.head()
     # qrPair_df = pd.DataFrame(result, columns=['qrID', 'quoteText', 'responseText', 'topic', '%s' % task])
     # qrPair_df.to_csv('./data/qrPair_%s.csv' % task, index=None)
     #
@@ -427,6 +434,6 @@ if __name__ == '__main__':
     # buildUnsupervisedData()
 
     # get_qrTextSample()
-    qrText_df = pd.read_csv('./data/unsupervisedQRText_Sample.csv')
-    print len(qrText_df)
+    # qrText_df = pd.read_csv('./data/unsupervisedQRText_Sample.csv')
+    # print len(qrText_df)
 
