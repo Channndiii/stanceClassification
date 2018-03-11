@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 import numpy as np
 from itertools import chain
 import collections
@@ -204,14 +205,21 @@ def read_csv(task, topic):
 
     def labelFilter(row):
         label = row['%s' % task]
-        if label <= -1.0:
+        # if label <= -1.0:
+        #     row['label'] = '0'
+        # elif label >= 1.0:
+        #     row['label'] = '1'
+        # else:
+        #     row['label'] = '2'
+        if label <= -2.0:
             row['label'] = '0'
-        elif label >= 1.0:
+        elif label > 0.0:
             row['label'] = '1'
         else:
-            row['label'] = '2'
+            row['label'] = False
         return row
     qrPair_df = qrPair_df.apply(labelFilter, axis=1)
+    qrPair_df = qrPair_df[qrPair_df.label != False]
 
     quoteTextList = [[word for word in str(text).split() if word != ''] for text in qrPair_df['quoteText'].values]
     responseTextList = [[word for word in str(text).split() if word != ''] for text in qrPair_df['responseText'].values]
@@ -221,6 +229,51 @@ def read_csv(task, topic):
 
     print(collections.Counter(list(df_data.label.values)).most_common(), len(df_data))
     return df_data
+
+# def read_csv(task, topic):
+#     qrPair_df = pd.read_csv('./data/debatepedia_agreement_dataset.csv', header=None, usecols=range(7), names=['pair_id', 'relation', 'topic', 'debate_title', 'debate_subtitle', 'Snippet_A', 'Snippet_B']) # data on server
+#
+#     if topic != None:
+#         qrPair_df = qrPair_df[qrPair_df.topic == topic]
+#
+#     def cleanText(text):
+#         text = str(text)
+#         text = ' '.join([word for word in text.strip().split()])
+#         text = re.sub(r'[^\x00-\x7f]', '', text)
+#         text = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", text)
+#         text = re.sub(r"\'s", " \'s", text)
+#         text = re.sub(r"\'ve", " \'ve", text)
+#         text = re.sub(r"n\'t", " n\'t", text)
+#         text = re.sub(r"\'re", " \'re", text)
+#         text = re.sub(r"\'d", " \'d", text)
+#         text = re.sub(r"\'ll", " \'ll", text)
+#         text = re.sub(r",", " , ", text)
+#         text = re.sub(r"!", " ! ", text)
+#         text = re.sub(r"\(", " \( ", text)
+#         text = re.sub(r"\)", " \) ", text)
+#         text = re.sub(r"\?", " \? ", text)
+#         text = re.sub(r"\s{2,}", " ", text)
+#         return text.strip().lower()
+#     qrPair_df['quoteText'] = qrPair_df['Snippet_A'].apply(cleanText)
+#     qrPair_df['responseText'] = qrPair_df['Snippet_B'].apply(cleanText)
+#
+#     def labelFilter(row):
+#         label = row['relation']
+#         if label == 'disagreement':
+#             row['label'] = '0'
+#         else:
+#             row['label'] = '1'
+#         return row
+#     qrPair_df = qrPair_df.apply(labelFilter, axis=1)
+#
+#     quoteTextList = [[word for word in str(text).split() if word != ''] for text in qrPair_df['quoteText'].values]
+#     responseTextList = [[word for word in str(text).split() if word != ''] for text in qrPair_df['responseText'].values]
+#     labelList = [label for label in qrPair_df['label'].values]
+#
+#     df_data = pd.DataFrame({'quoteText': quoteTextList, 'responseText': responseTextList, 'label': labelList}, index=range(len(quoteTextList)))
+#
+#     print(collections.Counter(list(df_data.label.values)).most_common(), len(df_data))
+#     return df_data
 
 def data_save(task, topic, max_len, wordFilter):
     df_data = read_csv(task, topic)
@@ -381,11 +434,13 @@ def getDataSet(task, topic, max_len, resampleFlag):
     return data_train, data_test, word2id
 
 if __name__ == '__main__':
-    for topic, _ in [('evolution', 3985), ('abortion', 2174), ('gun control', 1925), ('gay marriage', 920), ('existence of God', 546), ('healthcare', 116), ('climate change', 94), ('death penalty', 86), ('marijuana legalization', 80), ('communism vs. capitalism', 56)]:
-        print(topic)
-        read_csv(task='disagree_agree', topic=topic)
+
+    # read_csv(task='disagree_agree', topic=None)
+    # read_csv(task='debatepedia', topic=None)
+
     # data_save(task='disagree_agree', topic='evolution', max_len=64, wordFilter=True)
-    # data_save(task='disagree_agree', topic=None, max_len=64, wordFilter=True)
+    data_save(task='disagree_agree', topic=None, max_len=64, wordFilter=True)
+    # data_save(task='debatepedia', topic=None, max_len=64, wordFilter=True)
 
     # data_train, data_test, vocabulary_size = getDataSet(task='disagree_agree')
 

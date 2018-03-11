@@ -83,14 +83,14 @@ class TextBiLSTM(nn.Module):
             lines = fr.readlines()
             for line in lines:
                 line = line.strip().split(' ')
-                word = line[0].decode('utf-8')
+                word = line[0]
                 embedding = line[1:]
                 if word in self.word2id.index:
                     wordIndex = self.word2id[word]
                     embeddingArray = np.fromstring('\n'.join(embedding), dtype=np.float32, sep='\n')
-                    self.embedding.weight.data[wordIndex] = embeddingArray
+                    self.embedding.weight.data[wordIndex].copy_(torch.from_numpy(embeddingArray))
                     hit += 1
-        hitRate = float(hit) / self.vocabularySize
+        hitRate = float(hit) / self.vocabulary_size
         print('PreTrain Embedding hitRate={}'.format(hitRate))
 
 class AttentionModel(nn.Module):
@@ -103,12 +103,25 @@ class AttentionModel(nn.Module):
         self.do_BN = config['do_BN']
 
         if self.do_BN:
-            self.quote_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2)
-            self.response_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2)
+            if self.attention_mechanism['Type'] != 'both_concat':
+                self.quote_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2)
+                self.response_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2)
+            else:
+                self.quote_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2 * 2)
+                self.response_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2 * 2)
 
-        if self.attention_mechanism != None:
-            self.quote_attention_layer = nn.Linear(in_features=self.hidden_size * 2, out_features=1)
-            self.response_attention_layer = nn.Linear(in_features=self.hidden_size * 2, out_features=1)
+        if self.attention_mechanism['Type'] != 'None':
+
+            if self.attention_mechanism['Type'][:4] == 'both':
+                self.quote2quote_attention_layer = nn.Linear(in_features=self.hidden_size * 2, out_features=1)
+                self.response2quote_attention_layer = nn.Linear(in_features=self.hidden_size * 2, out_features=1)
+                self.response2response_attention_layer = nn.Linear(in_features=self.hidden_size * 2, out_features=1)
+                self.quote2response_attention_layer = nn.Linear(in_features=self.hidden_size * 2, out_features=1)
+            elif self.attention_mechanism['Type'] == 'share':
+                self.share_attention_layer = nn.Linear(in_features=self.hidden_size * 2, out_features=1)
+            else:
+                self.quote_attention_layer = nn.Linear(in_features=self.hidden_size * 2, out_features=1)
+                self.response_attention_layer = nn.Linear(in_features=self.hidden_size * 2, out_features=1)
             # init_range = 0.1
             # self.quote_attention_layer.weight.data.uniform_(-init_range, init_range)
             # self.quote_attention_layer.bias.data.fill_(init_range)
@@ -118,7 +131,7 @@ class AttentionModel(nn.Module):
     def forward(self, X_q_inputs, X_r_inputs, q_init_state, r_init_state):
         quote_outputs, response_outputs = self.bilstm.forward(X_q_inputs, X_r_inputs, q_init_state, r_init_state)
 
-        if self.attention_mechanism != None:
+        if self.attention_mechanism['Type'] != 'None':
             ActFunc = self.attention_mechanism['ActFunc']
             if self.attention_mechanism['Type'] == 'self_attention':
                 quote_outputs = self.attention_layer(self.quote_attention_layer, bilstm_outputs=quote_outputs, attention_source=quote_outputs, ActFunc=ActFunc)
@@ -128,9 +141,30 @@ class AttentionModel(nn.Module):
                 _response_outputs = self.attention_layer(self.response_attention_layer, bilstm_outputs=response_outputs, attention_source=quote_outputs, ActFunc=ActFunc)
                 quote_outputs = _quote_outputs
                 response_outputs = _response_outputs
+            if self.attention_mechanism['Type'] == 'both_sum':
+                _quote_outputs = self.attention_layer(self.quote2quote_attention_layer, bilstm_outputs=quote_outputs, attention_source=quote_outputs, ActFunc=ActFunc) + \
+                                 self.attention_layer(self.response2quote_attention_layer, bilstm_outputs=quote_outputs, attention_source=response_outputs, ActFunc=ActFunc)
+                _response_outputs = self.attention_layer(self.response2response_attention_layer, bilstm_outputs=response_outputs, attention_source=response_outputs, ActFunc=ActFunc) + \
+                                    self.attention_layer(self.quote2response_attention_layer, bilstm_outputs=response_outputs, attention_source=quote_outputs, ActFunc=ActFunc)
+                quote_outputs = _quote_outputs
+                response_outputs = _response_outputs
+            if self.attention_mechanism['Type'] == 'both_concat':
+                _quote_outputs = torch.cat((self.attention_layer(self.quote2quote_attention_layer, bilstm_outputs=quote_outputs, attention_source=quote_outputs, ActFunc=ActFunc),
+                                            self.attention_layer(self.response2quote_attention_layer, bilstm_outputs=quote_outputs, attention_source=response_outputs, ActFunc=ActFunc)), dim=1)
+                _response_outputs = torch.cat((self.attention_layer(self.response2response_attention_layer, bilstm_outputs=response_outputs, attention_source=response_outputs, ActFunc=ActFunc), 
+                                               self.attention_layer(self.quote2response_attention_layer, bilstm_outputs=response_outputs, attention_source=quote_outputs, ActFunc=ActFunc)), dim=1)
+                quote_outputs = _quote_outputs
+                response_outputs = _response_outputs
+            if self.attention_mechanism['Type'] == 'share':
+                _quote_outputs = self.attention_layer(self.share_attention_layer, bilstm_outputs=quote_outputs, attention_source=response_outputs, ActFunc=ActFunc)
+                _response_outputs = self.attention_layer(self.share_attention_layer, bilstm_outputs=response_outputs, attention_source=quote_outputs, ActFunc=ActFunc)
+                quote_outputs = _quote_outputs
+                response_outputs = _response_outputs
         else:
-            quote_outputs = torch.mean(quote_outputs, dim=1)
-            response_outputs = torch.mean(response_outputs, dim=1)
+            quote_outputs = torch.sum(quote_outputs, dim=1)
+            response_outputs = torch.sum(response_outputs, dim=1)
+            # quote_outputs = torch.mean(quote_outputs, dim=1)
+            # response_outputs = torch.mean(response_outputs, dim=1)
         if self.do_BN:
             quote_outputs = self.quote_output_BN(quote_outputs)
             response_outputs = self.response_output_BN(response_outputs)
@@ -166,13 +200,23 @@ class Classifier(nn.Module):
         self.model = AttentionModel(config)
         self.dropout = nn.Dropout(config['dropout'])
         self.hidden_size = config['hidden_size']
+        self.attention_mechanism = config['attention_mechanism']
         self.do_BN = config['do_BN']
         self.class_num = config['class_num']
-        self.out = nn.Linear(in_features=self.hidden_size * 2 * 2, out_features=self.class_num)
+        
+        if self.attention_mechanism['Type'] != 'both_concat':
+            self.out = nn.Linear(in_features=self.hidden_size * 2 * 2, out_features=self.class_num)
+        else:
+            self.out = nn.Linear(in_features=self.hidden_size * 2 * 2 * 2, out_features=self.class_num)
+
         # self.init_weights()
 
         if self.do_BN:
-            self.concat_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2 * 2)
+            # self.concat_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2 * 2)
+            if self.attention_mechanism['Type'] != 'both_concat':
+                self.concat_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2 * 2)
+            else:
+                self.concat_output_BN = nn.BatchNorm1d(num_features=self.hidden_size * 2 * 2 * 2)
 
     def init_weights(self, init_range=0.1):
         self.out.weight.data.uniform_(-init_range, init_range)
@@ -248,6 +292,7 @@ def test_epoch(model, dataset):
     model.eval()
     data_size = len(dataset.y)
     _batch_size = data_size
+    # _batch_size = int(data_size / 2)
     batch_num = int(data_size / _batch_size)
     _accs = 0.0
     _costs = 0.0
@@ -281,27 +326,34 @@ def test_epoch(model, dataset):
         _costs += _cost.data[0]
     mean_acc = _accs / batch_num
     mean_cost = _costs / batch_num
-    cr = classification_report(y_true=_true, y_pred=_pred, target_names=['disagree', 'agree', 'neutral'])
+    cr = classification_report(y_true=_true, y_pred=_pred, target_names=['disagree', 'agree', 'neutral'], digits=4)
     return mean_acc, mean_cost, cr
 
 if __name__ == '__main__':
 
     USE_GPU = True
     if USE_GPU:
-        os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+        os.environ['CUDA_VISIBLE_DEVICES'] = '2'
         print('Using GPU: {}...'.format(os.environ['CUDA_VISIBLE_DEVICES']))
     
-    # attention_mechanism_config = None # gpu: 0
+    # attention_mechanism_config = {'Type': 'None', 'ActFunc': F.tanh} # gpu: 0
     # attention_mechanism_config = {'Type': 'self_attention', 'ActFunc': F.tanh} # gpu: 1
-    attention_mechanism_config = {'Type': 'cross_attention', 'ActFunc': F.tanh} # gpu: 2
-    
+    # attention_mechanism_config = {'Type': 'cross_attention', 'ActFunc': F.tanh} # gpu: 2
+    # attention_mechanism_config = {'Type': 'both_sum', 'ActFunc': F.tanh} # gpu: 2
+    attention_mechanism_config = {'Type': 'both_concat', 'ActFunc': F.tanh} # gpu: 2
+    # attention_mechanism_config = {'Type': 'share', 'ActFunc': F.tanh} # gpu: 2
+
     # data_train, data_test, word2id = data_helper_2018.getDataSet(task='disagree_agree', topic='evolution', max_len=64, resampleFlag=False)
     data_train, data_test, word2id = data_helper_2018.getDataSet(task='disagree_agree', topic=None, max_len=64, resampleFlag=False)
+    # data_train, data_test, word2id = data_helper_2018.getDataSet(task='debatepedia', topic=None, max_len=64, resampleFlag=False)
+
+    # import data_helper_2018_cb
+    # data_train, data_test, word2id = data_helper_2018_cb.getDataSet(task='create_debate', max_len=64)
 
     config = {
-        'word2id': word2id, 'pretrain_emb': False, 'class_num': 3,
-        'embedding_size': 300,  'hidden_size': 300,  'layer_num': 3, 'dropout': 0.3, 'lstm_dropout': 0.5,
-        'do_BN': False,  'attention_mechanism': attention_mechanism_config}
+        'word2id': word2id, 'pretrain_emb': True, 'class_num': 2,
+        'embedding_size': 300,  'hidden_size': 128,  'layer_num': 2, 'dropout': 0.3, 'lstm_dropout': 0.5,
+        'do_BN': True,  'attention_mechanism': attention_mechanism_config}
     
     model = Classifier(config)
 
