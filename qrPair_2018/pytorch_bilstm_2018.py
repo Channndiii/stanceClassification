@@ -225,6 +225,7 @@ class Classifier(nn.Module):
     def forward(self, X_q_inputs, X_r_inputs, q_init_state, r_init_state):
         quote_outputs, response_outputs = self.model.forward(X_q_inputs, X_r_inputs, q_init_state, r_init_state)
         concat_outputs = torch.cat((quote_outputs, response_outputs), dim=1)
+
         if self.do_BN:
             concat_outputs = self.concat_output_BN(concat_outputs)
         output = self.out(self.dropout(concat_outputs))
@@ -333,27 +334,31 @@ if __name__ == '__main__':
 
     USE_GPU = True
     if USE_GPU:
-        os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+        os.environ['CUDA_VISIBLE_DEVICES'] = '0'
         print('Using GPU: {}...'.format(os.environ['CUDA_VISIBLE_DEVICES']))
     
-    # attention_mechanism_config = {'Type': 'None', 'ActFunc': F.tanh} # gpu: 0
+    attention_mechanism_config = {'Type': 'None', 'ActFunc': F.tanh} # gpu: 0
     # attention_mechanism_config = {'Type': 'self_attention', 'ActFunc': F.tanh} # gpu: 1
     # attention_mechanism_config = {'Type': 'cross_attention', 'ActFunc': F.tanh} # gpu: 2
     # attention_mechanism_config = {'Type': 'both_sum', 'ActFunc': F.tanh} # gpu: 2
-    attention_mechanism_config = {'Type': 'both_concat', 'ActFunc': F.tanh} # gpu: 2
+    # attention_mechanism_config = {'Type': 'both_concat', 'ActFunc': F.tanh} # gpu: 2
     # attention_mechanism_config = {'Type': 'share', 'ActFunc': F.tanh} # gpu: 2
 
     # data_train, data_test, word2id = data_helper_2018.getDataSet(task='disagree_agree', topic='evolution', max_len=64, resampleFlag=False)
-    data_train, data_test, word2id = data_helper_2018.getDataSet(task='disagree_agree', topic=None, max_len=64, resampleFlag=False)
-    # data_train, data_test, word2id = data_helper_2018.getDataSet(task='debatepedia', topic=None, max_len=64, resampleFlag=False)
+    # data_train, data_test, word2id = data_helper_2018.getDataSet(task='disagree_agree', topic=None, max_len=64, resampleFlag=False)
+    data_train, data_test, word2id = data_helper_2018.getDataSet(task='debatepedia', topic=None, max_len=64, resampleFlag=False)
 
-    # import data_helper_2018_cb
-    # data_train, data_test, word2id = data_helper_2018_cb.getDataSet(task='create_debate', max_len=64)
+    # import data_helper_2018_cd
+    # data_train, data_test, word2id = data_helper_2018_cd.getDataSet(task='create_debate', max_len=64)
+    # data_train, data_test, word2id = data_helper_2018_cd.getDataSet(task='create_debate_noise', max_len=64)
+    # data_train, data_test, word2id = data_helper_2018_cd.getDataSet(task='create_debate', max_len=80)
+    # import multiTask_data_helper_2018
+    # data_train, data_test, word2id = multiTask_data_helper_2018.getDataSet(name='iac', task='sup', max_len=64)
 
     config = {
         'word2id': word2id, 'pretrain_emb': True, 'class_num': 2,
         'embedding_size': 300,  'hidden_size': 128,  'layer_num': 2, 'dropout': 0.3, 'lstm_dropout': 0.5,
-        'do_BN': True,  'attention_mechanism': attention_mechanism_config}
+        'do_BN': False,  'attention_mechanism': attention_mechanism_config}
     
     model = Classifier(config)
 

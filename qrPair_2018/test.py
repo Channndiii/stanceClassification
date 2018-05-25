@@ -1,35 +1,45 @@
-import pandas as pd
-
-def result2csv(taskList, typeList, kFold):
-    resultList = []
-    for task in taskList:
-        for type in typeList:
-            for fold in range(kFold):
-                with open('./result_log/%s_%s_%s.txt' % (task, type, fold), 'r') as fr:
-                    print('Processing %s_%s_%s.txt ...' % (task, type, fold))
-                    for line in list(fr)[51:]:
-                        line = line[:-1]
-                        if 'EPOCH' in line:
-                            fold_epoch = str(fold) + '_' + line.split(',')[0].split(' ')[-1]
-                            lr = float(line.split(',')[1].split('=')[-1])
-                        if 'Epoch training' in line:
-                            train_acc = float(line.split(',')[1].split('=')[-1])
-                            train_cost = float(line.split(',')[2].split('=')[-1])
-                        if '**Test' in line:
-                            test_acc = float(line.split(',')[1].split('=')[-1])
-                            test_cost = float(line.split(',')[2].split('=')[-1])
-                        if 'disagree' in line:
-                            disagree_f1 = float(line.split()[-2])
-                        elif 'agree' in line:
-                            agree_f1 = float(line.split()[-2])
-                            resultList.append({'task': task, 'type': type, 'fold_epoch': fold_epoch, 'lr': lr, 'train_acc': train_acc, 'train_cost': train_cost, 'test_acc': test_acc, 'test_cost': test_cost, 'disagree_f1': disagree_f1, 'agree_f1': agree_f1})
-
-    result_df = pd.DataFrame(resultList)
-    result_df.to_csv('./data/result.csv', columns=['task', 'type', 'fold_epoch', 'lr', 'train_acc', 'train_cost', 'test_acc', 'test_cost', 'disagree_f1', 'agree_f1'], index=None)
+import tensorflow as tf
+import torch
+from torch.autograd import Variable
+from torch import nn
+import torch.nn.functional as F
+import numpy as np
 
 if __name__ == '__main__':
-    taskList = ['iac', 'debatepedia']
-    typeList = ['None', 'share', 'self_attention', 'cross_attention', 'both_sum', 'both_concat']
-    kFold = 5
-    result2csv(taskList, typeList, kFold)
 
+    # torch.manual_seed(12)
+    #
+    # a = Variable(torch.randn([5, 4]), requires_grad=True)
+    # b = Variable(torch.randn([5, 4]) + 1, requires_grad=True)
+    # y = Variable(torch.LongTensor(np.asarray([0, 1, 1, 0, 1]))).view(-1, 1)
+    # y = y.float()
+    # print(a, b, y)
+    # # print(torch.sum(torch.pow(a - b, 2), dim=1))
+    # euclidean_distance = F.pairwise_distance(a, b)
+    # # print(1, euclidean_distance)
+    # #
+    # # print(2, torch.pow(euclidean_distance, 2))
+    # # print(3, 2.0 - euclidean_distance)
+    # # print(4, y)
+    # # print(5, y * torch.pow(euclidean_distance, 2))
+    # # print(5.1, torch.clamp(2.0 - euclidean_distance, min=0.0))
+    # # print(6, (1 - y) * torch.pow(torch.clamp(2.0 - euclidean_distance, min=0.0), 2))
+    # loss_contrastive = y * torch.pow(euclidean_distance, 2) + (1 - y) * torch.pow(torch.clamp(2.0 - euclidean_distance, min=0.0), 2)
+    # print(7, loss_contrastive)
+    # print(8, torch.mean(loss_contrastive))
+
+    # np.random.seed(12)
+    # for i in range(10):
+    #     print(np.random.permutation(10))
+
+    ones = tf.ones([3, 1, 1])
+    left = tf.constant(np.reshape(np.asarray(range(18)), [3, 2, 3]), dtype=tf.float32)
+    right = tf.constant(np.reshape(np.asarray(range(6)), [2, 3]), dtype=tf.float32)
+    sess = tf.Session()
+    print(sess.run(ones))
+    print(sess.run(left))
+    print(sess.run(right))
+    print(sess.run(ones * right))
+    print(sess.run(tf.shape(ones * right)))
+    print(sess.run(left + ones * right))
+    print(sess.run(tf.transpose(left, [1, 0, 2])))

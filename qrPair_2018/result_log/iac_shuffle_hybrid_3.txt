@@ -1,0 +1,1559 @@
+Using GPU: 0...
+X_train.shape=(4701, 2, 64), y_train.shape=(4701,);
+X_test.shape=(1175, 2, 64), y_test.shape=(1175,)
+Creating the data generator ...
+Finished creating the generator.
+PreTrain Embedding hitRate=0.9742634608872334
+model.bilstm.embedding.weight
+model.bilstm.quote_input_BN.weight
+model.bilstm.quote_input_BN.bias
+model.bilstm.response_input_BN.weight
+model.bilstm.response_input_BN.bias
+model.bilstm.quote_bilstm.weight_ih_l0
+model.bilstm.quote_bilstm.weight_hh_l0
+model.bilstm.quote_bilstm.bias_ih_l0
+model.bilstm.quote_bilstm.bias_hh_l0
+model.bilstm.quote_bilstm.weight_ih_l0_reverse
+model.bilstm.quote_bilstm.weight_hh_l0_reverse
+model.bilstm.quote_bilstm.bias_ih_l0_reverse
+model.bilstm.quote_bilstm.bias_hh_l0_reverse
+model.bilstm.quote_bilstm.weight_ih_l1
+model.bilstm.quote_bilstm.weight_hh_l1
+model.bilstm.quote_bilstm.bias_ih_l1
+model.bilstm.quote_bilstm.bias_hh_l1
+model.bilstm.quote_bilstm.weight_ih_l1_reverse
+model.bilstm.quote_bilstm.weight_hh_l1_reverse
+model.bilstm.quote_bilstm.bias_ih_l1_reverse
+model.bilstm.quote_bilstm.bias_hh_l1_reverse
+model.bilstm.response_bilstm.weight_ih_l0
+model.bilstm.response_bilstm.weight_hh_l0
+model.bilstm.response_bilstm.bias_ih_l0
+model.bilstm.response_bilstm.bias_hh_l0
+model.bilstm.response_bilstm.weight_ih_l0_reverse
+model.bilstm.response_bilstm.weight_hh_l0_reverse
+model.bilstm.response_bilstm.bias_ih_l0_reverse
+model.bilstm.response_bilstm.bias_hh_l0_reverse
+model.bilstm.response_bilstm.weight_ih_l1
+model.bilstm.response_bilstm.weight_hh_l1
+model.bilstm.response_bilstm.bias_ih_l1
+model.bilstm.response_bilstm.bias_hh_l1
+model.bilstm.response_bilstm.weight_ih_l1_reverse
+model.bilstm.response_bilstm.weight_hh_l1_reverse
+model.bilstm.response_bilstm.bias_ih_l1_reverse
+model.bilstm.response_bilstm.bias_hh_l1_reverse
+model.quote_output_BN.weight
+model.quote_output_BN.bias
+model.response_output_BN.weight
+model.response_output_BN.bias
+model.quote2quote_attention_layer.weight
+model.quote2quote_attention_layer.bias
+model.response2quote_attention_layer.weight
+model.response2quote_attention_layer.bias
+model.response2response_attention_layer.weight
+model.response2response_attention_layer.bias
+model.quote2response_attention_layer.weight
+model.quote2response_attention_layer.bias
+out.weight
+out.bias
+concat_output_BN.weight
+concat_output_BN.bias
+EPOCH 1, lr=0.001
+	training acc=0.636853, cost=0.645319;  valid acc=0.656170, cost=0.631104
+	training acc=0.672414, cost=0.592192;  valid acc=0.702128, cost=0.562937
+	training acc=0.702586, cost=0.562287;  valid acc=0.743830, cost=0.514847
+	training acc=0.710129, cost=0.572602;  valid acc=0.765106, cost=0.497210
+	training acc=0.753233, cost=0.517409;  valid acc=0.740426, cost=0.535894
+Epoch training 4701, acc=0.694991, cost=0.578194, speed=14.133628 s/epoch
+**Test 1175, acc=0.748936, cost=0.534579, average_f1=0.684198
+             precision    recall  f1-score   support
+
+   disagree     0.7543    0.9157    0.8272       771
+      agree     0.7280    0.4307    0.5412       404
+
+avg / total     0.7453    0.7489    0.7289      1175
+
+EPOCH 2, lr=0.001
+	training acc=0.784483, cost=0.488396;  valid acc=0.752340, cost=0.536870
+	training acc=0.786638, cost=0.463104;  valid acc=0.747234, cost=0.551011
+	training acc=0.787716, cost=0.439211;  valid acc=0.745532, cost=0.523484
+	training acc=0.793103, cost=0.456963;  valid acc=0.708085, cost=0.601094
+	training acc=0.800647, cost=0.418781;  valid acc=0.767660, cost=0.507704
+Epoch training 4701, acc=0.790454, cost=0.452864, speed=14.033477 s/epoch
+**Test 1175, acc=0.760000, cost=0.524559, average_f1=0.687818
+             precision    recall  f1-score   support
+
+   disagree     0.7523    0.9455    0.8379       771
+      agree     0.7961    0.4059    0.5377       404
+
+avg / total     0.7674    0.7600    0.7347      1175
+
+EPOCH 3, lr=0.001
+	training acc=0.870690, cost=0.317237;  valid acc=0.753191, cost=0.618359
+	training acc=0.841595, cost=0.343479;  valid acc=0.739574, cost=0.588185
+	training acc=0.882543, cost=0.304624;  valid acc=0.760851, cost=0.612010
+	training acc=0.871767, cost=0.332548;  valid acc=0.744681, cost=0.629897
+	training acc=0.854526, cost=0.345250;  valid acc=0.743830, cost=0.582416
+Epoch training 4701, acc=0.864298, cost=0.327959, speed=14.092850 s/epoch
+**Test 1175, acc=0.737021, cost=0.594869, average_f1=0.702550
+             precision    recall  f1-score   support
+
+   disagree     0.7873    0.8210    0.8038       771
+      agree     0.6280    0.5767    0.6013       404
+
+avg / total     0.7325    0.7370    0.7342      1175
+
+EPOCH 4, lr=0.001
+	training acc=0.915948, cost=0.215121;  valid acc=0.738723, cost=0.776001
+	training acc=0.934267, cost=0.182556;  valid acc=0.739574, cost=0.897017
+	training acc=0.935345, cost=0.186237;  valid acc=0.741277, cost=0.889223
+	training acc=0.924569, cost=0.193729;  valid acc=0.741277, cost=0.857840
+	training acc=0.919181, cost=0.232088;  valid acc=0.746383, cost=0.838016
+Epoch training 4701, acc=0.925514, cost=0.202097, speed=14.161779 s/epoch
+**Test 1175, acc=0.756596, cost=0.840192, average_f1=0.712764
+             precision    recall  f1-score   support
+
+   disagree     0.7810    0.8742    0.8250       771
+      agree     0.6891    0.5322    0.6006       404
+
+avg / total     0.7494    0.7566    0.7478      1175
+
+EPOCH 5, lr=0.001
+	training acc=0.966595, cost=0.083507;  valid acc=0.741277, cost=1.028812
+	training acc=0.949353, cost=0.164292;  valid acc=0.756596, cost=1.279921
+	training acc=0.953664, cost=0.128878;  valid acc=0.734468, cost=1.168134
+	training acc=0.935345, cost=0.142006;  valid acc=0.745532, cost=0.931130
+	training acc=0.938578, cost=0.166466;  valid acc=0.738723, cost=1.003069
+Epoch training 4701, acc=0.948844, cost=0.136594, speed=14.124975 s/epoch
+**Test 1175, acc=0.735319, cost=1.018672, average_f1=0.692151
+             precision    recall  f1-score   support
+
+   disagree     0.7725    0.8457    0.8074       771
+      agree     0.6405    0.5248    0.5769       404
+
+avg / total     0.7271    0.7353    0.7282      1175
+
+EPOCH 6, lr=0.001
+	training acc=0.983836, cost=0.051574;  valid acc=0.755745, cost=1.473330
+	training acc=0.971983, cost=0.074705;  valid acc=0.735319, cost=1.429529
+	training acc=0.964440, cost=0.096838;  valid acc=0.746383, cost=1.380226
+	training acc=0.965517, cost=0.109033;  valid acc=0.733617, cost=1.413396
+	training acc=0.975216, cost=0.082826;  valid acc=0.737021, cost=1.484174
+Epoch training 4701, acc=0.972175, cost=0.082996, speed=14.027488 s/epoch
+**Test 1175, acc=0.732766, cost=1.534064, average_f1=0.707233
+             precision    recall  f1-score   support
+
+   disagree     0.8043    0.7834    0.7937       771
+      agree     0.6061    0.6361    0.6208       404
+
+avg / total     0.7361    0.7328    0.7342      1175
+
+EPOCH 7, lr=0.001
+	training acc=0.990302, cost=0.029475;  valid acc=0.740426, cost=2.036470
+	training acc=0.967672, cost=0.118351;  valid acc=0.746383, cost=1.803692
+	training acc=0.982759, cost=0.052322;  valid acc=0.739574, cost=1.694214
+	training acc=0.985991, cost=0.047502;  valid acc=0.747234, cost=1.891726
+	training acc=0.982759, cost=0.054268;  valid acc=0.750638, cost=2.107747
+Epoch training 4701, acc=0.982021, cost=0.059975, speed=14.045631 s/epoch
+**Test 1175, acc=0.748085, cost=2.181950, average_f1=0.695314
+             precision    recall  f1-score   support
+
+   disagree     0.7660    0.8872    0.8221       771
+      agree     0.6915    0.4827    0.5685       404
+
+avg / total     0.7404    0.7481    0.7349      1175
+
+EPOCH 8, lr=0.001
+	training acc=0.989224, cost=0.045327;  valid acc=0.749787, cost=2.082515
+	training acc=0.983836, cost=0.060524;  valid acc=0.751489, cost=2.345900
+	training acc=0.984914, cost=0.048168;  valid acc=0.739574, cost=2.335855
+	training acc=0.981681, cost=0.059583;  valid acc=0.737872, cost=2.273276
+	training acc=0.980603, cost=0.107950;  valid acc=0.731915, cost=2.176062
+Epoch training 4701, acc=0.984161, cost=0.063870, speed=14.011672 s/epoch
+**Test 1175, acc=0.730213, cost=2.190636, average_f1=0.691550
+             precision    recall  f1-score   support
+
+   disagree     0.7768    0.8262    0.8008       771
+      agree     0.6225    0.5470    0.5823       404
+
+avg / total     0.7238    0.7302    0.7257      1175
+
+EPOCH 9, lr=0.001
+	training acc=0.987069, cost=0.042327;  valid acc=0.751489, cost=2.389474
+	training acc=0.987069, cost=0.060152;  valid acc=0.734468, cost=2.533664
+	training acc=0.980603, cost=0.079577;  valid acc=0.740426, cost=2.386299
+	training acc=0.987069, cost=0.031524;  valid acc=0.742979, cost=2.536966
+	training acc=0.975216, cost=0.101369;  valid acc=0.751489, cost=2.592910
+Epoch training 4701, acc=0.983305, cost=0.063067, speed=14.004855 s/epoch
+**Test 1175, acc=0.750638, cost=2.528710, average_f1=0.696569
+             precision    recall  f1-score   support
+
+   disagree     0.7656    0.8936    0.8247       771
+      agree     0.7018    0.4777    0.5685       404
+
+avg / total     0.7436    0.7506    0.7366      1175
+
+EPOCH 10, lr=0.001
+	training acc=0.989224, cost=0.036426;  valid acc=0.735319, cost=2.376340
+	training acc=0.994612, cost=0.018990;  valid acc=0.743830, cost=2.323186
+	training acc=0.990302, cost=0.025733;  valid acc=0.749787, cost=2.763015
+	training acc=0.987069, cost=0.053855;  valid acc=0.742128, cost=2.500921
+	training acc=0.991379, cost=0.042530;  valid acc=0.748936, cost=2.470281
+Epoch training 4701, acc=0.990582, cost=0.035264, speed=13.985752 s/epoch
+**Test 1175, acc=0.752340, cost=2.482407, average_f1=0.717237
+             precision    recall  f1-score   support
+
+   disagree     0.7934    0.8418    0.8169       771
+      agree     0.6583    0.5817    0.6176       404
+
+avg / total     0.7469    0.7523    0.7484      1175
+
+EPOCH 11, lr=0.001
+	training acc=0.993534, cost=0.017328;  valid acc=0.733617, cost=2.518441
+	training acc=0.995690, cost=0.021730;  valid acc=0.739574, cost=2.622154
+	training acc=0.991379, cost=0.033176;  valid acc=0.741277, cost=2.654842
+	training acc=0.994612, cost=0.018665;  valid acc=0.743830, cost=2.758114
+	training acc=0.989224, cost=0.040422;  valid acc=0.731064, cost=2.614774
+Epoch training 4701, acc=0.992937, cost=0.026089, speed=13.993962 s/epoch
+**Test 1175, acc=0.732766, cost=2.582078, average_f1=0.687547
+             precision    recall  f1-score   support
+
+   disagree     0.7685    0.8482    0.8064       771
+      agree     0.6389    0.5124    0.5687       404
+
+avg / total     0.7239    0.7328    0.7247      1175
+
+EPOCH 12, lr=0.001
+	training acc=0.992457, cost=0.023768;  valid acc=0.750638, cost=2.702783
+	training acc=0.993534, cost=0.019005;  valid acc=0.754894, cost=2.803156
+	training acc=0.988147, cost=0.031775;  valid acc=0.742979, cost=3.358100
+	training acc=0.995690, cost=0.022793;  valid acc=0.745532, cost=3.009381
+	training acc=0.992457, cost=0.018742;  valid acc=0.748085, cost=2.792055
+Epoch training 4701, acc=0.992080, cost=0.023736, speed=14.013822 s/epoch
+**Test 1175, acc=0.745532, cost=2.824165, average_f1=0.705758
+             precision    recall  f1-score   support
+
+   disagree     0.7823    0.8482    0.8139       771
+      agree     0.6549    0.5495    0.5976       404
+
+avg / total     0.7385    0.7455    0.7395      1175
+
+EPOCH 13, lr=0.001
+	training acc=0.991379, cost=0.030959;  valid acc=0.740426, cost=2.772168
+	training acc=0.984914, cost=0.087035;  valid acc=0.746383, cost=2.735595
+	training acc=0.992457, cost=0.037887;  valid acc=0.746383, cost=2.624777
+	training acc=0.990302, cost=0.026144;  valid acc=0.751489, cost=2.677426
+	training acc=0.992457, cost=0.018871;  valid acc=0.747234, cost=2.871825
+Epoch training 4701, acc=0.990368, cost=0.039904, speed=14.016992 s/epoch
+**Test 1175, acc=0.749787, cost=2.853849, average_f1=0.709194
+             precision    recall  f1-score   support
+
+   disagree     0.7829    0.8560    0.8178       771
+      agree     0.6657    0.5470    0.6005       404
+
+avg / total     0.7426    0.7498    0.7431      1175
+
+EPOCH 14, lr=0.001
+	training acc=0.995690, cost=0.045193;  valid acc=0.751489, cost=2.982310
+	training acc=0.989224, cost=0.030227;  valid acc=0.757447, cost=2.683835
+	training acc=0.996767, cost=0.021639;  valid acc=0.758298, cost=2.737119
+	training acc=0.989224, cost=0.034600;  valid acc=0.752340, cost=2.672952
+	training acc=0.992457, cost=0.029227;  valid acc=0.738723, cost=2.801669
+Epoch training 4701, acc=0.992723, cost=0.031975, speed=13.959013 s/epoch
+**Test 1175, acc=0.742128, cost=2.817027, average_f1=0.695451
+             precision    recall  f1-score   support
+
+   disagree     0.7708    0.8638    0.8147       771
+      agree     0.6624    0.5099    0.5762       404
+
+avg / total     0.7335    0.7421    0.7327      1175
+
+EPOCH 15, lr=0.001
+	training acc=0.997845, cost=0.014435;  valid acc=0.754894, cost=2.843246
+	training acc=0.994612, cost=0.015330;  valid acc=0.739574, cost=2.954855
+	training acc=0.992457, cost=0.038687;  valid acc=0.749787, cost=3.289039
+	training acc=0.995690, cost=0.015776;  valid acc=0.760000, cost=2.913783
+	training acc=0.991379, cost=0.034647;  valid acc=0.754043, cost=2.978788
+Epoch training 4701, acc=0.994435, cost=0.023613, speed=13.982712 s/epoch
+**Test 1175, acc=0.754894, cost=2.994963, average_f1=0.712544
+             precision    recall  f1-score   support
+
+   disagree     0.7825    0.8677    0.8229       771
+      agree     0.6813    0.5396    0.6022       404
+
+avg / total     0.7477    0.7549    0.7470      1175
+
+EPOCH 16, lr=0.001
+	training acc=0.990302, cost=0.035149;  valid acc=0.751489, cost=3.061773
+	training acc=0.995690, cost=0.016565;  valid acc=0.755745, cost=3.268281
+	training acc=0.992457, cost=0.035592;  valid acc=0.743830, cost=2.934333
+	training acc=0.992457, cost=0.021254;  valid acc=0.745532, cost=3.182347
+	training acc=0.989224, cost=0.038931;  valid acc=0.737872, cost=3.195851
+Epoch training 4701, acc=0.992080, cost=0.029297, speed=13.985236 s/epoch
+**Test 1175, acc=0.735319, cost=3.240617, average_f1=0.690766
+             precision    recall  f1-score   support
+
+   disagree     0.7706    0.8495    0.8081       771
+      agree     0.6431    0.5173    0.5734       404
+
+avg / total     0.7267    0.7353    0.7274      1175
+
+EPOCH 17, lr=0.001
+	training acc=0.998922, cost=0.003449;  valid acc=0.732766, cost=3.161714
+	training acc=0.997845, cost=0.019385;  valid acc=0.743830, cost=3.135737
+	training acc=0.995690, cost=0.012891;  valid acc=0.748085, cost=3.245250
+	training acc=0.989224, cost=0.038274;  valid acc=0.748936, cost=2.964885
+	training acc=0.984914, cost=0.045191;  valid acc=0.752340, cost=3.181506
+Epoch training 4701, acc=0.993365, cost=0.023675, speed=14.007109 s/epoch
+**Test 1175, acc=0.746383, cost=3.179163, average_f1=0.707793
+             precision    recall  f1-score   support
+
+   disagree     0.7846    0.8457    0.8140       771
+      agree     0.6541    0.5569    0.6016       404
+
+avg / total     0.7397    0.7464    0.7410      1175
+
+EPOCH 18, lr=0.001
+	training acc=0.996767, cost=0.006660;  valid acc=0.746383, cost=3.451091
+	training acc=0.997845, cost=0.012400;  valid acc=0.729362, cost=3.241527
+	training acc=0.991379, cost=0.029386;  valid acc=0.737021, cost=3.198844
+	training acc=0.990302, cost=0.057777;  valid acc=0.750638, cost=3.278337
+	training acc=0.994612, cost=0.031465;  valid acc=0.748085, cost=3.179944
+Epoch training 4701, acc=0.994221, cost=0.027361, speed=14.006251 s/epoch
+**Test 1175, acc=0.750638, cost=3.202243, average_f1=0.714508
+             precision    recall  f1-score   support
+
+   disagree     0.7908    0.8431    0.8161       771
+      agree     0.6572    0.5743    0.6129       404
+
+avg / total     0.7448    0.7506    0.7462      1175
+
+EPOCH 19, lr=0.001
+	training acc=0.993534, cost=0.010821;  valid acc=0.756596, cost=3.170058
+	training acc=0.997845, cost=0.013701;  valid acc=0.754043, cost=3.180910
+	training acc=0.998922, cost=0.004024;  valid acc=0.742979, cost=3.164725
+	training acc=0.997845, cost=0.005786;  valid acc=0.754043, cost=3.316030
+	training acc=0.995690, cost=0.019596;  valid acc=0.759149, cost=3.403547
+Epoch training 4701, acc=0.996789, cost=0.010712, speed=13.982391 s/epoch
+**Test 1175, acc=0.758298, cost=3.415851, average_f1=0.712026
+             precision    recall  f1-score   support
+
+   disagree     0.7783    0.8833    0.8275       771
+      agree     0.7000    0.5198    0.5966       404
+
+avg / total     0.7514    0.7583    0.7481      1175
+
+EPOCH 20, lr=0.001
+	training acc=1.000000, cost=0.000826;  valid acc=0.756596, cost=3.549448
+	training acc=0.998922, cost=0.003645;  valid acc=0.751489, cost=3.421136
+	training acc=0.988147, cost=0.052713;  valid acc=0.749787, cost=3.442809
+	training acc=0.991379, cost=0.036836;  valid acc=0.752340, cost=3.295209
+	training acc=0.989224, cost=0.033127;  valid acc=0.754043, cost=3.153652
+Epoch training 4701, acc=0.993579, cost=0.025263, speed=14.005572 s/epoch
+**Test 1175, acc=0.752340, cost=3.178803, average_f1=0.707051
+             precision    recall  f1-score   support
+
+   disagree     0.7771    0.8729    0.8222       771
+      agree     0.6828    0.5223    0.5919       404
+
+avg / total     0.7447    0.7523    0.7430      1175
+
+EPOCH 21, lr=0.001
+	training acc=0.994612, cost=0.019234;  valid acc=0.751489, cost=3.434760
+	training acc=0.998922, cost=0.003537;  valid acc=0.737872, cost=3.250288
+	training acc=0.991379, cost=0.029061;  valid acc=0.745532, cost=3.500497
+	training acc=0.995690, cost=0.012782;  valid acc=0.742128, cost=3.287825
+	training acc=0.996767, cost=0.011091;  valid acc=0.735319, cost=3.313091
+Epoch training 4701, acc=0.995505, cost=0.015038, speed=13.994342 s/epoch
+**Test 1175, acc=0.736170, cost=3.280041, average_f1=0.700200
+             precision    recall  f1-score   support
+
+   disagree     0.7842    0.8249    0.8040       771
+      agree     0.6291    0.5668    0.5964       404
+
+avg / total     0.7309    0.7362    0.7326      1175
+
+EPOCH 22, lr=0.001
+	training acc=0.995690, cost=0.007204;  valid acc=0.745532, cost=3.617561
+	training acc=0.995690, cost=0.015042;  valid acc=0.729362, cost=3.571402
+	training acc=0.990302, cost=0.056796;  valid acc=0.746383, cost=3.706631
+	training acc=0.997845, cost=0.008052;  valid acc=0.737872, cost=3.610867
+	training acc=0.998922, cost=0.006883;  valid acc=0.745532, cost=3.630752
+Epoch training 4701, acc=0.995719, cost=0.018667, speed=13.988546 s/epoch
+**Test 1175, acc=0.747234, cost=3.684996, average_f1=0.705571
+             precision    recall  f1-score   support
+
+   disagree     0.7801    0.8560    0.8163       771
+      agree     0.6626    0.5396    0.5948       404
+
+avg / total     0.7397    0.7472    0.7402      1175
+
+EPOCH 23, lr=0.001
+	training acc=0.994612, cost=0.018620;  valid acc=0.741277, cost=3.792089
+	training acc=0.995690, cost=0.021950;  valid acc=0.748085, cost=3.899861
+	training acc=0.996767, cost=0.015969;  valid acc=0.739574, cost=3.749053
+	training acc=0.991379, cost=0.034452;  valid acc=0.754043, cost=3.439020
+	training acc=0.993534, cost=0.031204;  valid acc=0.746383, cost=3.588062
+Epoch training 4701, acc=0.994221, cost=0.024792, speed=14.002805 s/epoch
+**Test 1175, acc=0.742979, cost=3.547559, average_f1=0.710974
+             precision    recall  f1-score   support
+
+   disagree     0.7950    0.8197    0.8072       771
+      agree     0.6342    0.5965    0.6148       404
+
+avg / total     0.7397    0.7430    0.7410      1175
+
+EPOCH 24, lr=0.001
+	training acc=0.993534, cost=0.031518;  valid acc=0.749787, cost=3.691521
+	training acc=0.992457, cost=0.035411;  valid acc=0.748085, cost=3.443370
+	training acc=0.996767, cost=0.014234;  valid acc=0.744681, cost=3.526541
+	training acc=0.993534, cost=0.038549;  valid acc=0.747234, cost=3.443303
+	training acc=0.990302, cost=0.036394;  valid acc=0.748085, cost=3.559746
+Epoch training 4701, acc=0.993365, cost=0.031010, speed=13.996976 s/epoch
+**Test 1175, acc=0.749787, cost=3.544286, average_f1=0.716053
+             precision    recall  f1-score   support
+
+   disagree     0.7948    0.8340    0.8139       771
+      agree     0.6503    0.5891    0.6182       404
+
+avg / total     0.7451    0.7498    0.7466      1175
+
+EPOCH 25, lr=0.001
+	training acc=0.994612, cost=0.025744;  valid acc=0.739574, cost=3.656499
+	training acc=0.992457, cost=0.030785;  valid acc=0.742128, cost=3.875762
+	training acc=0.992457, cost=0.041197;  valid acc=0.744681, cost=3.643735
+	training acc=0.997845, cost=0.005312;  valid acc=0.743830, cost=3.493809
+	training acc=0.994612, cost=0.027022;  valid acc=0.747234, cost=3.575351
+Epoch training 4701, acc=0.994435, cost=0.025834, speed=14.009063 s/epoch
+**Test 1175, acc=0.745532, cost=3.587648, average_f1=0.698519
+             precision    recall  f1-score   support
+
+   disagree     0.7719    0.8690    0.8176       771
+      agree     0.6710    0.5099    0.5795       404
+
+avg / total     0.7372    0.7455    0.7357      1175
+
+EPOCH 26, lr=0.001
+	training acc=0.987069, cost=0.053990;  valid acc=0.748085, cost=3.665238
+	training acc=0.997845, cost=0.019964;  valid acc=0.746383, cost=3.762608
+	training acc=0.996767, cost=0.008797;  valid acc=0.749787, cost=3.553247
+	training acc=0.996767, cost=0.008395;  valid acc=0.734468, cost=3.372379
+	training acc=0.995690, cost=0.023446;  valid acc=0.752340, cost=3.681441
+Epoch training 4701, acc=0.994649, cost=0.023063, speed=13.998729 s/epoch
+**Test 1175, acc=0.750638, cost=3.755453, average_f1=0.701681
+             precision    recall  f1-score   support
+
+   disagree     0.7716    0.8807    0.8225       771
+      agree     0.6881    0.5025    0.5808       404
+
+avg / total     0.7429    0.7506    0.7394      1175
+
+EPOCH 27, lr=0.001
+	training acc=0.994612, cost=0.025594;  valid acc=0.757447, cost=3.943157
+	training acc=0.996767, cost=0.018623;  valid acc=0.742128, cost=3.584852
+	training acc=0.997845, cost=0.006232;  valid acc=0.758298, cost=3.977045
+	training acc=0.990302, cost=0.041902;  valid acc=0.742979, cost=3.826328
+	training acc=0.989224, cost=0.035868;  valid acc=0.734468, cost=3.886403
+Epoch training 4701, acc=0.993151, cost=0.030647, speed=14.006941 s/epoch
+**Test 1175, acc=0.738723, cost=4.013099, average_f1=0.686387
+             precision    recall  f1-score   support
+
+   disagree     0.7624    0.8742    0.8145       771
+      agree     0.6667    0.4802    0.5583       404
+
+avg / total     0.7295    0.7387    0.7264      1175
+
+EPOCH 28, lr=0.001
+	training acc=0.995690, cost=0.009035;  valid acc=0.756596, cost=3.734554
+	training acc=0.993534, cost=0.016201;  valid acc=0.748936, cost=3.759024
+	training acc=0.995690, cost=0.021622;  valid acc=0.751489, cost=4.220338
+	training acc=0.995690, cost=0.013501;  valid acc=0.752340, cost=3.777663
+	training acc=0.994612, cost=0.048445;  valid acc=0.754894, cost=3.944925
+Epoch training 4701, acc=0.995077, cost=0.021612, speed=13.966894 s/epoch
+**Test 1175, acc=0.753191, cost=3.949402, average_f1=0.713150
+             precision    recall  f1-score   support
+
+   disagree     0.7853    0.8586    0.8203       771
+      agree     0.6717    0.5520    0.6060       404
+
+avg / total     0.7462    0.7532    0.7466      1175
+
+EPOCH 29, lr=0.001
+	training acc=0.998922, cost=0.007932;  valid acc=0.759149, cost=3.881291
+	training acc=0.995690, cost=0.025936;  valid acc=0.759149, cost=3.777964
+	training acc=0.998922, cost=0.003644;  valid acc=0.745532, cost=3.754775
+	training acc=0.991379, cost=0.033172;  valid acc=0.755745, cost=4.097437
+	training acc=0.997845, cost=0.021403;  valid acc=0.751489, cost=4.036065
+Epoch training 4701, acc=0.996575, cost=0.018291, speed=13.992267 s/epoch
+**Test 1175, acc=0.752340, cost=4.065240, average_f1=0.712373
+             precision    recall  f1-score   support
+
+   disagree     0.7850    0.8573    0.8196       771
+      agree     0.6697    0.5520    0.6052       404
+
+avg / total     0.7454    0.7523    0.7459      1175
+
+EPOCH 30, lr=0.001
+	training acc=0.998922, cost=0.002866;  valid acc=0.763404, cost=4.374565
+	training acc=0.995690, cost=0.024272;  valid acc=0.754894, cost=4.063807
+	training acc=0.993534, cost=0.043281;  valid acc=0.757447, cost=3.907615
+	training acc=0.996767, cost=0.013542;  valid acc=0.760851, cost=4.127017
+	training acc=0.998922, cost=0.001619;  valid acc=0.755745, cost=4.265650
+Epoch training 4701, acc=0.996789, cost=0.017004, speed=13.975376 s/epoch
+**Test 1175, acc=0.756596, cost=4.301185, average_f1=0.712312
+             precision    recall  f1-score   support
+
+   disagree     0.7803    0.8755    0.8252       771
+      agree     0.6903    0.5297    0.5994       404
+
+avg / total     0.7494    0.7566    0.7476      1175
+
+EPOCH 31, lr=0.0009699999999999999
+	training acc=0.991379, cost=0.041432;  valid acc=0.762553, cost=4.361398
+	training acc=0.994612, cost=0.022987;  valid acc=0.747234, cost=3.861821
+	training acc=0.994612, cost=0.028929;  valid acc=0.748085, cost=4.359205
+	training acc=0.993534, cost=0.032059;  valid acc=0.744681, cost=4.347850
+	training acc=1.000000, cost=0.000581;  valid acc=0.750638, cost=4.499788
+Epoch training 4701, acc=0.994863, cost=0.025025, speed=13.951648 s/epoch
+**Test 1175, acc=0.751489, cost=4.508385, average_f1=0.713677
+             precision    recall  f1-score   support
+
+   disagree     0.7882    0.8495    0.8177       771
+      agree     0.6628    0.5644    0.6096       404
+
+avg / total     0.7451    0.7515    0.7462      1175
+
+EPOCH 32, lr=0.0009408999999999999
+	training acc=0.996767, cost=0.021866;  valid acc=0.751489, cost=4.245640
+	training acc=0.997845, cost=0.018996;  valid acc=0.747234, cost=4.384305
+	training acc=0.995690, cost=0.035018;  valid acc=0.747234, cost=4.105596
+	training acc=0.995690, cost=0.015099;  valid acc=0.734468, cost=4.038804
+	training acc=0.997845, cost=0.007716;  valid acc=0.748085, cost=4.369356
+Epoch training 4701, acc=0.996789, cost=0.019604, speed=13.985116 s/epoch
+**Test 1175, acc=0.747234, cost=4.429986, average_f1=0.711407
+             precision    recall  f1-score   support
+
+   disagree     0.7897    0.8379    0.8131       771
+      agree     0.6499    0.5743    0.6097       404
+
+avg / total     0.7416    0.7472    0.7432      1175
+
+EPOCH 33, lr=0.0009126729999999999
+	training acc=0.994612, cost=0.013166;  valid acc=0.748085, cost=4.515027
+	training acc=0.998922, cost=0.008420;  valid acc=0.743830, cost=4.175414
+	training acc=0.994612, cost=0.015217;  valid acc=0.737872, cost=4.346596
+	training acc=0.996767, cost=0.020964;  valid acc=0.737021, cost=4.198109
+	training acc=0.995690, cost=0.017144;  valid acc=0.744681, cost=4.381485
+Epoch training 4701, acc=0.995933, cost=0.015577, speed=14.020359 s/epoch
+**Test 1175, acc=0.748085, cost=4.425014, average_f1=0.706781
+             precision    recall  f1-score   support
+
+   disagree     0.7811    0.8560    0.8168       771
+      agree     0.6636    0.5421    0.5967       404
+
+avg / total     0.7407    0.7481    0.7412      1175
+
+EPOCH 34, lr=0.0008852928099999999
+	training acc=0.998922, cost=0.008353;  valid acc=0.741277, cost=4.085395
+	training acc=0.995690, cost=0.008605;  valid acc=0.742128, cost=4.080743
+	training acc=0.993534, cost=0.054100;  valid acc=0.751489, cost=3.913415
+	training acc=0.997845, cost=0.020886;  valid acc=0.746383, cost=4.388243
+	training acc=0.996767, cost=0.013989;  valid acc=0.737021, cost=4.115899
+Epoch training 4701, acc=0.994649, cost=0.037023, speed=13.969705 s/epoch
+**Test 1175, acc=0.742979, cost=4.252208, average_f1=0.700391
+             precision    recall  f1-score   support
+
+   disagree     0.7769    0.8534    0.8133       771
+      agree     0.6555    0.5322    0.5874       404
+
+avg / total     0.7351    0.7430    0.7357      1175
+
+EPOCH 35, lr=0.0008587340256999998
+	training acc=0.994612, cost=0.020979;  valid acc=0.741277, cost=4.289392
+	training acc=0.991379, cost=0.039378;  valid acc=0.746383, cost=4.447194
+	training acc=0.997845, cost=0.005430;  valid acc=0.743830, cost=4.171087
+	training acc=0.998922, cost=0.005946;  valid acc=0.735319, cost=4.324535
+	training acc=0.997845, cost=0.024165;  valid acc=0.748936, cost=4.161555
+Epoch training 4701, acc=0.996147, cost=0.019048, speed=13.988523 s/epoch
+**Test 1175, acc=0.748936, cost=4.152847, average_f1=0.711350
+             precision    recall  f1-score   support
+
+   disagree     0.7874    0.8457    0.8155       771
+      agree     0.6571    0.5644    0.6072       404
+
+avg / total     0.7426    0.7489    0.7439      1175
+
+EPOCH 36, lr=0.0008329720049289999
+	training acc=0.995690, cost=0.032800;  valid acc=0.762553, cost=4.463893
+	training acc=1.000000, cost=0.001283;  valid acc=0.738723, cost=4.131909
+	training acc=0.998922, cost=0.006784;  valid acc=0.747234, cost=4.107089
+	training acc=0.997845, cost=0.004436;  valid acc=0.751489, cost=4.084639
+	training acc=0.997845, cost=0.009843;  valid acc=0.753191, cost=4.234717
+Epoch training 4701, acc=0.998074, cost=0.010954, speed=13.983803 s/epoch
+**Test 1175, acc=0.754043, cost=4.230314, average_f1=0.708136
+             precision    recall  f1-score   support
+
+   disagree     0.7770    0.8768    0.8239       771
+      agree     0.6885    0.5198    0.5924       404
+
+avg / total     0.7466    0.7540    0.7443      1175
+
+EPOCH 37, lr=0.0008079828447811299
+	training acc=0.998922, cost=0.004332;  valid acc=0.746383, cost=4.115608
+	training acc=0.997845, cost=0.015813;  valid acc=0.745532, cost=3.928819
+	training acc=0.991379, cost=0.028746;  valid acc=0.744681, cost=4.227916
+	training acc=0.995690, cost=0.014400;  valid acc=0.754043, cost=4.388697
+	training acc=0.998922, cost=0.011859;  valid acc=0.746383, cost=4.472282
+Epoch training 4701, acc=0.996575, cost=0.014927, speed=13.977231 s/epoch
+**Test 1175, acc=0.749787, cost=4.479134, average_f1=0.701886
+             precision    recall  f1-score   support
+
+   disagree     0.7726    0.8768    0.8214       771
+      agree     0.6833    0.5074    0.5824       404
+
+avg / total     0.7419    0.7498    0.7392      1175
+
+EPOCH 38, lr=0.0007837433594376959
+	training acc=0.997845, cost=0.019013;  valid acc=0.748085, cost=4.464969
+	training acc=0.997845, cost=0.003239;  valid acc=0.739574, cost=4.154795
+	training acc=0.993534, cost=0.014392;  valid acc=0.744681, cost=4.216764
+	training acc=0.997845, cost=0.024024;  valid acc=0.750638, cost=4.492254
+	training acc=0.996767, cost=0.005425;  valid acc=0.739574, cost=4.377337
+Epoch training 4701, acc=0.996789, cost=0.013128, speed=13.967469 s/epoch
+**Test 1175, acc=0.742128, cost=4.385767, average_f1=0.703939
+             precision    recall  f1-score   support
+
+   disagree     0.7833    0.8392    0.8103       771
+      agree     0.6447    0.5569    0.5976       404
+
+avg / total     0.7356    0.7421    0.7372      1175
+
+EPOCH 39, lr=0.000760231058654565
+	training acc=0.997845, cost=0.009000;  valid acc=0.741277, cost=4.143046
+	training acc=0.998922, cost=0.003645;  valid acc=0.741277, cost=4.505875
+	training acc=0.997845, cost=0.003302;  valid acc=0.734468, cost=4.365462
+	training acc=0.996767, cost=0.004891;  valid acc=0.742979, cost=4.547017
+	training acc=0.998922, cost=0.001386;  valid acc=0.742979, cost=4.378374
+Epoch training 4701, acc=0.998074, cost=0.004418, speed=13.967957 s/epoch
+**Test 1175, acc=0.740426, cost=4.309133, average_f1=0.698978
+             precision    recall  f1-score   support
+
+   disagree     0.7774    0.8470    0.8107       771
+      agree     0.6478    0.5371    0.5873       404
+
+avg / total     0.7328    0.7404    0.7339      1175
+
+EPOCH 40, lr=0.000737424126894928
+	training acc=0.997845, cost=0.016952;  valid acc=0.737021, cost=4.716183
+	training acc=0.997845, cost=0.014654;  valid acc=0.739574, cost=4.514745
+	training acc=0.995690, cost=0.025601;  valid acc=0.748936, cost=4.416480
+	training acc=0.997845, cost=0.006185;  valid acc=0.742128, cost=4.339798
+	training acc=1.000000, cost=0.000164;  valid acc=0.738723, cost=4.528277
+Epoch training 4701, acc=0.997860, cost=0.012624, speed=13.965331 s/epoch
+**Test 1175, acc=0.737872, cost=4.552386, average_f1=0.696240
+             precision    recall  f1-score   support
+
+   disagree     0.7759    0.8444    0.8087       771
+      agree     0.6429    0.5347    0.5838       404
+
+avg / total     0.7302    0.7379    0.7314      1175
+
+EPOCH 41, lr=0.0007153014030880802
+	training acc=0.997845, cost=0.002840;  valid acc=0.733617, cost=4.433936
+	training acc=0.995690, cost=0.023460;  valid acc=0.732766, cost=4.474286
+	training acc=0.996767, cost=0.009732;  valid acc=0.735319, cost=4.375724
+	training acc=1.000000, cost=0.000063;  valid acc=0.733617, cost=4.407370
+	training acc=0.996767, cost=0.023638;  valid acc=0.730213, cost=4.485806
+Epoch training 4701, acc=0.997432, cost=0.011865, speed=13.972346 s/epoch
+**Test 1175, acc=0.731915, cost=4.476708, average_f1=0.682386
+             precision    recall  f1-score   support
+
+   disagree     0.7627    0.8586    0.8078       771
+      agree     0.6450    0.4901    0.5570       404
+
+avg / total     0.7222    0.7319    0.7216      1175
+
+EPOCH 42, lr=0.0006938423609954377
+	training acc=0.998922, cost=0.002948;  valid acc=0.738723, cost=4.613777
+	training acc=1.000000, cost=0.000031;  valid acc=0.740426, cost=4.280767
+	training acc=0.998922, cost=0.004458;  valid acc=0.736170, cost=4.371378
+	training acc=0.998922, cost=0.006159;  valid acc=0.736170, cost=4.326224
+	training acc=0.996767, cost=0.018091;  valid acc=0.729362, cost=4.432409
+Epoch training 4701, acc=0.998716, cost=0.006294, speed=13.989036 s/epoch
+**Test 1175, acc=0.730213, cost=4.435930, average_f1=0.687591
+             precision    recall  f1-score   support
+
+   disagree     0.7709    0.8379    0.8030       771
+      agree     0.6291    0.5248    0.5722       404
+
+avg / total     0.7221    0.7302    0.7236      1175
+
+EPOCH 43, lr=0.0006730270901655745
+	training acc=0.997845, cost=0.011431;  valid acc=0.741277, cost=4.337081
+	training acc=1.000000, cost=0.000431;  valid acc=0.748936, cost=4.388324
+	training acc=1.000000, cost=0.000676;  valid acc=0.733617, cost=4.429651
+	training acc=0.997845, cost=0.018927;  valid acc=0.739574, cost=4.288646
+	training acc=1.000000, cost=0.000150;  valid acc=0.741277, cost=4.468563
+Epoch training 4701, acc=0.999144, cost=0.006280, speed=13.985116 s/epoch
+**Test 1175, acc=0.740426, cost=4.473420, average_f1=0.694872
+             precision    recall  f1-score   support
+
+   disagree     0.7716    0.8586    0.8128       771
+      agree     0.6562    0.5149    0.5770       404
+
+avg / total     0.7319    0.7404    0.7317      1175
+
+EPOCH 44, lr=0.0006528362774606073
+	training acc=0.998922, cost=0.009931;  valid acc=0.744681, cost=4.525036
+	training acc=0.996767, cost=0.007358;  valid acc=0.741277, cost=4.416615
+	training acc=1.000000, cost=0.001056;  valid acc=0.742128, cost=4.936615
+	training acc=0.996767, cost=0.006433;  valid acc=0.742128, cost=5.140003
+	training acc=1.000000, cost=0.001269;  valid acc=0.742128, cost=4.802396
+Epoch training 4701, acc=0.998502, cost=0.005174, speed=13.961926 s/epoch
+**Test 1175, acc=0.744681, cost=4.878419, average_f1=0.701478
+             precision    recall  f1-score   support
+
+   disagree     0.7767    0.8573    0.8150       771
+      agree     0.6605    0.5297    0.5879       404
+
+avg / total     0.7368    0.7447    0.7369      1175
+
+EPOCH 45, lr=0.0006332511891367891
+	training acc=0.998922, cost=0.007277;  valid acc=0.740426, cost=4.773930
+	training acc=0.998922, cost=0.025047;  valid acc=0.743830, cost=4.688455
+	training acc=0.998922, cost=0.002165;  valid acc=0.742979, cost=4.567095
+	training acc=0.997845, cost=0.006237;  valid acc=0.737021, cost=4.694521
+	training acc=1.000000, cost=0.000038;  valid acc=0.735319, cost=4.760119
+Epoch training 4701, acc=0.998930, cost=0.008097, speed=13.974485 s/epoch
+**Test 1175, acc=0.737872, cost=4.717874, average_f1=0.698842
+             precision    recall  f1-score   support
+
+   disagree     0.7799    0.8366    0.8073       771
+      agree     0.6379    0.5495    0.5904       404
+
+avg / total     0.7311    0.7379    0.7327      1175
+
+EPOCH 46, lr=0.0006142536534626854
+	training acc=0.994612, cost=0.044854;  valid acc=0.731915, cost=4.628983
+	training acc=0.997845, cost=0.010631;  valid acc=0.733617, cost=4.931871
+	training acc=0.997845, cost=0.005337;  valid acc=0.746383, cost=4.743104
+	training acc=0.996767, cost=0.008195;  valid acc=0.749787, cost=4.754471
+	training acc=1.000000, cost=0.000436;  valid acc=0.748085, cost=4.789485
+Epoch training 4701, acc=0.997432, cost=0.013795, speed=14.014803 s/epoch
+**Test 1175, acc=0.748085, cost=4.849349, average_f1=0.707647
+             precision    recall  f1-score   support
+
+   disagree     0.7824    0.8534    0.8164       771
+      agree     0.6617    0.5470    0.5989       404
+
+avg / total     0.7409    0.7481    0.7416      1175
+
+EPOCH 47, lr=0.0005958260438588048
+	training acc=0.998922, cost=0.006776;  valid acc=0.747234, cost=4.958468
+	training acc=0.998922, cost=0.004367;  valid acc=0.743830, cost=4.805083
+	training acc=1.000000, cost=0.000119;  valid acc=0.742128, cost=4.754634
+	training acc=0.997845, cost=0.010590;  valid acc=0.738723, cost=4.830018
+	training acc=0.998922, cost=0.003602;  valid acc=0.734468, cost=4.683262
+Epoch training 4701, acc=0.998930, cost=0.005056, speed=13.966466 s/epoch
+**Test 1175, acc=0.735319, cost=4.680018, average_f1=0.687410
+             precision    recall  f1-score   support
+
+   disagree     0.7662    0.8586    0.8098       771
+      agree     0.6495    0.5000    0.5650       404
+
+avg / total     0.7261    0.7353    0.7256      1175
+
+EPOCH 48, lr=0.0005779512625430406
+	training acc=1.000000, cost=0.000146;  valid acc=0.744681, cost=4.890877
+	training acc=0.995690, cost=0.032799;  valid acc=0.740426, cost=4.902143
+	training acc=0.998922, cost=0.019582;  valid acc=0.745532, cost=4.698637
+	training acc=1.000000, cost=0.000361;  valid acc=0.743830, cost=4.937114
+	training acc=1.000000, cost=0.000312;  valid acc=0.748085, cost=4.847827
+Epoch training 4701, acc=0.998930, cost=0.010567, speed=13.967172 s/epoch
+**Test 1175, acc=0.747234, cost=4.857453, average_f1=0.706009
+             precision    recall  f1-score   support
+
+   disagree     0.7808    0.8547    0.8161       771
+      agree     0.6616    0.5421    0.5959       404
+
+avg / total     0.7398    0.7472    0.7404      1175
+
+EPOCH 49, lr=0.0005606127246667494
+	training acc=1.000000, cost=0.000002;  valid acc=0.750638, cost=4.886917
+	training acc=1.000000, cost=0.000123;  valid acc=0.750638, cost=4.733611
+	training acc=0.996767, cost=0.010459;  valid acc=0.739574, cost=4.935336
+	training acc=1.000000, cost=0.000234;  valid acc=0.736170, cost=4.816544
+	training acc=0.998922, cost=0.006909;  valid acc=0.740426, cost=4.795252
+Epoch training 4701, acc=0.999144, cost=0.003521, speed=14.019419 s/epoch
+**Test 1175, acc=0.748085, cost=4.747609, average_f1=0.706781
+             precision    recall  f1-score   support
+
+   disagree     0.7811    0.8560    0.8168       771
+      agree     0.6636    0.5421    0.5967       404
+
+avg / total     0.7407    0.7481    0.7412      1175
+
+EPOCH 50, lr=0.0005437943429267469
+	training acc=0.996767, cost=0.006046;  valid acc=0.737872, cost=4.936212
+	training acc=0.998922, cost=0.008294;  valid acc=0.748936, cost=4.585032
+	training acc=0.996767, cost=0.009895;  valid acc=0.742979, cost=4.597376
+	training acc=0.998922, cost=0.001732;  valid acc=0.752340, cost=4.567300
+	training acc=0.997845, cost=0.021919;  valid acc=0.745532, cost=5.002936
+Epoch training 4701, acc=0.997860, cost=0.009512, speed=14.040365 s/epoch
+**Test 1175, acc=0.748085, cost=4.936677, average_f1=0.700344
+             precision    recall  f1-score   support
+
+   disagree     0.7721    0.8742    0.8200       771
+      agree     0.6788    0.5074    0.5807       404
+
+avg / total     0.7400    0.7481    0.7377      1175
+
+EPOCH 51, lr=0.0005274805126389445
+	training acc=0.997845, cost=0.004188;  valid acc=0.743830, cost=4.865131
+	training acc=0.996767, cost=0.025540;  valid acc=0.748085, cost=4.645116
+	training acc=0.996767, cost=0.029743;  valid acc=0.748936, cost=4.725143
+	training acc=0.998922, cost=0.005456;  valid acc=0.745532, cost=4.567505
+	training acc=0.998922, cost=0.003200;  valid acc=0.743830, cost=4.782665
+Epoch training 4701, acc=0.997860, cost=0.013532, speed=14.040604 s/epoch
+**Test 1175, acc=0.744681, cost=4.796364, average_f1=0.694301
+             precision    recall  f1-score   support
+
+   disagree     0.7673    0.8768    0.8184       771
+      agree     0.6769    0.4926    0.5702       404
+
+avg / total     0.7362    0.7447    0.7331      1175
+
+EPOCH 52, lr=0.0005116560972597762
+	training acc=1.000000, cost=0.000156;  valid acc=0.748085, cost=4.832586
+	training acc=0.997845, cost=0.028539;  valid acc=0.748085, cost=4.462232
+	training acc=0.998922, cost=0.007846;  valid acc=0.748936, cost=4.480105
+	training acc=0.998922, cost=0.001215;  valid acc=0.745532, cost=4.520090
+	training acc=1.000000, cost=0.000823;  valid acc=0.739574, cost=4.572187
+Epoch training 4701, acc=0.999144, cost=0.007663, speed=14.053030 s/epoch
+**Test 1175, acc=0.737872, cost=4.643463, average_f1=0.691153
+             precision    recall  f1-score   support
+
+   disagree     0.7689    0.8586    0.8113       771
+      agree     0.6529    0.5074    0.5710       404
+
+avg / total     0.7290    0.7379    0.7287      1175
+
+EPOCH 53, lr=0.0004963064143419829
+	training acc=0.998922, cost=0.001193;  valid acc=0.742128, cost=4.558408
+	training acc=0.995690, cost=0.022192;  valid acc=0.741277, cost=4.424130
+	training acc=1.000000, cost=0.000029;  valid acc=0.742128, cost=4.491417
+	training acc=0.996767, cost=0.014759;  valid acc=0.741277, cost=4.704833
+	training acc=0.997845, cost=0.002801;  valid acc=0.744681, cost=4.541530
+Epoch training 4701, acc=0.997860, cost=0.008138, speed=14.081637 s/epoch
+**Test 1175, acc=0.743830, cost=4.504405, average_f1=0.702049
+             precision    recall  f1-score   support
+
+   disagree     0.7784    0.8521    0.8136       771
+      agree     0.6556    0.5371    0.5905       404
+
+avg / total     0.7362    0.7438    0.7369      1175
+
+EPOCH 54, lr=0.00048141722191172336
+	training acc=1.000000, cost=0.000027;  valid acc=0.743830, cost=4.660397
+	training acc=1.000000, cost=0.000315;  valid acc=0.742128, cost=4.500026
+	training acc=0.995690, cost=0.025118;  valid acc=0.743830, cost=4.507478
+	training acc=0.998922, cost=0.011164;  valid acc=0.746383, cost=4.504445
+	training acc=1.000000, cost=0.000011;  valid acc=0.742979, cost=4.656792
+Epoch training 4701, acc=0.998930, cost=0.007277, speed=14.048016 s/epoch
+**Test 1175, acc=0.746383, cost=4.730354, average_f1=0.695835
+             precision    recall  f1-score   support
+
+   disagree     0.7678    0.8794    0.8198       771
+      agree     0.6815    0.4926    0.5718       404
+
+avg / total     0.7382    0.7464    0.7346      1175
+
+EPOCH 55, lr=0.00046697470525437166
+	training acc=1.000000, cost=0.000074;  valid acc=0.743830, cost=4.406272
+	training acc=0.998922, cost=0.002137;  valid acc=0.743830, cost=4.552230
+	training acc=0.997845, cost=0.003714;  valid acc=0.745532, cost=4.417261
+	training acc=0.997845, cost=0.021451;  valid acc=0.748085, cost=4.596159
+	training acc=0.998922, cost=0.001803;  valid acc=0.742979, cost=4.417226
+Epoch training 4701, acc=0.998716, cost=0.005796, speed=14.056326 s/epoch
+**Test 1175, acc=0.743830, cost=4.390969, average_f1=0.702926
+             precision    recall  f1-score   support
+
+   disagree     0.7798    0.8495    0.8132       771
+      agree     0.6537    0.5421    0.5927       404
+
+avg / total     0.7364    0.7438    0.7374      1175
+
+EPOCH 56, lr=0.0004529654640967405
+	training acc=1.000000, cost=0.000178;  valid acc=0.746383, cost=4.435920
+	training acc=1.000000, cost=0.000005;  valid acc=0.745532, cost=4.412603
+	training acc=0.997845, cost=0.011980;  valid acc=0.750638, cost=4.345658
+	training acc=0.997845, cost=0.013870;  valid acc=0.749787, cost=4.562193
+	training acc=1.000000, cost=0.000295;  valid acc=0.750638, cost=4.574917
+Epoch training 4701, acc=0.999144, cost=0.005230, speed=14.083072 s/epoch
+**Test 1175, acc=0.749787, cost=4.500154, average_f1=0.705191
+             precision    recall  f1-score   support
+
+   disagree     0.7770    0.8677    0.8199       771
+      agree     0.6752    0.5248    0.5905       404
+
+avg / total     0.7420    0.7498    0.7410      1175
+
+EPOCH 57, lr=0.0004393765001738382
+	training acc=1.000000, cost=0.000027;  valid acc=0.754894, cost=4.436726
+	training acc=0.996767, cost=0.017071;  valid acc=0.749787, cost=4.499164
+	training acc=1.000000, cost=0.000466;  valid acc=0.752340, cost=4.398694
+	training acc=0.998922, cost=0.007274;  valid acc=0.745532, cost=4.505819
+	training acc=0.998922, cost=0.000900;  valid acc=0.749787, cost=4.756743
+Epoch training 4701, acc=0.998930, cost=0.005112, speed=14.039808 s/epoch
+**Test 1175, acc=0.749787, cost=4.754448, average_f1=0.700415
+             precision    recall  f1-score   support
+
+   disagree     0.7707    0.8807    0.8220       771
+      agree     0.6871    0.5000    0.5788       404
+
+avg / total     0.7420    0.7498    0.7384      1175
+
+EPOCH 58, lr=0.00042619520516862307
+	training acc=1.000000, cost=0.000113;  valid acc=0.743830, cost=4.638836
+	training acc=0.996767, cost=0.005292;  valid acc=0.743830, cost=4.488247
+	training acc=0.998922, cost=0.001585;  valid acc=0.748936, cost=4.496046
+	training acc=0.998922, cost=0.008576;  valid acc=0.750638, cost=4.558399
+	training acc=0.998922, cost=0.002769;  valid acc=0.742128, cost=4.612452
+Epoch training 4701, acc=0.998716, cost=0.003642, speed=14.024743 s/epoch
+**Test 1175, acc=0.742128, cost=4.674289, average_f1=0.703939
+             precision    recall  f1-score   support
+
+   disagree     0.7833    0.8392    0.8103       771
+      agree     0.6447    0.5569    0.5976       404
+
+avg / total     0.7356    0.7421    0.7372      1175
+
+EPOCH 59, lr=0.00041340934901356436
+	training acc=1.000000, cost=0.000149;  valid acc=0.737872, cost=4.609748
+	training acc=0.998922, cost=0.002414;  valid acc=0.742128, cost=4.783459
+	training acc=1.000000, cost=0.000166;  valid acc=0.739574, cost=4.668330
+	training acc=0.998922, cost=0.015727;  valid acc=0.742128, cost=4.405579
+	training acc=1.000000, cost=0.000025;  valid acc=0.740426, cost=4.420129
+Epoch training 4701, acc=0.999572, cost=0.003671, speed=14.069210 s/epoch
+**Test 1175, acc=0.742979, cost=4.475221, average_f1=0.700391
+             precision    recall  f1-score   support
+
+   disagree     0.7769    0.8534    0.8133       771
+      agree     0.6555    0.5322    0.5874       404
+
+avg / total     0.7351    0.7430    0.7357      1175
+
+EPOCH 60, lr=0.0004010070685431574
+	training acc=1.000000, cost=0.000412;  valid acc=0.742979, cost=4.519015
+	training acc=1.000000, cost=0.000022;  valid acc=0.742128, cost=4.468283
+	training acc=1.000000, cost=0.000047;  valid acc=0.739574, cost=4.756457
+	training acc=1.000000, cost=0.000275;  valid acc=0.747234, cost=4.643456
+	training acc=1.000000, cost=0.000002;  valid acc=0.743830, cost=4.545788
+Epoch training 4701, acc=1.000000, cost=0.000151, speed=14.077180 s/epoch
+**Test 1175, acc=0.742128, cost=4.544516, average_f1=0.700070
+             precision    recall  f1-score   support
+
+   disagree     0.7773    0.8508    0.8124       771
+      agree     0.6526    0.5347    0.5878       404
+
+avg / total     0.7344    0.7421    0.7351      1175
+
+EPOCH 61, lr=0.0003889768564868627
+	training acc=0.998922, cost=0.001777;  valid acc=0.742128, cost=4.301131
+	training acc=1.000000, cost=0.000003;  valid acc=0.739574, cost=4.470761
+	training acc=0.998922, cost=0.010024;  valid acc=0.738723, cost=4.583278
+	training acc=0.998922, cost=0.005489;  valid acc=0.743830, cost=4.619627
+	training acc=1.000000, cost=0.000008;  valid acc=0.738723, cost=4.635075
+Epoch training 4701, acc=0.999358, cost=0.003437, speed=14.056894 s/epoch
+**Test 1175, acc=0.739574, cost=4.666255, average_f1=0.690220
+             precision    recall  f1-score   support
+
+   disagree     0.7663    0.8677    0.8139       771
+      agree     0.6623    0.4950    0.5666       404
+
+avg / total     0.7305    0.7396    0.7288      1175
+
+EPOCH 62, lr=0.0003773075507922568
+	training acc=1.000000, cost=0.000004;  valid acc=0.749787, cost=4.360967
+	training acc=0.997845, cost=0.008192;  valid acc=0.742128, cost=4.536023
+	training acc=0.998922, cost=0.010322;  valid acc=0.738723, cost=4.624788
+	training acc=0.998922, cost=0.014078;  valid acc=0.736170, cost=4.512597
+	training acc=0.998922, cost=0.008218;  valid acc=0.738723, cost=4.421470
+Epoch training 4701, acc=0.998930, cost=0.008107, speed=14.057924 s/epoch
+**Test 1175, acc=0.739574, cost=4.429289, average_f1=0.696875
+             precision    recall  f1-score   support
+
+   disagree     0.7751    0.8495    0.8106       771
+      agree     0.6485    0.5297    0.5831       404
+
+avg / total     0.7316    0.7396    0.7324      1175
+
+EPOCH 63, lr=0.0003659883242684891
+	training acc=0.997845, cost=0.007176;  valid acc=0.742979, cost=4.299436
+	training acc=1.000000, cost=0.000012;  valid acc=0.742979, cost=4.473658
+	training acc=1.000000, cost=0.000810;  valid acc=0.736170, cost=4.725026
+	training acc=1.000000, cost=0.000171;  valid acc=0.745532, cost=4.537272
+	training acc=1.000000, cost=0.000010;  valid acc=0.743830, cost=4.704709
+Epoch training 4701, acc=0.999572, cost=0.001625, speed=14.039102 s/epoch
+**Test 1175, acc=0.742979, cost=4.698853, average_f1=0.691752
+             precision    recall  f1-score   support
+
+   disagree     0.7656    0.8768    0.8174       771
+      agree     0.6747    0.4876    0.5661       404
+
+avg / total     0.7343    0.7430    0.7310      1175
+
+EPOCH 64, lr=0.00035500867454043444
+	training acc=0.998922, cost=0.003818;  valid acc=0.747234, cost=4.430413
+	training acc=0.996767, cost=0.008334;  valid acc=0.748936, cost=4.505855
+	training acc=0.998922, cost=0.017172;  valid acc=0.749787, cost=4.733610
+	training acc=1.000000, cost=0.000066;  valid acc=0.745532, cost=4.639469
+	training acc=1.000000, cost=0.000006;  valid acc=0.748085, cost=4.570001
+Epoch training 4701, acc=0.998930, cost=0.005839, speed=14.025777 s/epoch
+**Test 1175, acc=0.748085, cost=4.563895, average_f1=0.708499
+             precision    recall  f1-score   support
+
+   disagree     0.7838    0.8508    0.8159       771
+      agree     0.6598    0.5520    0.6011       404
+
+avg / total     0.7411    0.7481    0.7421      1175
+
+EPOCH 65, lr=0.0003443584143042214
+	training acc=1.000000, cost=0.000194;  valid acc=0.744681, cost=4.581997
+	training acc=0.998922, cost=0.010084;  valid acc=0.744681, cost=4.642812
+	training acc=1.000000, cost=0.000004;  valid acc=0.745532, cost=4.588686
+	training acc=0.995690, cost=0.012416;  valid acc=0.743830, cost=4.362174
+	training acc=1.000000, cost=0.000679;  valid acc=0.737021, cost=4.675404
+Epoch training 4701, acc=0.998930, cost=0.004643, speed=14.086874 s/epoch
+**Test 1175, acc=0.737872, cost=4.655587, average_f1=0.682417
+             precision    recall  f1-score   support
+
+   disagree     0.7587    0.8807    0.8151       771
+      agree     0.6714    0.4653    0.5497       404
+
+avg / total     0.7287    0.7379    0.7239      1175
+
+EPOCH 66, lr=0.00033402766187509475
+	training acc=1.000000, cost=0.000054;  valid acc=0.741277, cost=4.775057
+	training acc=0.998922, cost=0.005467;  valid acc=0.742979, cost=4.588326
+	training acc=0.996767, cost=0.014574;  valid acc=0.748085, cost=4.440901
+	training acc=1.000000, cost=0.000000;  valid acc=0.748936, cost=4.428923
+	training acc=1.000000, cost=0.000234;  valid acc=0.747234, cost=4.401801
+Epoch training 4701, acc=0.999144, cost=0.004038, speed=13.972918 s/epoch
+**Test 1175, acc=0.750638, cost=4.336350, average_f1=0.711244
+             precision    recall  f1-score   support
+
+   disagree     0.7852    0.8534    0.8179       771
+      agree     0.6647    0.5545    0.6046       404
+
+avg / total     0.7438    0.7506    0.7446      1175
+
+EPOCH 67, lr=0.0003240068320188419
+	training acc=0.998922, cost=0.001988;  valid acc=0.748085, cost=4.456642
+	training acc=0.998922, cost=0.001478;  valid acc=0.748085, cost=4.421827
+	training acc=0.997845, cost=0.002517;  valid acc=0.747234, cost=4.254195
+	training acc=1.000000, cost=0.000002;  valid acc=0.743830, cost=4.349316
+	training acc=0.998922, cost=0.011228;  valid acc=0.748085, cost=4.198494
+Epoch training 4701, acc=0.998930, cost=0.003419, speed=13.976897 s/epoch
+**Test 1175, acc=0.749787, cost=4.238451, average_f1=0.713335
+             precision    recall  f1-score   support
+
+   disagree     0.7898    0.8431    0.8156       771
+      agree     0.6562    0.5718    0.6111       404
+
+avg / total     0.7439    0.7498    0.7453      1175
+
+EPOCH 68, lr=0.00031428662705827666
+	training acc=1.000000, cost=0.000500;  valid acc=0.749787, cost=4.315090
+	training acc=1.000000, cost=0.000143;  valid acc=0.747234, cost=4.380622
+	training acc=0.998922, cost=0.000803;  valid acc=0.747234, cost=4.481938
+	training acc=0.997845, cost=0.002085;  valid acc=0.743830, cost=4.559165
+	training acc=1.000000, cost=0.000269;  valid acc=0.742979, cost=4.446451
+Epoch training 4701, acc=0.999144, cost=0.000920, speed=13.975360 s/epoch
+**Test 1175, acc=0.749787, cost=4.341317, average_f1=0.714517
+             precision    recall  f1-score   support
+
+   disagree     0.7919    0.8392    0.8149       771
+      agree     0.6536    0.5792    0.6142       404
+
+avg / total     0.7444    0.7498    0.7459      1175
+
+EPOCH 69, lr=0.00030485802824652835
+	training acc=1.000000, cost=0.000003;  valid acc=0.742979, cost=4.447045
+	training acc=0.998922, cost=0.008198;  valid acc=0.747234, cost=4.475856
+	training acc=1.000000, cost=0.000090;  valid acc=0.748936, cost=4.538367
+	training acc=1.000000, cost=0.000009;  valid acc=0.748936, cost=4.571049
+	training acc=0.998922, cost=0.002622;  valid acc=0.749787, cost=4.482882
+Epoch training 4701, acc=0.999572, cost=0.002169, speed=13.983612 s/epoch
+**Test 1175, acc=0.747234, cost=4.489913, average_f1=0.703334
+             precision    recall  f1-score   support
+
+   disagree     0.7769    0.8625    0.8175       771
+      agree     0.6677    0.5272    0.5892       404
+
+avg / total     0.7393    0.7472    0.7390      1175
+
+EPOCH 70, lr=0.0002957122873991325
+	training acc=0.997845, cost=0.003048;  valid acc=0.749787, cost=4.646698
+	training acc=0.998922, cost=0.004764;  valid acc=0.750638, cost=4.419594
+	training acc=1.000000, cost=0.000839;  valid acc=0.746383, cost=4.412427
+	training acc=0.998922, cost=0.002651;  valid acc=0.747234, cost=4.541587
+	training acc=0.997845, cost=0.010384;  valid acc=0.745532, cost=4.462869
+Epoch training 4701, acc=0.998716, cost=0.004309, speed=13.982672 s/epoch
+**Test 1175, acc=0.749787, cost=4.422824, average_f1=0.712531
+             precision    recall  f1-score   support
+
+   disagree     0.7884    0.8457    0.8160       771
+      agree     0.6580    0.5668    0.6090       404
+
+avg / total     0.7436    0.7498    0.7449      1175
+
+EPOCH 71, lr=0.00028684091877715853
+	training acc=1.000000, cost=0.000273;  valid acc=0.748085, cost=4.525168
+	training acc=0.997845, cost=0.007673;  valid acc=0.749787, cost=4.814745
+	training acc=0.997845, cost=0.005168;  valid acc=0.748936, cost=4.490233
+	training acc=1.000000, cost=0.000045;  valid acc=0.751489, cost=4.611669
+	training acc=1.000000, cost=0.000014;  valid acc=0.749787, cost=4.434750
+Epoch training 4701, acc=0.999144, cost=0.002617, speed=14.020861 s/epoch
+**Test 1175, acc=0.748936, cost=4.464526, average_f1=0.708848
+             precision    recall  f1-score   support
+
+   disagree     0.7833    0.8534    0.8169       771
+      agree     0.6627    0.5495    0.6008       404
+
+avg / total     0.7419    0.7489    0.7426      1175
+
+EPOCH 72, lr=0.00027823569121384375
+	training acc=1.000000, cost=0.000001;  valid acc=0.751489, cost=4.433737
+	training acc=0.998922, cost=0.003767;  valid acc=0.746383, cost=4.613461
+	training acc=0.997845, cost=0.002316;  valid acc=0.748085, cost=4.511055
+	training acc=1.000000, cost=0.000009;  valid acc=0.751489, cost=4.600518
+	training acc=0.995690, cost=0.021480;  valid acc=0.748936, cost=4.773095
+Epoch training 4701, acc=0.998502, cost=0.005477, speed=14.026798 s/epoch
+**Test 1175, acc=0.749787, cost=4.825349, average_f1=0.700909
+             precision    recall  f1-score   support
+
+   disagree     0.7713    0.8794    0.8218       771
+      agree     0.6858    0.5025    0.5800       404
+
+avg / total     0.7419    0.7498    0.7387      1175
+
+EPOCH 73, lr=0.0002698886204774284
+	training acc=1.000000, cost=0.000050;  valid acc=0.751489, cost=4.534314
+	training acc=0.997845, cost=0.012340;  valid acc=0.753191, cost=4.900437
+	training acc=1.000000, cost=0.000557;  valid acc=0.749787, cost=4.504015
+	training acc=0.995690, cost=0.025544;  valid acc=0.749787, cost=4.451769
+	training acc=1.000000, cost=0.000000;  valid acc=0.752340, cost=4.575750
+Epoch training 4701, acc=0.998716, cost=0.007645, speed=14.024371 s/epoch
+**Test 1175, acc=0.754043, cost=4.571331, average_f1=0.709064
+             precision    recall  f1-score   support
+
+   disagree     0.7783    0.8742    0.8235       771
+      agree     0.6861    0.5248    0.5947       404
+
+avg / total     0.7466    0.7540    0.7448      1175
+
+EPOCH 74, lr=0.00026179196186310554
+	training acc=1.000000, cost=0.000000;  valid acc=0.752340, cost=4.389898
+	training acc=1.000000, cost=0.000088;  valid acc=0.751489, cost=4.485399
+	training acc=1.000000, cost=0.000446;  valid acc=0.754894, cost=4.447338
+	training acc=0.998922, cost=0.001068;  valid acc=0.747234, cost=4.857960
+	training acc=1.000000, cost=0.000123;  valid acc=0.751489, cost=4.576630
+Epoch training 4701, acc=0.999786, cost=0.000343, speed=13.979257 s/epoch
+**Test 1175, acc=0.751489, cost=4.606710, average_f1=0.709877
+             precision    recall  f1-score   support
+
+   disagree     0.7821    0.8612    0.8198       771
+      agree     0.6718    0.5421    0.6000       404
+
+avg / total     0.7442    0.7515    0.7442      1175
+
+EPOCH 75, lr=0.0002539382030072124
+	training acc=0.996767, cost=0.018073;  valid acc=0.750638, cost=4.456186
+	training acc=1.000000, cost=0.000032;  valid acc=0.746383, cost=4.477534
+	training acc=1.000000, cost=0.000292;  valid acc=0.754894, cost=4.359590
+	training acc=0.998922, cost=0.004453;  valid acc=0.750638, cost=4.490680
+	training acc=0.998922, cost=0.003829;  valid acc=0.755745, cost=4.383899
+Epoch training 4701, acc=0.998930, cost=0.005299, speed=13.987617 s/epoch
+**Test 1175, acc=0.753191, cost=4.393712, average_f1=0.713573
+             precision    recall  f1-score   support
+
+   disagree     0.7860    0.8573    0.8201       771
+      agree     0.6707    0.5545    0.6070       404
+
+avg / total     0.7463    0.7532    0.7468      1175
+
+EPOCH 76, lr=0.000246320056916996
+	training acc=1.000000, cost=0.000227;  valid acc=0.754894, cost=4.245665
+	training acc=1.000000, cost=0.000387;  valid acc=0.752340, cost=4.231942
+	training acc=1.000000, cost=0.000101;  valid acc=0.756596, cost=4.448030
+	training acc=0.998922, cost=0.010108;  valid acc=0.759149, cost=4.399574
+	training acc=0.998922, cost=0.003041;  valid acc=0.749787, cost=4.294183
+Epoch training 4701, acc=0.999572, cost=0.002754, speed=13.983693 s/epoch
+**Test 1175, acc=0.749787, cost=4.300983, average_f1=0.720042
+             precision    recall  f1-score   support
+
+   disagree     0.8030    0.8197    0.8113       771
+      agree     0.6418    0.6163    0.6288       404
+
+avg / total     0.7476    0.7498    0.7485      1175
+
+EPOCH 77, lr=0.0002389304552094861
+	training acc=0.998922, cost=0.007823;  valid acc=0.750638, cost=4.314201
+	training acc=0.998922, cost=0.001826;  valid acc=0.753191, cost=4.148622
+	training acc=0.998922, cost=0.004244;  valid acc=0.754894, cost=4.293081
+	training acc=1.000000, cost=0.000073;  valid acc=0.756596, cost=4.291740
+	training acc=0.998922, cost=0.005263;  valid acc=0.752340, cost=4.265708
+Epoch training 4701, acc=0.999144, cost=0.003819, speed=13.998162 s/epoch
+**Test 1175, acc=0.754043, cost=4.316390, average_f1=0.713502
+             precision    recall  f1-score   support
+
+   disagree     0.7849    0.8612    0.8213       771
+      agree     0.6748    0.5495    0.6057       404
+
+avg / total     0.7470    0.7540    0.7472      1175
+
+EPOCH 78, lr=0.0002317625415532015
+	training acc=1.000000, cost=0.000095;  valid acc=0.757447, cost=4.232666
+	training acc=0.997845, cost=0.004543;  valid acc=0.759149, cost=4.367726
+	training acc=1.000000, cost=0.000023;  valid acc=0.761702, cost=4.372998
+	training acc=1.000000, cost=0.000000;  valid acc=0.754894, cost=4.501467
+	training acc=0.997845, cost=0.015356;  valid acc=0.760000, cost=4.321611
+Epoch training 4701, acc=0.999144, cost=0.003976, speed=13.987012 s/epoch
+**Test 1175, acc=0.761702, cost=4.309843, average_f1=0.721799
+             precision    recall  f1-score   support
+
+   disagree     0.7892    0.8690    0.8272       771
+      agree     0.6902    0.5569    0.6164       404
+
+avg / total     0.7551    0.7617    0.7547      1175
+
+EPOCH 79, lr=0.00022480966530660546
+	training acc=1.000000, cost=0.000100;  valid acc=0.759149, cost=4.260719
+	training acc=1.000000, cost=0.000128;  valid acc=0.757447, cost=4.286399
+	training acc=0.998922, cost=0.002440;  valid acc=0.755745, cost=4.282108
+	training acc=0.997845, cost=0.002536;  valid acc=0.753191, cost=4.490368
+	training acc=1.000000, cost=0.000369;  valid acc=0.754043, cost=4.415453
+Epoch training 4701, acc=0.999358, cost=0.001107, speed=13.971077 s/epoch
+**Test 1175, acc=0.755745, cost=4.405785, average_f1=0.721504
+             precision    recall  f1-score   support
+
+   disagree     0.7966    0.8431    0.8192       771
+      agree     0.6630    0.5891    0.6239       404
+
+avg / total     0.7506    0.7557    0.7520      1175
+
+EPOCH 80, lr=0.0002180653753474073
+	training acc=1.000000, cost=0.000004;  valid acc=0.756596, cost=4.467729
+	training acc=1.000000, cost=0.000006;  valid acc=0.758298, cost=4.430494
+	training acc=0.998922, cost=0.005280;  valid acc=0.755745, cost=4.441330
+	training acc=0.998922, cost=0.003416;  valid acc=0.754894, cost=4.442553
+	training acc=1.000000, cost=0.000065;  valid acc=0.751489, cost=4.590724
+Epoch training 4701, acc=0.999572, cost=0.001742, speed=13.976227 s/epoch
+**Test 1175, acc=0.752340, cost=4.589392, average_f1=0.708427
+             precision    recall  f1-score   support
+
+   disagree     0.7791    0.8690    0.8216       771
+      agree     0.6794    0.5297    0.5953       404
+
+avg / total     0.7448    0.7523    0.7438      1175
+
+EPOCH 81, lr=0.00021152341408698508
+	training acc=1.000000, cost=0.000002;  valid acc=0.752340, cost=4.687017
+	training acc=1.000000, cost=0.000014;  valid acc=0.753191, cost=4.464134
+	training acc=0.998922, cost=0.001304;  valid acc=0.748936, cost=4.579246
+	training acc=0.998922, cost=0.010831;  valid acc=0.748936, cost=4.546559
+	training acc=0.998922, cost=0.004890;  valid acc=0.755745, cost=4.477213
+Epoch training 4701, acc=0.999358, cost=0.003385, speed=13.979643 s/epoch
+**Test 1175, acc=0.751489, cost=4.551435, average_f1=0.708552
+             precision    recall  f1-score   support
+
+   disagree     0.7801    0.8651    0.8204       771
+      agree     0.6750    0.5347    0.5967       404
+
+avg / total     0.7440    0.7515    0.7435      1175
+
+EPOCH 82, lr=0.00020517771166437553
+	training acc=1.000000, cost=0.000686;  valid acc=0.748085, cost=4.382226
+	training acc=0.998922, cost=0.001194;  valid acc=0.752340, cost=4.644071
+	training acc=1.000000, cost=0.000001;  valid acc=0.750638, cost=4.505545
+	training acc=1.000000, cost=0.000006;  valid acc=0.752340, cost=4.522624
+	training acc=0.998922, cost=0.002295;  valid acc=0.750638, cost=4.533123
+Epoch training 4701, acc=0.999572, cost=0.000831, speed=13.972235 s/epoch
+**Test 1175, acc=0.752340, cost=4.580316, average_f1=0.705643
+             precision    recall  f1-score   support
+
+   disagree     0.7752    0.8768    0.8229       771
+      agree     0.6865    0.5149    0.5884       404
+
+avg / total     0.7447    0.7523    0.7423      1175
+
+EPOCH 83, lr=0.00019902238031444425
+	training acc=1.000000, cost=0.000001;  valid acc=0.750638, cost=4.660318
+	training acc=0.998922, cost=0.005514;  valid acc=0.749787, cost=4.340279
+	training acc=0.997845, cost=0.002191;  valid acc=0.753191, cost=4.460857
+	training acc=1.000000, cost=0.000017;  valid acc=0.754894, cost=4.440767
+	training acc=0.998922, cost=0.013307;  valid acc=0.755745, cost=4.711648
+Epoch training 4701, acc=0.999144, cost=0.004177, speed=14.009980 s/epoch
+**Test 1175, acc=0.751489, cost=4.669435, average_f1=0.707197
+             precision    recall  f1-score   support
+
+   disagree     0.7782    0.8690    0.8211       771
+      agree     0.6783    0.5272    0.5933       404
+
+avg / total     0.7438    0.7515    0.7428      1175
+
+EPOCH 84, lr=0.0001930517089050109
+	training acc=1.000000, cost=0.000004;  valid acc=0.754043, cost=4.585269
+	training acc=0.998922, cost=0.023554;  valid acc=0.743830, cost=4.245123
+	training acc=1.000000, cost=0.000054;  valid acc=0.752340, cost=4.380263
+	training acc=1.000000, cost=0.000002;  valid acc=0.757447, cost=4.694435
+	training acc=0.998922, cost=0.010300;  valid acc=0.753191, cost=4.435039
+Epoch training 4701, acc=0.999572, cost=0.006737, speed=14.031208 s/epoch
+**Test 1175, acc=0.748936, cost=4.360065, average_f1=0.707988
+             precision    recall  f1-score   support
+
+   disagree     0.7820    0.8560    0.8173       771
+      agree     0.6647    0.5446    0.5986       404
+
+avg / total     0.7416    0.7489    0.7421      1175
+
+EPOCH 85, lr=0.00018726015763786058
+	training acc=0.997845, cost=0.007116;  valid acc=0.750638, cost=4.247375
+	training acc=0.998922, cost=0.002156;  valid acc=0.751489, cost=4.346809
+	training acc=1.000000, cost=0.000379;  valid acc=0.754043, cost=4.723783
+	training acc=1.000000, cost=0.000000;  valid acc=0.761702, cost=4.659377
+	training acc=1.000000, cost=0.000156;  valid acc=0.758298, cost=4.698516
+Epoch training 4701, acc=0.999358, cost=0.001948, speed=14.027828 s/epoch
+**Test 1175, acc=0.755745, cost=4.584842, average_f1=0.708747
+             precision    recall  f1-score   support
+
+   disagree     0.7763    0.8820    0.8257       771
+      agree     0.6957    0.5149    0.5917       404
+
+avg / total     0.7485    0.7557    0.7453      1175
+
+EPOCH 86, lr=0.00018164235290872477
+	training acc=0.996767, cost=0.019576;  valid acc=0.751489, cost=4.411652
+	training acc=1.000000, cost=0.000029;  valid acc=0.754894, cost=4.607946
+	training acc=1.000000, cost=0.000012;  valid acc=0.750638, cost=4.451654
+	training acc=0.998922, cost=0.014809;  valid acc=0.753191, cost=4.404224
+	training acc=0.998922, cost=0.002280;  valid acc=0.753191, cost=4.473367
+Epoch training 4701, acc=0.998930, cost=0.007291, speed=14.013247 s/epoch
+**Test 1175, acc=0.753191, cost=4.500746, average_f1=0.710548
+             precision    recall  f1-score   support
+
+   disagree     0.7813    0.8664    0.8216       771
+      agree     0.6781    0.5371    0.5994       404
+
+avg / total     0.7458    0.7532    0.7452      1175
+
+EPOCH 87, lr=0.000176193082321463
+	training acc=1.000000, cost=0.000002;  valid acc=0.754043, cost=4.480993
+	training acc=1.000000, cost=0.000235;  valid acc=0.752340, cost=4.372609
+	training acc=1.000000, cost=0.000012;  valid acc=0.755745, cost=4.489082
+	training acc=1.000000, cost=0.000078;  valid acc=0.751489, cost=4.381494
+	training acc=1.000000, cost=0.000642;  valid acc=0.751489, cost=4.558353
+Epoch training 4701, acc=1.000000, cost=0.000192, speed=13.996311 s/epoch
+**Test 1175, acc=0.750638, cost=4.609334, average_f1=0.709102
+             precision    recall  f1-score   support
+
+   disagree     0.7818    0.8599    0.8190       771
+      agree     0.6697    0.5421    0.5992       404
+
+avg / total     0.7433    0.7506    0.7434      1175
+
+EPOCH 88, lr=0.00017090728985181912
+	training acc=1.000000, cost=0.000051;  valid acc=0.754894, cost=4.698467
+	training acc=1.000000, cost=0.000000;  valid acc=0.753191, cost=4.636027
+	training acc=0.997845, cost=0.019089;  valid acc=0.752340, cost=4.492590
+	training acc=1.000000, cost=0.000304;  valid acc=0.749787, cost=4.693458
+	training acc=1.000000, cost=0.000003;  valid acc=0.752340, cost=4.579575
+Epoch training 4701, acc=0.999572, cost=0.003863, speed=13.970195 s/epoch
+**Test 1175, acc=0.752340, cost=4.607100, average_f1=0.707513
+             precision    recall  f1-score   support
+
+   disagree     0.7778    0.8716    0.8220       771
+      agree     0.6817    0.5248    0.5930       404
+
+avg / total     0.7447    0.7523    0.7433      1175
+
+EPOCH 89, lr=0.00016578007115626456
+	training acc=1.000000, cost=0.000001;  valid acc=0.753191, cost=4.602490
+	training acc=1.000000, cost=0.000000;  valid acc=0.751489, cost=4.634049
+	training acc=1.000000, cost=0.000037;  valid acc=0.749787, cost=4.597377
+	training acc=0.998922, cost=0.001509;  valid acc=0.752340, cost=4.626286
+	training acc=0.998922, cost=0.007710;  valid acc=0.743830, cost=4.548851
+Epoch training 4701, acc=0.999572, cost=0.001839, speed=13.978943 s/epoch
+**Test 1175, acc=0.743830, cost=4.514170, average_f1=0.702926
+             precision    recall  f1-score   support
+
+   disagree     0.7798    0.8495    0.8132       771
+      agree     0.6537    0.5421    0.5927       404
+
+avg / total     0.7364    0.7438    0.7374      1175
+
+EPOCH 90, lr=0.00016080666902157663
+	training acc=1.000000, cost=0.000027;  valid acc=0.746383, cost=4.495196
+	training acc=1.000000, cost=0.000026;  valid acc=0.747234, cost=4.488912
+	training acc=1.000000, cost=0.000029;  valid acc=0.749787, cost=4.640924
+	training acc=1.000000, cost=0.000005;  valid acc=0.750638, cost=4.814254
+	training acc=1.000000, cost=0.000364;  valid acc=0.747234, cost=4.507633
+Epoch training 4701, acc=1.000000, cost=0.000090, speed=13.985815 s/epoch
+**Test 1175, acc=0.747234, cost=4.506776, average_f1=0.708148
+             precision    recall  f1-score   support
+
+   disagree     0.7842    0.8482    0.8150       771
+      agree     0.6569    0.5545    0.6013       404
+
+avg / total     0.7404    0.7472    0.7415      1175
+
+EPOCH 91, lr=0.00015598246895092932
+	training acc=1.000000, cost=0.000005;  valid acc=0.743830, cost=4.553174
+	training acc=1.000000, cost=0.000127;  valid acc=0.746383, cost=4.453451
+	training acc=1.000000, cost=0.000114;  valid acc=0.750638, cost=4.521458
+	training acc=1.000000, cost=0.000279;  valid acc=0.748085, cost=4.624791
+	training acc=0.998922, cost=0.002362;  valid acc=0.758298, cost=4.768892
+Epoch training 4701, acc=0.999786, cost=0.000573, speed=13.995830 s/epoch
+**Test 1175, acc=0.754894, cost=4.676003, average_f1=0.707970
+             precision    recall  f1-score   support
+
+   disagree     0.7760    0.8807    0.8250       771
+      agree     0.6933    0.5149    0.5909       404
+
+avg / total     0.7476    0.7549    0.7445      1175
+
+EPOCH 92, lr=0.00015130299488240142
+	training acc=0.997845, cost=0.007945;  valid acc=0.758298, cost=4.900618
+	training acc=1.000000, cost=0.000014;  valid acc=0.754894, cost=4.717775
+	training acc=1.000000, cost=0.000000;  valid acc=0.749787, cost=4.702706
+	training acc=1.000000, cost=0.000002;  valid acc=0.751489, cost=4.716779
+	training acc=0.998922, cost=0.004611;  valid acc=0.749787, cost=4.604998
+Epoch training 4701, acc=0.999358, cost=0.002497, speed=13.988089 s/epoch
+**Test 1175, acc=0.745532, cost=4.546455, average_f1=0.701336
+             precision    recall  f1-score   support
+
+   disagree     0.7757    0.8612    0.8162       771
+      agree     0.6646    0.5248    0.5864       404
+
+avg / total     0.7375    0.7455    0.7372      1175
+
+EPOCH 93, lr=0.00014676390503592937
+	training acc=0.998922, cost=0.003805;  valid acc=0.750638, cost=4.699458
+	training acc=1.000000, cost=0.000001;  valid acc=0.751489, cost=4.580613
+	training acc=0.998922, cost=0.002957;  valid acc=0.746383, cost=4.417676
+	training acc=1.000000, cost=0.000015;  valid acc=0.750638, cost=4.604751
+	training acc=0.998922, cost=0.008001;  valid acc=0.758298, cost=4.792578
+Epoch training 4701, acc=0.999358, cost=0.002935, speed=13.971405 s/epoch
+**Test 1175, acc=0.762553, cost=4.851219, average_f1=0.709016
+             precision    recall  f1-score   support
+
+   disagree     0.7709    0.9079    0.8338       771
+      agree     0.7341    0.4851    0.5842       404
+
+avg / total     0.7583    0.7626    0.7480      1175
+
+EPOCH 94, lr=0.0001423609878848515
+	training acc=1.000000, cost=0.000078;  valid acc=0.752340, cost=4.726641
+	training acc=1.000000, cost=0.000016;  valid acc=0.748085, cost=4.517036
+	training acc=1.000000, cost=0.000008;  valid acc=0.747234, cost=4.511879
+	training acc=1.000000, cost=0.000004;  valid acc=0.749787, cost=4.658816
+	training acc=0.998922, cost=0.014555;  valid acc=0.746383, cost=4.443505
+Epoch training 4701, acc=0.999786, cost=0.002912, speed=13.967299 s/epoch
+**Test 1175, acc=0.747234, cost=4.484412, average_f1=0.703334
+             precision    recall  f1-score   support
+
+   disagree     0.7769    0.8625    0.8175       771
+      agree     0.6677    0.5272    0.5892       404
+
+avg / total     0.7393    0.7472    0.7390      1175
+
+EPOCH 95, lr=0.00013809015824830595
+	training acc=1.000000, cost=0.000002;  valid acc=0.746383, cost=4.482445
+	training acc=1.000000, cost=0.000057;  valid acc=0.748085, cost=4.552675
+	training acc=1.000000, cost=0.000405;  valid acc=0.749787, cost=4.464390
+	training acc=1.000000, cost=0.000072;  valid acc=0.748936, cost=4.596548
+	training acc=1.000000, cost=0.000002;  valid acc=0.748085, cost=4.599821
+Epoch training 4701, acc=1.000000, cost=0.000107, speed=13.953466 s/epoch
+**Test 1175, acc=0.752340, cost=4.642887, average_f1=0.703717
+             precision    recall  f1-score   support
+
+   disagree     0.7727    0.8820    0.8237       771
+      agree     0.6915    0.5050    0.5837       404
+
+avg / total     0.7448    0.7523    0.7412      1175
+
+EPOCH 96, lr=0.00013394745350085678
+	training acc=1.000000, cost=0.000062;  valid acc=0.751489, cost=4.594802
+	training acc=1.000000, cost=0.000103;  valid acc=0.750638, cost=4.543714
+	training acc=1.000000, cost=0.000000;  valid acc=0.753191, cost=4.672660
+	training acc=0.998922, cost=0.002293;  valid acc=0.752340, cost=4.605331
+	training acc=0.998922, cost=0.002574;  valid acc=0.748085, cost=4.650866
+Epoch training 4701, acc=0.999572, cost=0.001000, speed=13.948267 s/epoch
+**Test 1175, acc=0.753191, cost=4.753426, average_f1=0.709654
+             precision    recall  f1-score   support
+
+   disagree     0.7800    0.8690    0.8221       771
+      agree     0.6804    0.5322    0.5972       404
+
+avg / total     0.7457    0.7532    0.7448      1175
+
+EPOCH 97, lr=0.00012992902989583107
+	training acc=1.000000, cost=0.000076;  valid acc=0.755745, cost=4.648041
+	training acc=0.998922, cost=0.006577;  valid acc=0.754043, cost=4.574834
+	training acc=1.000000, cost=0.000010;  valid acc=0.760000, cost=4.835330
+	training acc=1.000000, cost=0.000115;  valid acc=0.755745, cost=4.720495
+	training acc=0.998922, cost=0.011724;  valid acc=0.752340, cost=4.585607
+Epoch training 4701, acc=0.999572, cost=0.003675, speed=13.985891 s/epoch
+**Test 1175, acc=0.755745, cost=4.666858, average_f1=0.709220
+             precision    recall  f1-score   support
+
+   disagree     0.7769    0.8807    0.8255       771
+      agree     0.6944    0.5173    0.5929       404
+
+avg / total     0.7485    0.7557    0.7455      1175
+
+EPOCH 98, lr=0.00012603115899895615
+	training acc=1.000000, cost=0.000000;  valid acc=0.751489, cost=4.758598
+	training acc=0.998922, cost=0.006642;  valid acc=0.751489, cost=4.408567
+	training acc=1.000000, cost=0.000000;  valid acc=0.752340, cost=4.523309
+	training acc=0.998922, cost=0.003058;  valid acc=0.752340, cost=4.511131
+	training acc=1.000000, cost=0.000000;  valid acc=0.750638, cost=4.454971
+Epoch training 4701, acc=0.999572, cost=0.001927, speed=13.962883 s/epoch
+**Test 1175, acc=0.750638, cost=4.471793, average_f1=0.709537
+             precision    recall  f1-score   support
+
+   disagree     0.7825    0.8586    0.8188       771
+      agree     0.6687    0.5446    0.6003       404
+
+avg / total     0.7434    0.7506    0.7437      1175
+
+EPOCH 99, lr=0.00012225022422898745
+	training acc=0.998922, cost=0.000929;  valid acc=0.754894, cost=4.585279
+	training acc=0.998922, cost=0.001079;  valid acc=0.751489, cost=4.447744
+	training acc=1.000000, cost=0.000001;  valid acc=0.748085, cost=4.315873
+	training acc=1.000000, cost=0.000005;  valid acc=0.750638, cost=4.575443
+	training acc=1.000000, cost=0.000003;  valid acc=0.748085, cost=4.428324
+Epoch training 4701, acc=0.999572, cost=0.000401, speed=13.989657 s/epoch
+**Test 1175, acc=0.746383, cost=4.424644, average_f1=0.706530
+             precision    recall  f1-score   support
+
+   disagree     0.7826    0.8495    0.8147       771
+      agree     0.6568    0.5495    0.5984       404
+
+avg / total     0.7393    0.7464    0.7403      1175
+
+EPOCH 100, lr=0.00011858271750211782
+	training acc=0.998922, cost=0.001004;  valid acc=0.751489, cost=4.454950
+	training acc=1.000000, cost=0.000072;  valid acc=0.754043, cost=4.620481
+	training acc=1.000000, cost=0.000017;  valid acc=0.750638, cost=4.539541
+	training acc=1.000000, cost=0.000004;  valid acc=0.751489, cost=4.650245
+	training acc=1.000000, cost=0.000012;  valid acc=0.754043, cost=4.778160
+Epoch training 4701, acc=0.999786, cost=0.000220, speed=13.991893 s/epoch
+**Test 1175, acc=0.754043, cost=4.758973, average_f1=0.704280
+             precision    recall  f1-score   support
+
+   disagree     0.7720    0.8872    0.8256       771
+      agree     0.6990    0.5000    0.5830       404
+
+avg / total     0.7469    0.7540    0.7422      1175
+

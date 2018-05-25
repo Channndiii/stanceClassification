@@ -197,6 +197,7 @@ def getDataSet(task, resampleFlag):
 '''
 
 def read_csv(task, topic):
+    np.random.seed(12)
     qrPair_df = pd.read_csv('./data/qrPair_2018.csv') # data on server
 
     # [('evolution', 3985), ('abortion', 2174), ('gun control', 1925), ('gay marriage', 920), ('existence of God', 546), ('healthcare', 116), ('climate change', 94), ('death penalty', 86), ('marijuana legalization', 80), ('communism vs. capitalism', 56)]
@@ -205,18 +206,36 @@ def read_csv(task, topic):
 
     def labelFilter(row):
         label = row['%s' % task]
-        # if label <= -1.0:
+        '''
+        if label <= -1.0:
+            row['label'] = '0'
+        elif label >= 1.0:
+            row['label'] = '1'
+        else:
+            row['label'] = '2'
+        '''
+        # Right Now
+        # if label <= -2.0:
         #     row['label'] = '0'
-        # elif label >= 1.0:
+        # elif label > 0.0:
         #     row['label'] = '1'
         # else:
-        #     row['label'] = '2'
-        if label <= -2.0:
+        #     row['label'] = False
+        # Right Now
+
+        # Rob Abbott
+        if label <= -1.0:
             row['label'] = '0'
-        elif label > 0.0:
+            # if np.random.random_sample() <= 0.3:
+            #     row['label'] = '0'
+            # else:
+            #     row['label'] = False
+        elif label >= 1.0:
             row['label'] = '1'
         else:
             row['label'] = False
+        # Rob Abbott
+
         return row
     qrPair_df = qrPair_df.apply(labelFilter, axis=1)
     qrPair_df = qrPair_df[qrPair_df.label != False]
@@ -254,8 +273,14 @@ def read_csv(task, topic):
 #         text = re.sub(r"\?", " \? ", text)
 #         text = re.sub(r"\s{2,}", " ", text)
 #         return text.strip().lower()
+#
 #     qrPair_df['quoteText'] = qrPair_df['Snippet_A'].apply(cleanText)
 #     qrPair_df['responseText'] = qrPair_df['Snippet_B'].apply(cleanText)
+#
+#     qrPair_df = qrPair_df.iloc[:, [1, 7, 8]]
+#     qrPair_df = qrPair_df.drop_duplicates()
+#     qrPair_df = qrPair_df[qrPair_df['quoteText'] != 'nan']
+#     print(len(qrPair_df))
 #
 #     def labelFilter(row):
 #         label = row['relation']
@@ -435,11 +460,11 @@ def getDataSet(task, topic, max_len, resampleFlag):
 
 if __name__ == '__main__':
 
-    # read_csv(task='disagree_agree', topic=None)
+    read_csv(task='disagree_agree', topic=None)
     # read_csv(task='debatepedia', topic=None)
 
     # data_save(task='disagree_agree', topic='evolution', max_len=64, wordFilter=True)
-    data_save(task='disagree_agree', topic=None, max_len=64, wordFilter=True)
+    # data_save(task='disagree_agree', topic=None, max_len=64, wordFilter=True)
     # data_save(task='debatepedia', topic=None, max_len=64, wordFilter=True)
 
     # data_train, data_test, vocabulary_size = getDataSet(task='disagree_agree')

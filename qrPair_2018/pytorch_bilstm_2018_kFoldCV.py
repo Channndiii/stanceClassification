@@ -227,6 +227,13 @@ class Classifier(nn.Module):
     def forward(self, X_q_inputs, X_r_inputs, q_init_state, r_init_state):
         quote_outputs, response_outputs = self.model.forward(X_q_inputs, X_r_inputs, q_init_state, r_init_state)
         concat_outputs = torch.cat((quote_outputs, response_outputs), dim=1)
+
+        # Siamese
+        # response_outputs_siamese, quote_outputs_siamese = self.model.forward(X_r_inputs, X_q_inputs, r_init_state, q_init_state)
+        # concat_outputs_siamese = torch.cat((quote_outputs_siamese, response_outputs_siamese), dim=1)
+        # concat_outputs = (concat_outputs + concat_outputs_siamese) / 2
+        # Siamese
+
         if self.do_BN:
             concat_outputs = self.concat_output_BN(concat_outputs)
         output = self.out(self.dropout(concat_outputs))
@@ -343,8 +350,8 @@ def test_epoch(model, dataset):
 if __name__ == '__main__':
 
     USE_GPU = True
-    # with open('./data/data_disagree_agree_None_64.pkl', 'rb') as fr:
-    with open('./data/data_debatepedia_None_64.pkl', 'rb') as fr:
+    with open('./data/data_disagree_agree_None_64.pkl', 'rb') as fr:
+    # with open('./data/data_debatepedia_None_64.pkl', 'rb') as fr:
         X = pickle.load(fr)
         y = pickle.load(fr)
         word2id = pickle.load(fr)
@@ -362,7 +369,8 @@ if __name__ == '__main__':
 
     # for type in ['None', 'share']: # gpu:0
     # for type in ['self_attention', 'cross_attention']: # gpu:1
-    for type in ['both_sum', 'both_concat']: # gpu:2
+    # for type in ['both_sum', 'both_concat']: # gpu:2
+    for type in ['cross_attention']: # gpu:3
 
         attention_mechanism_config = {'Type': type, 'ActFunc': F.tanh}
         config = {
@@ -371,9 +379,13 @@ if __name__ == '__main__':
             'do_BN': True, 'attention_mechanism': attention_mechanism_config}
 
         for i, (train_index, test_index) in enumerate(kf.split(X)):
+            # if i != 4:
+            #     continue
             # with open('./result_log/iac_%s_%s.txt' % (type, i), 'w') as fw:
-            with open('./result_log/debatepedia_%s_%s.txt' % (type, i), 'w') as fw:
-
+            # with open('./result_log/debatepedia_%s_%s.txt' % (type, i), 'w') as fw:
+            # with open('./result_log/iac_shuffle_%s_%s.txt' % (type, i), 'w') as fw:
+            # with open('./result_log/iac_siamese_%s_%s.txt' % (type, i), 'w') as fw:
+            with open('./result_log/iac_shuffle_19_%s_%s.txt' % (type, i), 'w') as fw:
                 if USE_GPU:
                     os.environ['CUDA_VISIBLE_DEVICES'] = '2'
                     print('Using GPU: {}...'.format(os.environ['CUDA_VISIBLE_DEVICES']))
